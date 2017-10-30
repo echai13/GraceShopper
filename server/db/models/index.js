@@ -1,4 +1,6 @@
-const User = require('./user');
+
+const User = require('./user')
+const Product = require ('./product')
 const Address = require('./address');
 
 /**
@@ -19,5 +21,6 @@ const Address = require('./address');
  */
 module.exports = {
   User,
+  Product,
   Address
 }
