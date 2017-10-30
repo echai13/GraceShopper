@@ -10,18 +10,21 @@ describe('User model', () => {
   })
 
   describe('instanceMethods', () => {
-    describe('correctPassword', () => {
-      let cody
+    let cody
 
-      beforeEach(() => {
-        return User.create({
-          email: 'cody@puppybook.com',
-          password: 'bones'
-        })
-          .then(user => {
-            cody = user
-          })
+    beforeEach(() => {
+      return User.create({
+        firstName: 'Cody',
+        lastName: 'Smith',
+        email: 'cody@puppybook.com',
+        password: 'bones'
       })
+        .then(user => {
+          cody = user
+        })
+    })
+      
+    describe('correctPassword', () => {
 
       it('returns true if the password is correct', () => {
         expect(cody.correctPassword('bones')).to.be.equal(true)
@@ -31,5 +34,19 @@ describe('User model', () => {
         expect(cody.correctPassword('bonez')).to.be.equal(false)
       })
     }) // end describe('correctPassword')
+
+    describe('fields', () => {
+      it('has firstName, lastName, email', () => {
+        expect(cody.firstName).to.be.equal('Cody')
+        expect(cody.lastName).to.be.equal('Smith')
+        expect(cody.email).to.be.equal('cody@puppybook.com')
+      })
+    })
+
+    describe('getter method', () => {
+      it('gets first and last name', () => {
+        expect(cody.fullName).to.be.equal('Cody Smith')
+      })
+    })
   }) // end describe('instanceMethods')
 }) // end describe('User model')

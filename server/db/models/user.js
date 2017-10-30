@@ -3,6 +3,14 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const User = db.define('user', {
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  lastName: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
   email: {
     type: Sequelize.STRING,
     unique: true,
@@ -13,11 +21,15 @@ const User = db.define('user', {
   },
   salt: {
     type: Sequelize.STRING
-  },
-  googleId: {
-    type: Sequelize.STRING
   }
-})
+}, {
+    getterMethods: {
+      fullName() {
+        return this.firstName + ' ' + this.lastName
+      }
+    }
+  }
+) 
 
 module.exports = User
 
