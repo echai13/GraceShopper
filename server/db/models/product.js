@@ -1,4 +1,4 @@
-const {ENUM, STRING, DECIMAL, INTEGER, ARRAY, TEXT} = require('sequelize')
+const {ENUM, STRING, DECIMAL, INTEGER, ARRAY, TEXT, BOOLEAN} = require('sequelize')
 const db = require('../db')
 
 const Product = db.define('product', {
@@ -20,16 +20,36 @@ const Product = db.define('product', {
 	},
 	stock: {
 		type: INTEGER,
-		defaultValue: 0
-	},
+		defaultValue: 10
+  },
+  isAvailable: {
+    type: BOOLEAN,
+    defaultValue: true
+  },
 	category: {
-		type: ENUM("plant-type", "miscellaneous"),
-		defaultValue: "miscellaneous"
+		type: ARRAY(STRING),
+		defaultValue: ["miscellaneous"]
 	},
 	reviews: {
 		type: ARRAY(TEXT),
 		allowNull: true
 	}
+},
+{
+  hooks: {
+    afterUpdate(product, options) {
+      if(product.stock === 0){
+        product.isAvailable = false;
+      }
+      console.log('afterUpdate testing console log in db/model/product')
+    },
+    beforeCreate(product, options) {
+      if(product.stock === 0){
+        product.isAvailable = false;
+      }
+      console.log('beforeCreate testing console log in db/model/product');
+    }
+  }
 })
 
 module.exports = Product
