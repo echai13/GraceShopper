@@ -65,22 +65,34 @@ const mapSignup = (state) => {
   }
 }
 
-const mapDispatch = (dispatch) => {
+const mapLoginDispatch = (dispatch) => {
   return {
     handleSubmit (evt) {
       evt.preventDefault()
       const formName = evt.target.name
       const email = evt.target.email.value
       const password = evt.target.password.value
-      const firstName = evt.target.firstName ? evt.target.firstName.value : null
-      const lastName = evt.target.lastName ? evt.target.lastName.value : null
+      dispatch(auth(email, password, formName))
+    }
+  }
+}
+
+const mapSignupDispatch = (dispatch) => {
+  return {
+    handleSubmit (evt) {
+      evt.preventDefault()
+      const formName = evt.target.name
+      const email = evt.target.email.value
+      const password = evt.target.password.value
+      const firstName = evt.target.firstName.value
+      const lastName = evt.target.lastName.value
       dispatch(auth(email, password, formName, firstName, lastName))
     }
   }
 }
 
-export const Login = connect(mapLogin, mapDispatch)(AuthForm)
-export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
+export const Login = connect(mapLogin, mapLoginDispatch)(AuthForm)
+export const Signup = connect(mapSignup, mapSignupDispatch)(AuthForm)
 
 /**
  * PROP TYPES
