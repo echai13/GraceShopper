@@ -47,7 +47,7 @@ const Product = db.define('product', {
       if(product.stock === 0){
         product.isAvailable = false;
       }
-      console.log('beforeCreate testing console log in db/model/product')
+      console.log('beforeCreate testing console log in db/model/product');
     }
   }
 })
