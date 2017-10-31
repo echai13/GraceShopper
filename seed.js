@@ -7,7 +7,7 @@ const products = [{
 	price: '5.45',
 	description: 'scrappy but techy bundle of cuteness',
 	stock: 10,
-	category: 'rodent-type',
+	category: ['rodent-type'],
 	reviews: [ 'needs no sunlight! woot!' , 'love her foreva']
 }, {
 	name: 'styracosaurus',
@@ -15,7 +15,7 @@ const products = [{
 	price: '1.45',
 	description: 'flowery but techy bundle of cuteness',
 	stock: 10,
-	category: 'plant-type',
+	category: ['plant-type'],
 	reviews: [ 'needs no sunlight! woot!' , 'love her foreva']
 }, {
 	name: 'prongs020',
@@ -23,7 +23,7 @@ const products = [{
 	price: '100.85',
 	description: 'elegant and mysterious',
 	stock: 10,
-	category: 'forest-type',
+	category: ['forest-type'],
 	reviews: [ 'needs no sunlight! woot!' , 'love her foreva']
 }, {
 	name: 'seahorn001',
@@ -31,7 +31,7 @@ const products = [{
 	price: '100.85',
 	description: 'super cute seahorse',
 	stock: 10,
-	category: 'water-type',
+	category: ['water-type'],
 	reviews: [ 'needs no sunlight! woot!' , 'love her foreva']
 }, {
 	name: '',
@@ -39,7 +39,7 @@ const products = [{
 	price: '100.85',
 	description: 'elegant and mysterious',
 	stock: 10,
-	category: 'forest-type',
+	category: ['forest-type'],
 	reviews: [ 'needs no sunlight! woot!' , 'love her foreva']
 }, {
 	name: '',
@@ -47,7 +47,7 @@ const products = [{
 	price: '100.85',
 	description: 'elegant and mysterious',
 	stock: 10,
-	category: 'forest-type',
+	category: ['forest-type'],
 	reviews: [ 'needs no sunlight! woot!' , 'love her foreva']
 }, {
 
