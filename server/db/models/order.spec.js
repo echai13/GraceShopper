@@ -48,11 +48,11 @@ describe('Order model', () => {
         })
 
         describe('fields', () => {
-        it('has a status, addressId, and userId', () => {
-            expect(codyorder.status).to.be.equal('open')
-            expect(codyorder.addressId).to.be.equal(1)
-            expect(codyorder.userId).to.be.equal(1)
-        })
+            it('has a status, addressId, and userId', () => {
+                expect(codyorder.status).to.be.equal('open')
+                expect(codyorder.addressId).to.be.equal(1)
+                expect(codyorder.userId).to.be.equal(1)
+            })
         })
     })
 })
