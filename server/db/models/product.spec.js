@@ -15,6 +15,16 @@ describe('Product model', () => {
     reviews: [ 'needs no sunlight! woot!', 'love her foreva']
   }
 
+  const noStock = {
+    name: 'nope',
+    image: 'https://i.pinimg.com/736x/42/3c/cc/423ccc739f8945284f724182505da80a.jpg',
+    price: '1000.00',
+    description: 'flowery but techy bundle of cuteness',
+    stock: 0,
+    category: ['plant-type'],
+    reviews: [ 'needs no sunlight! woot!', 'love her foreva']
+  }
+
   beforeEach( () => {
     return db.sync({force: true});
   })
@@ -40,5 +50,14 @@ describe('Product model', () => {
         expect(pet).to.have.property('stock', 0)
         expect(pet).to.have.property('name', borgpet007.name)
         expect(pet).to.have.property('price', borgpet007.price)
-      })
+  })
+
+  it('when creating a product with zero stock, hook sets isAvailable to false', async () => {
+    const pet = await Product.create(noStock)
+      .then(product => product.update({stock: 0}));
+    expect(pet).to.have.property('isAvailable', false)
+    expect(pet).to.have.property('stock', 0)
+    expect(pet).to.have.property('name', noStock.name)
+    expect(pet).to.have.property('price', noStock.price)
+})
 }) // end describe('Product model')
