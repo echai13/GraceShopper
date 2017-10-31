@@ -17,6 +17,7 @@ describe('User model', () => {
         firstName: 'Cody',
         lastName: 'Smith',
         email: 'cody@puppybook.com',
+        isAdmin: false,
         password: 'bones'
       })
         .then(user => {
@@ -36,10 +37,11 @@ describe('User model', () => {
     }) // end describe('correctPassword')
 
     describe('fields', () => {
-      it('has firstName, lastName, email', () => {
+      it('has firstName, lastName, email, isAdmin', () => {
         expect(cody.firstName).to.be.equal('Cody')
         expect(cody.lastName).to.be.equal('Smith')
         expect(cody.email).to.be.equal('cody@puppybook.com')
+        expect(cody.isAdmin).to.be.equal(false)
       })
     })
 
