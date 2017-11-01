@@ -7,7 +7,7 @@ const OrderItem = db.define('orderitem', {
         allowNull: false
     },
     currentPrice: {
-        type: Sequelize.DECIMAL, //does this need parameters?
+        type: Sequelize.DECIMAL,
         allowNull: false
     },
     subtotal: {
