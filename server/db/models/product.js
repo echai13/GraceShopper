@@ -25,7 +25,8 @@ const Product = db.define('product', {
   isAvailable: {
     type: VIRTUAL,
     get() {
-			if (this.stock === 0) return false;
+			if (this.stock === 0) return false
+			else return true
 		}
   }
 })
