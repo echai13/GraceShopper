@@ -15,7 +15,7 @@ describe('thunk creators', () => {
   let store
   let mockAxios
 
-  const initialState = {user: {}}
+  const initialState = {products: []}
 
   beforeEach(() => {
     mockAxios = new MockAdapter(axios)

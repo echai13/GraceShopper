@@ -38,7 +38,8 @@ export const Products = (props) => {
  */
 const mapState = (state) => {
   return {
-    products: state.products
+    products: state.products,
+    categories: state.categories
   }
 }
 
