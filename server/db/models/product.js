@@ -1,4 +1,4 @@
-const {ENUM, STRING, DECIMAL, INTEGER, ARRAY, TEXT, BOOLEAN} = require('sequelize')
+const {ENUM, STRING, DECIMAL, INTEGER, ARRAY, TEXT, BOOLEAN, VIRTUAL} = require('sequelize')
 const db = require('../db')
 
 const Product = db.define('product', {
@@ -22,27 +22,11 @@ const Product = db.define('product', {
 		type: INTEGER,
 		defaultValue: 10
   },
-  isAvailable: { // make virtual getter based on stock and delete hooks
-    type: BOOLEAN,
-    defaultValue: true
-  },
-	reviews: {
-		type: ARRAY(TEXT),
-		allowNull: true
-	}
-},
-{
-  hooks: {
-    afterUpdate(product, options) {
-      if (product.stock === 0){
-        product.isAvailable = false;
-      }
-    },
-    beforeCreate(product, options) {
-      if (product.stock === 0){
-        product.isAvailable = false;
-      }
-    }
+  isAvailable: {
+    type: VIRTUAL,
+    get() {
+			if (this.stock === 0) return false;
+		}
   }
 })
 
