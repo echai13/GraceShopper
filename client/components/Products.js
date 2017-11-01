@@ -10,6 +10,7 @@ export const Products = (props) => {
 
   return (
     <div>
+      <h1>All Products Page</h1>
       <div className="categories">
         {categories.map( category => (
           <h3 key={category.id}>{category.name}</h3>
