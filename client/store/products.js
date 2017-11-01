@@ -22,8 +22,8 @@ const removeProduct = () => ({type: REMOVE_PRODUCT})
  * THUNK CREATORS
  */
 
-export const getProductsThunk = () => 
-  dispatch => 
+export const getProductsThunk = () =>
+  dispatch =>
     axios.get('/api/products')
       .then(res => dispatch(getProducts(res.data || defaultProduct)))
       .catch(err => console.log(err))
