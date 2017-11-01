@@ -10,7 +10,7 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db')
-const {User, Product, Category, Orderitem, Address} = require('../server/db/models')
+const {User, Product, OrderItem, Address} = require('../server/db/models')
 
 
 async function seed () {
@@ -27,15 +27,6 @@ async function seed () {
   console.log(`seeded ${products.length} products`)
   console.log(`seeded successfully`)
 
-  const categories = await Promise.all([
-    Category.create({ name: 'forest'}),
-    Category.create({ name: 'sea'}),
-    Category.create({ name: 'water'}),
-    Category.create({ name: 'miscellaneous'})
-  ])
-  console.log(`seeded ${categories.length} categories`)
-  console.log(`seeded successfully`)
-
   const users = await Promise.all([
     User.create({ firstName: ' Moyouri', lastName: 'Bhattacharjee', email: 'momo@gmail.com', isAdmin: true, password: 'DjangoCoder' }),
     User.create({ firstName: ' MoyouriB', lastName: 'BhattacharjeeB', email: 'momob@gmail.com', isAdmin: false, password: 'DjangoCoderb' })
@@ -45,21 +36,20 @@ async function seed () {
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
 
-
-  const orderitems = await Promise.all([
-    Orderitem.create({ quantity: 1, currentPrice: 5.55 }),
-    Orderitem.create({ quantity: 3, currentPrice: 3.33 })
-  ])
-
-  console.log(`seeded ${orderitems.length} orderitems`)
-  console.log(`seeded successfully`)
-
   const addresses = await Promise.all([
     Address.create({  street1: ' 88-14 170th street ', city: 'Jamaica', state: 'NY', country: 'USA', zipcode: 11432 }),
     Address.create({  street1: ' 104-14 Liverpool Ave   ', street2:  ' 1st Floor Apt 1M    ', city: 'Union', state: 'NJ', country: 'USA', zipcode: 10016 })
   ])
 
   console.log(`seeded ${addresses.length} addresses`)
+  console.log(`seeded successfully`)
+
+  const orderitems = await Promise.all([
+    OrderItem.create({ quantity: 1, currentPrice: 5.55 }),
+    OrderItem.create({ quantity: 3, currentPrice: 3.33 })
+  ])
+
+  console.log(`seeded ${orderitems.length} orderitems`)
   console.log(`seeded successfully`)
 }
 
