@@ -16,7 +16,7 @@ router.get('/', (req, res, next) => {
 
 // to get each user's orders
 router.get('/:userId/orders', (req, res, next) => {
-  const userId = req.params.userId
+  const userId = req.params.userId // make sure userId === req.user.id or req.user.isAdmin is true
   Order.findAll({
     where: { userId }
   })
