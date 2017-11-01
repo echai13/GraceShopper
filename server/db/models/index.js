@@ -1,6 +1,7 @@
 
-const User = require('./user')
-const Product = require ('./product')
+const User = require('./user');
+const Product = require('./product');
+const Category = require('./category');
 const Address = require('./address');
 const Order = require('./order');
 const OrderItem = require('./orderitem')
@@ -22,7 +23,12 @@ const OrderItem = require('./orderitem')
  OrderItem.belongsTo(Order)
  Order.hasMany(OrderItem)
 
- Product.hasOne(OrderItem)
+ Product.hasOne(OrderItem)  // QUESTION --> does this mean product can only have one orderItem? docs are confusing me
+
+ Product.belongsToMany(Category, { through: 'ProductCategory' });
+ // Product now has getCategories, setCategories), addCategory,addCategories and removeCategory
+ // ex productInstance.addCategory(categoryInstance)
+ Category.belongsToMany(Product, { through: 'ProductCategory' });
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -33,6 +39,7 @@ const OrderItem = require('./orderitem')
 module.exports = {
   User,
   Product,
+  Category,
   Address,
   Order,
   OrderItem
