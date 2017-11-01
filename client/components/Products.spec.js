@@ -19,18 +19,25 @@ describe('Products', () => {
     price: '1.45',
     description: 'flowery but techy bundle of cuteness',
     stock: 10,
-    category: ['plant-type'],
     reviews: [ 'needs no sunlight! woot!', 'love her foreva']
-}
+  }
+
+  const categories = [
+    {id: 1, name: 'plant-type'},
+    {id: 2, name: 'water-type'}
+  ]
+
 
   beforeEach(() => {
-    products = shallow(<Products products={[borgpet007]}/>)
+    products = shallow(<Products products={[borgpet007]} categories={categories} />)
   })
 
   it('renders the name in an h3', () => {
-  	const pooperties = Array.from(products.children().children())
-  	console.log(pooperties[0].props.children);
-    expect(pooperties[0].props.children).to.be.equal("roselia007")
+    const mainDiv = Array.from(products.children())
+    const catDiv = mainDiv[0].props.children;
+    const productDiv = mainDiv[1].props.children;
+    expect(catDiv[0].props.children).to.be.equal('plant-type')
+    expect(productDiv[0].props.children).to.be.equal('roselia007')
   })
 })
 
