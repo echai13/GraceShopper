@@ -4,8 +4,8 @@ import {Router} from 'react-router'
 import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome, UserOrders} from './components'
-import {me, orders} from './store'
+import {Main, Login, Signup, UserHome, UserOrders, Products} from './components'
+import {me, orders, getCategoriesThunk, getProductsThunk} from './store'
 
 /**
  * COMPONENT
@@ -34,6 +34,7 @@ class Routes extends Component {
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
+            <Route path="/products" component={Products} />
             <Route component={Login} />
           </Switch>
         </Main>
@@ -57,6 +58,8 @@ const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
       dispatch(me())
+      dispatch(getCategoriesThunk())
+      dispatch(getProductsThunk())
     }
   }
 }

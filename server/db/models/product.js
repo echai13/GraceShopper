@@ -22,7 +22,7 @@ const Product = db.define('product', {
 		type: INTEGER,
 		defaultValue: 10
   },
-  isAvailable: {
+  isAvailable: { // make virtual getter based on stock and delete hooks
     type: BOOLEAN,
     defaultValue: true
   },

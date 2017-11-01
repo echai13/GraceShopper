@@ -33,6 +33,7 @@ describe('Products', () => {
   })
 
   it('renders the name in an h3', () => {
+    // once we have classNames query based on those for more flexible specificity
     const mainDiv = Array.from(products.children())
     const catDiv = mainDiv[0].props.children;
     const productDiv = mainDiv[1].props.children;
