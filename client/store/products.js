@@ -34,7 +34,7 @@ export const getProductsThunk = () =>
 
 export default function (state = defaultProduct, action) {
   switch (action.type) {
-    case GET_PRODUCT:
+    case GET_PRODUCTS:
       return action.products
     default:
       return state
