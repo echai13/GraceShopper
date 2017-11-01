@@ -1,0 +1,27 @@
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
+
+nav {
+  background-image: url('night-light-black.jpeg');
+}
+
+.navbar-brand.store-name {
+  color: white;
+  font-family: fantasy;
+}
+
+.collapse.navbar-collapse {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 1.2em;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 60%;
+  margin: 50px auto;
+}
+
+.shopping-cart {
+  color: white
+}
