@@ -4,6 +4,7 @@
       targets: {node: 'current'}
     }],
     'stage-2']
+
   /*
     Babel uses these "presets" to know how to transpile your Javascript code. Here's what we're saying with these:
 
