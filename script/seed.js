@@ -10,7 +10,7 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db')
-const {User, Product, OrderItem, Address} = require('../server/db/models')
+const {User, Product, OrderItem, Address, Category, Order} = require('../server/db/models')
 
 
 async function seed () {
@@ -25,16 +25,17 @@ async function seed () {
     Product.create({ name: 'seahorn001', image: 'https://i.pinimg.com/564x/ee/41/e5/ee41e5229b8d4ee6ffa32855b300f8bc.jpg', price: '100.85', description: 'super cute seahorse', stock: 100, category: ['water'], reviews: [ 'it can swim for days and it always makes me happy', 'love her foreva'] })
   ])
   console.log(`seeded ${products.length} products`)
-  console.log(`seeded successfully`)
 
   const users = await Promise.all([
     User.create({ firstName: ' Moyouri', lastName: 'Bhattacharjee', email: 'momo@gmail.com', isAdmin: true, password: 'DjangoCoder' }),
-    User.create({ firstName: ' MoyouriB', lastName: 'BhattacharjeeB', email: 'momob@gmail.com', isAdmin: false, password: 'DjangoCoderb' })
+    User.create({ firstName: ' Erica', lastName: 'Chai', email: 'echai@gmail.com', isAdmin: true, password: 'DjangoCoderb' }),
+    User.create({ firstName: ' Sam', lastName: 'Zhang', email: 'szhang@gmail.com', isAdmin: true, password: 'DjangoCoderc' }),
+    User.create({ firstName: ' Caryn', lastName: 'McCarthy', email: 'CMcCarthy@gmail.com', isAdmin: true, password: 'DjangoCoderd' }),
+    User.create({ firstName: ' Victor', lastName: 'Bhattacharjee', email: 'vbhattac@gmail.com', isAdmin: false, password: 'DjangoCodernever' })
   ])
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
   console.log(`seeded ${users.length} users`)
-  console.log(`seeded successfully`)
 
   const addresses = await Promise.all([
     Address.create({  street1: ' 88-14 170th street ', city: 'Jamaica', state: 'NY', country: 'USA', zipcode: 11432 }),
@@ -42,7 +43,6 @@ async function seed () {
   ])
 
   console.log(`seeded ${addresses.length} addresses`)
-  console.log(`seeded successfully`)
 
   const orderitems = await Promise.all([
     OrderItem.create({ quantity: 1, currentPrice: 5.55 }),
@@ -50,7 +50,25 @@ async function seed () {
   ])
 
   console.log(`seeded ${orderitems.length} orderitems`)
+
+  const categories = await Promise.all([
+    Category.create({ name: 'forest'}),
+    Category.create({ name: 'sea'}),
+    Category.create({ name: 'water'}),
+    Category.create({ name: 'miscellaneous'})
+  ])
+
+  console.log(`seeded ${categories.length} categories`)
+
+  const orders = await Promise.all([
+    Order.create({ status: 'completed'}),
+    Order.create({ status: 'open'}),
+    Order.create({ status: 'shipped'})
+  ])
+
+  console.log(`seeded ${orders.length} orders`)
   console.log(`seeded successfully`)
+
 }
 
 // Execute the `seed` function
