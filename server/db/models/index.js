@@ -16,15 +16,14 @@ const OrderItem = require('./orderitem')
  User.hasMany(Address);
  Address.belongsTo(User);
 
+ User.hasMany(Order);
  Order.belongsTo(User);
  Order.belongsTo(Address);
- User.hasMany(Order);
 
- OrderItem.belongsTo(Order)
+
  Order.hasMany(OrderItem)
-
- Product.hasOne(OrderItem)  // QUESTION --> does this mean product can only have one orderItem? docs are confusing me
- // OrderItem.belongsTo(Product)
+ OrderItem.belongsTo(Order)
+ OrderItem.belongsTo(Product)
 
  Product.belongsToMany(Category, { through: 'ProductCategory' });
  // Product now has getCategories, setCategories), addCategory,addCategories and removeCategory
