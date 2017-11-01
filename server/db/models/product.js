@@ -26,10 +26,6 @@ const Product = db.define('product', {
     type: BOOLEAN,
     defaultValue: true
   },
-	category: {
-		type: ARRAY(STRING),
-		defaultValue: ["miscellaneous"]
-	},
 	reviews: {
 		type: ARRAY(TEXT),
 		allowNull: true
@@ -38,16 +34,14 @@ const Product = db.define('product', {
 {
   hooks: {
     afterUpdate(product, options) {
-      if(product.stock === 0){
+      if (product.stock === 0){
         product.isAvailable = false;
       }
-      console.log('afterUpdate testing console log in db/model/product')
     },
     beforeCreate(product, options) {
-      if(product.stock === 0){
+      if (product.stock === 0){
         product.isAvailable = false;
       }
-      console.log('beforeCreate testing console log in db/model/product');
     }
   }
 })
