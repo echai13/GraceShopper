@@ -17,7 +17,6 @@ export const UserOrders = (props) => {
  * CONTAINER
  */
 const mapState = (state) => {
-    console.log('IM THE STATE', state)
   return {
     email: state.user.email
   }
