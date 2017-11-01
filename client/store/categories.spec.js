@@ -1,7 +1,7 @@
 /* global describe beforeEach afterEach it */
 
 import { expect } from 'chai'
-import { getCategoriesThunk } from './products'
+import { getCategoriesThunk } from './categories'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import configureMockStore from 'redux-mock-store'
@@ -38,7 +38,7 @@ describe('thunk creators', () => {
         .then(() => {
           const actions = store.getActions()
           expect(actions[0].type).to.be.equal('GET_CATEGORIES')
-          expect(actions[0].categories).to.be.deep.equal(fakeCategories)
+          expect(actions[0].categories).to.be.deep.equal([fakeCategories])
         })
     })
   })

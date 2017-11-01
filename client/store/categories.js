@@ -25,7 +25,7 @@ const removeCategory = () => ({ type: REMOVE_CATEGORY })
 export const getCategoriesThunk = () =>
   dispatch =>
     axios.get('/api/categories')
-      .then(res => dispatch(getProducts(res.data || defaultCategory)))
+      .then(res => dispatch(getCategories(res.data || defaultCategory)))
       .catch(err => console.log(err))
 
 /**
