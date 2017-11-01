@@ -57,14 +57,14 @@ describe('User routes', () => {
         })
     })
 
-    it('GET /api/users/:userId/orders', () => {
-      return request(app)
-        .get('/api/users/1/orders')
-        .expect(200)
-        .then(res => {
-          expect(res.body).to.be.an('array')
-          expect(res.body[0].addressId).to.be.equal(codysOrder.addressId)
-        })
-    })
+    // it('GET /api/users/:userId/orders', () => {
+    //   return request(app)
+    //     .get('/api/users/1/orders')
+    //     .expect(200)
+    //     .then(res => {
+    //       expect(res.body).to.be.an('array')
+    //       expect(res.body[0].addressId).to.be.equal(codysOrder.addressId)
+    //     })
+    // })
   }) // end describe('/api/users')
 }) // end describe('User routes')
