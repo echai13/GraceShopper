@@ -28,13 +28,10 @@ const Main = (props) => {
 /**
  * CONTAINER
  */
-const mapState = (state) => {
-  return null
-}
+const mapState = null
 
-const mapDispatch = (dispatch) => {
-  return null
-}
+
+const mapDispatch = null
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
