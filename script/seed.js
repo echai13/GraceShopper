@@ -24,6 +24,9 @@ async function seed () {
     Category.create({ name: 'sea' }),
     Category.create({ name: 'water' }),
     Category.create({ name: 'rodent' }),
+    Category.create({ name: 'domestic' }),
+    Category.create({ name: 'small' }),
+    Category.create({ name: 'powerful' }),
     Category.create({ name: 'miscellaneous' })
   ])
 
@@ -31,13 +34,26 @@ async function seed () {
 
   const products = await Promise.all([
     Product.create({ name: 'ferret007', image: 'https://i.pinimg.com/564x/bd/6f/b9/bd6fb9698229c202b7a8bd28a32188fe.jpg', price: '5.45', description: 'scrappy but techy bundle of cuteness', stock: 20 })
-      .then(product => product.setCategories(categories[4])),
+      .then(product => product.setCategories([categories[3], categories[5]])),
     Product.create({ name: 'prongs020', image: 'https://i.pinimg.com/564x/fd/9f/56/fd9f564d84722c5305f8a5738266612a.jpg', price: '100.85', description: 'elegant and mysterious', stock: 8 })
-      .then(product => product.setCategories(categories[1])),
+      .then(product => product.setCategories(categories[0])),
     Product.create({  name: 'styracosaurus808', image: 'https://i.pinimg.com/564x/80/ca/6b/80ca6b06e6466a98bb547ce54a37ee55.jpg', price: '1.45', description: 'huge but affectionate', stock: 5 })
-      .then(product => product.setCategories(categories[1])),
+      .then(product => product.setCategories([categories[0], categories[6]])),
     Product.create({ name: 'seahorn001', image: 'https://i.pinimg.com/564x/ee/41/e5/ee41e5229b8d4ee6ffa32855b300f8bc.jpg', price: '100.85', description: 'super cute seahorse', stock: 100 })
-      .then(product => product.setCategories([categories[3], categories[2]]))
+      .then(product => product.setCategories([categories[2], categories[1], categories[5]])),
+    Product.create({ name: 'panda009', image: 'https://i.pinimg.com/564x/08/76/97/0876971e4d276a9af89770143f09a571.jpg', price: '590.25', description: 'fierce, and a little uncoordinated, panda', stock: 2 })
+      .then(product => product.setCategories([categories[0], categories[6]])),
+    Product.create({ name: 'griffin105', image: 'https://i.pinimg.com/564x/b7/18/c5/b718c5588898ae54b0906c3f2506dec3.jpg', price: '85.10', description: 'with metal feathers that can slice anything to pieces', stock: 20 })
+      .then(product => product.setCategories(categories[6])),
+    Product.create({ name: 'sabertooth072', image: 'https://i.pinimg.com/564x/51/07/d2/5107d248d92627a019ef6916772b8de0.jpg', price: '1000.00', description: 'they are real and you can ride them', stock: 5 })
+      .then(product => product.setCategories([categories[7], categories[0]])),
+    Product.create({ name: 'robopup792', image: 'https://i.pinimg.com/564x/79/b6/d0/79b6d092d293d89392491b76b2bf3cd6.jpg', price: '52.75', description: 'the cutest puppy you will ever see', stock: 18 })
+      .then(product => product.setCategories([categories[7], categories[5], categories[4]])),
+    Product.create({ name: 'hummingbird047', image: 'https://www.pinterest.com/pin/800092690020949611/', price: '22.50', description: 'they never stop moving!', stock: 10 })
+      .then(product => product.setCategories([categories[7], categories[5]])),
+    Product.create({ name: 'kangaroo000', image: 'https://i.pinimg.com/564x/a7/96/96/a796966459113054726f2b1636492fe4.jpg', price: '47.01', description: 'hop hop hop hop smash', stock: 7 })
+      .then(product => product.setCategories(categories[6])),
+      //
   ])
   console.log(`seeded ${products.length} products`)
 
