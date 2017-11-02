@@ -1,18 +1,21 @@
 const router = require('express').Router()
 const withCart = require('./withCart');
-module.exports = router
+const { OrderItem } = require('../db/models')
 
-//console.log('withCart is: ', withCart);
+module.exports = router
 
 router.use(withCart);
 
 router.get('/', (req, res, next) => {
-  if (req.cart) {
-    //console.log('inside of router: ', req.cart);
-    res.send(req.cart) }
-  else { // the user should never get here but JIC
-    res.status(404);
-    next();
-  }
+    res.json(req.cart)
 });
+
+router.put('/', (req, res, next) => {
+  const { currentPrice, quantity, productId } = req.body;
+  OrderItem.create({currentPrice, quantity, productId, orderId: req.cart.id })
+    .then(() => {
+      res.json(req.cart)
+    })
+    .catch(next);
+})
 

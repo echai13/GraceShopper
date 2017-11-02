@@ -60,7 +60,6 @@ describe('Orders routes', () => {
         .get('/api/orders')
         .expect(200)
         .then(res => {
-          console.log('inside orderS: ', res.body);
           expect(res.body).to.be.an('array')
           expect(res.body[0].status).to.be.equal('open')
           expect(res.body[0].addressId).to.be.equal(1)

@@ -4,6 +4,12 @@ module.exports = router
 
 router.get('/', (req, res, next) => {
   Order.findAll() // include all: true, nested: true to get product data
-    .then(orders => res.json(orders))
-    .catch(next)
+    .then(orders => {
+      res.json(orders)
+    })
+    .catch(err => next(err))
 })
+
+// router.get('/single', (req, res, next) => {
+
+// })

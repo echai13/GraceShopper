@@ -2,20 +2,22 @@ const db = require('../db')
 const Order = db.model('order')
 const User = db.model('user');
 
-const withCart = async function (req, res, next) {
-  const testCart = await Order.findById(1);
-  //const testUser = await Order.findById(1);
+const withCart = function (req, res, next) {
+  //// For testing ////
+  if (withCart._test_cart) {
+    req.cart = withCart._test_cart
+    return next()
+  }
+  if (withCart._test_session_cartId) {
+    req.session.cartId = withCart._test_session_cartId
+  }
+  ////////////////////
 
-  req.cart = testCart;
-  //req.user = testUser;
-  // console.log('testCart is: ', testCart);
-  //console.log('req.cart is: ', req.cart);
+  if (req.cart) { return next() }
 
-  if (req.cart) { next() }
-
-  if (req.session.cartId) { // true (for testing)
+  if (req.session.cartId) {
     const { cartId } = req.session;
-    Order.findById(cartId)
+    return Order.findById(cartId)
       .then(order => {
         req.cart = order;
         next();
@@ -23,8 +25,8 @@ const withCart = async function (req, res, next) {
       .catch(next);
   }
 
-  else if (req.user) {
-    Order.findOrCreate({where: {userId: req.user.id, status: 'open'}})
+  if (req.user) {
+    return Order.findOrCreate({where: {userId: req.user.id, status: 'open'}})
       .then(([order, _]) => {
         req.cart = order;
         next();
@@ -32,14 +34,17 @@ const withCart = async function (req, res, next) {
       .catch(next);
   }
 
-  else {
-    Order.create({status: 'open'})
-      .then(order => {
-        req.cart = order;
-        next();
-      })
-      .catch(next);
-  }
+  Order.create({status: 'open'})
+    .then(order => {
+      req.cart = order;
+      next();
+    })
+    .catch(next);
+}
+
+withCart.clearTestpoints = () => {
+  delete withCart._test_cart
+  delete withCart._test_session_cartId
 }
 
 module.exports = withCart;

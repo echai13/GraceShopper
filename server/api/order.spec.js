@@ -7,6 +7,7 @@ const Address = db.model('address')
 const Order = db.model('order')
 const OrderItem = db.model('orderitem');
 const Product = db.model('product');
+const withCart = require('./withCart')
 
 
 describe('Order Route', () => {
@@ -54,33 +55,41 @@ describe('Order Route', () => {
       })
     })
 
-    it('GET /api/order', () => {
+    beforeEach(() => withCart.clearTestpoints())
+
+    it('GET /api/order with test_cart', () => {
+      withCart._test_cart = codyorder
       return request(app)
         .get('/api/order')
         .expect(200)
         .then(res => {
           //console.log('inside spec GET /api/order: ', res.body);
-          expect(res.body).to.be.an('object')
-          expect(res.body.status).to.be.equal('open')
-          expect(res.body.addressId).to.be.equal(1)
+          expect(res.body).to.contain(withoutTs(codyorder))
+          // expect(res.body).to.be.an('object')
+          // expect(res.body.status).to.be.equal(codyorder.status)
+          // expect(res.body.addressId).to.be.equal(codyaddress.id)
         })
     })
 
-    // USED THIS TO TEST WHETHER GETTING ALL ORDERS STILL WORKS
-    // it('GET /api/orders', () => {
-    //   return request(app)
-    //     .get('/api/orders')
-    //     .expect(200)
-    //     .then(res => {
-    //       console.log(res.body);
-    //       expect(res.body).to.be.an('array')
-    //       expect(res.body[0].status).to.be.equal('open')
-    //       expect(res.body[0].addressId).to.be.equal(1)
-    //     })
-    // })
-
+    it('GET /api/order with test_cart', () => {
+      withCart._test_cart = codyorder
+      return request(app)
+        .get('/api/order')
+        .expect(200)
+        .then(res => {
+          //console.log('inside spec GET /api/order: ', res.body);
+          expect(res.body).to.contain(withoutTs(codyorder))
+          // expect(res.body).to.be.an('object')
+          // expect(res.body.status).to.be.equal(codyorder.status)
+          // expect(res.body.addressId).to.be.equal(codyaddress.id)
+        })
+    })
   })
 })
 
-
-
+function withoutTs(model) {
+  const data = model.toJSON()
+  delete data.updatedAt
+  delete data.createdAt
+  return data
+}
