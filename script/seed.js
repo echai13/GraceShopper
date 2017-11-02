@@ -49,7 +49,7 @@ async function seed () {
       .then(product => product.setCategories([categories[7], categories[0]])),
     Product.create({ name: 'robopup792', image: 'https://i.pinimg.com/564x/79/b6/d0/79b6d092d293d89392491b76b2bf3cd6.jpg', price: '52.75', description: 'the cutest puppy you will ever see', stock: 18 })
       .then(product => product.setCategories([categories[7], categories[5], categories[4]])),
-    Product.create({ name: 'hummingbird047', image: 'https://www.pinterest.com/pin/800092690020949611/', price: '22.50', description: 'they never stop moving!', stock: 10 })
+    Product.create({ name: 'hummingbird047', image: 'https://i.pinimg.com/564x/70/42/06/704206f67ca4dff76290411378ebbdab.jpg', price: '22.50', description: 'they never stop moving!', stock: 10 })
       .then(product => product.setCategories([categories[7], categories[5]])),
     Product.create({ name: 'kangaroo000', image: 'https://i.pinimg.com/564x/a7/96/96/a796966459113054726f2b1636492fe4.jpg', price: '47.01', description: 'hop hop hop hop smash', stock: 7 })
       .then(product => product.setCategories(categories[6])),
