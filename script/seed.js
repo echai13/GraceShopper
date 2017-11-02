@@ -18,11 +18,26 @@ async function seed () {
   console.log('db synced!')
   // Whoa! Because we `await` the promise that db.sync returns, the next line will not be
   // executed until that promise resolves!
+
+  const categories = await Promise.all([
+    Category.create({ name: 'forest' }),
+    Category.create({ name: 'sea' }),
+    Category.create({ name: 'water' }),
+    Category.create({ name: 'rodent' }),
+    Category.create({ name: 'miscellaneous' })
+  ])
+
+  console.log(`seeded ${categories.length} categories`)
+
   const products = await Promise.all([
-    Product.create({ name: 'ferret007', image: 'https://i.pinimg.com/564x/bd/6f/b9/bd6fb9698229c202b7a8bd28a32188fe.jpg', price: '5.45', description: 'scrappy but techy bundle of cuteness', stock: 20, category: ['rodent'] }),
-    Product.create({ name: 'prongs020', image: 'https://i.pinimg.com/564x/fd/9f/56/fd9f564d84722c5305f8a5738266612a.jpg', price: '100.85', description: 'elegant and mysterious', stock: 8, category: ['forest']}),
-    Product.create({  name: 'styracosaurus808', image: 'https://i.pinimg.com/564x/80/ca/6b/80ca6b06e6466a98bb547ce54a37ee55.jpg', price: '1.45', description: 'huge but affectionate', stock: 5, category: ['forest']}),
-    Product.create({ name: 'seahorn001', image: 'https://i.pinimg.com/564x/ee/41/e5/ee41e5229b8d4ee6ffa32855b300f8bc.jpg', price: '100.85', description: 'super cute seahorse', stock: 100, category: ['water'] })
+    Product.create({ name: 'ferret007', image: 'https://i.pinimg.com/564x/bd/6f/b9/bd6fb9698229c202b7a8bd28a32188fe.jpg', price: '5.45', description: 'scrappy but techy bundle of cuteness', stock: 20 })
+      .then(product => product.setCategories(categories[4])),
+    Product.create({ name: 'prongs020', image: 'https://i.pinimg.com/564x/fd/9f/56/fd9f564d84722c5305f8a5738266612a.jpg', price: '100.85', description: 'elegant and mysterious', stock: 8 })
+      .then(product => product.setCategories(categories[1])),
+    Product.create({  name: 'styracosaurus808', image: 'https://i.pinimg.com/564x/80/ca/6b/80ca6b06e6466a98bb547ce54a37ee55.jpg', price: '1.45', description: 'huge but affectionate', stock: 5 })
+      .then(product => product.setCategories(categories[1])),
+    Product.create({ name: 'seahorn001', image: 'https://i.pinimg.com/564x/ee/41/e5/ee41e5229b8d4ee6ffa32855b300f8bc.jpg', price: '100.85', description: 'super cute seahorse', stock: 100 })
+      .then(product => product.setCategories([categories[3], categories[2]]))
   ])
   console.log(`seeded ${products.length} products`)
 
@@ -38,35 +53,31 @@ async function seed () {
   console.log(`seeded ${users.length} users`)
 
   const addresses = await Promise.all([
-    Address.create({  street1: ' 88-14 170th street ', city: 'Jamaica', state: 'NY', country: 'USA', zipcode: 11432 }),
-    Address.create({  street1: ' 104-14 Liverpool Ave   ', street2:  ' 1st Floor Apt 1M    ', city: 'Union', state: 'NJ', country: 'USA', zipcode: 10016 })
+    Address.create({  street1: ' 88-14 170th street ', city: 'Jamaica', state: 'NY', country: 'USA', zipcode: 11432, userId: 1 }),
+    Address.create({  street1: ' 104-14 Liverpool Ave   ', street2:  ' 1st Floor Apt 1M    ', city: 'Union', state: 'NJ', country: 'USA', zipcode: 10016, userId: 5 }),
+    Address.create({ street1: ' 55 East 117th Street', street2: ' Apt 2    ', city: 'New York', state: 'NY', country: 'USA', zipcode: 10035, userId: 4 })
   ])
 
   console.log(`seeded ${addresses.length} addresses`)
 
-  const orderitems = await Promise.all([
-    OrderItem.create({ quantity: 1, currentPrice: 5.55 }),
-    OrderItem.create({ quantity: 3, currentPrice: 3.33 })
-  ])
-
-  console.log(`seeded ${orderitems.length} orderitems`)
-
-  const categories = await Promise.all([
-    Category.create({ name: 'forest'}),
-    Category.create({ name: 'sea'}),
-    Category.create({ name: 'water'}),
-    Category.create({ name: 'miscellaneous'})
-  ])
-
-  console.log(`seeded ${categories.length} categories`)
-
   const orders = await Promise.all([
-    Order.create({ status: 'completed'}),
-    Order.create({ status: 'open'}),
-    Order.create({ status: 'shipped'})
+    Order.create({ status: 'completed', userId: 1, addressId: 1 }),
+    Order.create({ status: 'open', userId: 1, addressId: 1 }),
+    Order.create({ status: 'shipped', userId: 4, addressId: 3 })
   ])
 
   console.log(`seeded ${orders.length} orders`)
+
+  const orderitems = await Promise.all([
+    OrderItem.create({ quantity: 1, currentPrice: 5.45, productId: 1, orderId: 1 }),
+    OrderItem.create({ quantity: 3, currentPrice: 1.45, productId: 3,  orderId: 1 }),
+    OrderItem.create({ quantity: 2, currentPrice: 5.45, productId: 1, orderId: 2 }),
+    OrderItem.create({ quantity: 5, currentPrice: 100.85, productId: 2, orderId: 2 }),
+    OrderItem.create({ quantity: 8, currentPrice: 1.45, productId: 3, orderId: 2 }),
+    OrderItem.create({ quantity: 4, currentPrice: 100.85, productId: 4, orderId: 3 }),
+  ])
+
+  console.log(`seeded ${orderitems.length} orderitems`)
   console.log(`seeded successfully`)
 
 }
