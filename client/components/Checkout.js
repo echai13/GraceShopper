@@ -6,6 +6,7 @@ import history from '../history'
 import { setAddressThunk } from '../store/addresses'
 
 export class Checkout extends Component {
+
   componentDidMount() {
     console.log(this.props.user)
     this.props.fetchCheckoutPage(this.props.user.id)
@@ -29,7 +30,16 @@ export class Checkout extends Component {
         )) : null
         }
         <h1>Checkout</h1>
-        { this.props.cart }
+        {/* make sure this is connected to the cart stuff */}
+         { this.props.cart ? this.props.cart.orderitems.map((item, index) => (
+          <div>
+            <p>{item.name}</p>
+            <p>{item.image}</p>
+            <p>{item.quantity}</p>
+            <p>{item.currentPrice}</p>
+          </div>
+        )) : null }
+         Subtotal: ${this.props.cart.subtotal}  
       </div>
 
     )
@@ -47,9 +57,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     fetchCheckoutPage(userId) {
-      console.log(userId)
       dispatch(setAddressThunk(userId)) //grabbing all addresses associated with user
-
     }
   }
 }
