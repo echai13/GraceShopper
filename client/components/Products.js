@@ -1,6 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import { Link } from 'react-router-dom'
+import { setSingleProductThunk } from '../store'
+import history from '../history'
 
 /**
  * COMPONENT
@@ -19,8 +22,10 @@ export const Products = (props) => {
       {products.map( product => {
         return (
         <div key = {product.id}>
-          <h3>{product.name}</h3>
-          <img src = {product.image} />
+          <Link to={`/products/${product.id}`}>
+            <h3>{product.name}</h3>
+            <img src = {product.image} />
+          </Link>
           <h3>{product.price}</h3>
           <p>{product.description}</p>
           <h3>{product.stock} </h3>

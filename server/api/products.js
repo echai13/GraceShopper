@@ -7,3 +7,9 @@ router.get('/', (req, res, next) => {
     .then(products => res.json(products))
     .catch(next)
 })
+
+router.get('/:productId', (req, res, next) => {
+  Product.findById(req.params.productId)
+    .then(product => res.json(product))
+    .catch(next)
+})

@@ -1,0 +1,45 @@
+import axios from 'axios'
+import history from '../history'
+
+
+/**
+* ACTION TYPES
+*/
+const SET_SINGLE_PRODUCT = 'SET_SINGLE_PRODUCT'
+
+/**
+* INITIAL STATE
+*/
+const singleProduct = {}
+
+/**
+* ACTION CREATORS
+*/
+export const setSingleProduct = product => {
+  return { type: SET_SINGLE_PRODUCT, product }
+}
+
+/**
+* THUNK CREATORS
+*/
+export const setSingleProductThunk = productId =>
+  dispatch =>
+    axios.get(`/api/products/${productId}`)
+      .then(res => {
+        dispatch(setSingleProduct(res.data))
+        history.push(`/products/${productId}`)
+      })
+      .catch(err => console.log(err))
+
+/**
+* REDUCER
+*/
+
+export default function (state = singleProduct, action) {
+  switch (action.type) {
+    case SET_SINGLE_PRODUCT:
+      return action.product
+    default:
+      return state
+  }
+}
