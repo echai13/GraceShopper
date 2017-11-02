@@ -9,7 +9,7 @@ export const NavBar = (props) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
-        <Link to="/home" className="navbar-brand store-name">BorgPetCo</Link>
+        <Link to="/" className="navbar-brand store-name">BorgPetCo</Link>
         <form className="form-inline" onSubmit={handleSubmit}>
           <input className="form-control mr-sm-2" type="text" placeholder="Search" name="search" />
           <button className="btn my-2 my-sm-0" type="submit">Search</button>
