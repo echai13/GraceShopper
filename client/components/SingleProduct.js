@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { setSingleProductThunk } from '../store/singleProduct'
@@ -7,30 +7,35 @@ import { setSingleProductThunk } from '../store/singleProduct'
 *  COMPONENT: From All Products Page, the singleProduct's state is set when a single product is clicked on
 */
 
-export const SingleProduct = (props) => {
-  const { singleProduct, fetchSingleProduct } = props
-  fetchSingleProduct()
+export class SingleProduct extends Component {
 
-  return (
+  componentDidMount(){
+    this.props.fetchSingleProduct();
+  }
 
-    <div>
-      <h1>{singleProduct.name}</h1>
-      <img src={singleProduct.image} />
+  render() {
+    const { singleProduct } = this.props
+    return (
 
       <div>
-        <h3>{singleProduct.price}</h3>
-        {/* Tells customers if product is in stock */}
-        {
-          singleProduct.isAvailable ?
-          <span>In Stock</span> :
-          <span>Currently Out of Stock</span>
-        }
-        <h3>{singleProduct.category}</h3>
-        <p>{singleProduct.description}</p>
-        <p>{singleProduct.reviews}</p>
+        <h1>{singleProduct.name}</h1>
+        <img src={singleProduct.image} />
+
+        <div>
+          <h3>{singleProduct.price}</h3>
+          {/* Tells customers if product is in stock */}
+          {
+            singleProduct.isAvailable ?
+            <span>In Stock</span> :
+            <span>Currently Out of Stock</span>
+          }
+          <h3>{singleProduct.category}</h3>
+          <p>{singleProduct.description}</p>
+          <p>{singleProduct.reviews}</p>
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 /**
