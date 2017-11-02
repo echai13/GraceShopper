@@ -3,14 +3,14 @@ const { Order } = require('../db/models')
 const withCart = function (req, res, next) {
   if (req.cart) { next() }
 
-
-  else if (req.session.cartId) { // true (for testing)
-    // find by id 2
-    Order.findOrCreate({ where: { id: req.session.cartId, status: open } })
-      .then(([order, _]) => {
+  if (req.session.cartId) { // true (for testing)
+    const { cartId } = req.session;
+    Order.findById(cartId)
+      .then(order => {
         req.cart = order;
         next();
       })
+      .catch(next);
   }
 
   else if (req.user) {
@@ -19,6 +19,7 @@ const withCart = function (req, res, next) {
         req.cart = order;
         next();
       })
+      .catch(next);
   }
 
   else {
@@ -27,7 +28,8 @@ const withCart = function (req, res, next) {
         req.cart = order;
         next();
       })
+      .catch(next);
   }
 }
 
-export default withCart;
+module.exports = withCart;
