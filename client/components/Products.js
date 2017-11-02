@@ -1,12 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import { Link } from 'react-router-dom'
+import { setSingleProductThunk } from '../store'
+import history from '../history'
 
 /**
  * COMPONENT
  */
 export const Products = (props) => {
-  const {products, categories} = props
+  const {products, categories, handleProductClick} = props
 
   return (
     <div>
@@ -19,8 +22,10 @@ export const Products = (props) => {
       {products.map( product => {
         return (
         <div key = {product.id}>
-          <h3>{product.name}</h3>
-          <img src = {product.image} />
+          <div onClick={() => handleProductClick(product.id)}>
+            <h3>{product.name}</h3>
+            <img src = {product.image} />
+          </div>
           <h3>{product.price}</h3>
           <p>{product.description}</p>
           <h3>{product.stock} </h3>
@@ -44,4 +49,12 @@ const mapState = (state) => {
   }
 }
 
-export default connect(mapState)(Products)
+const mapDispatch = (dispatch) => {
+  return {
+    handleProductClick (productId) {
+      dispatch(setSingleProductThunk(productId))
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(Products)

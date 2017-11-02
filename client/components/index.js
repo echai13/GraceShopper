@@ -7,6 +7,5 @@ export {default as Main} from './main'
 export {default as UserHome} from './user-home'
 export {default as UserOrders} from './user-orders'
 export {default as Products} from './Products'
+export {default as SingleProduct} from './SingleProduct'
 export {Login, Signup} from './auth-form'
-
-
