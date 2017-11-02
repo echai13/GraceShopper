@@ -28,6 +28,8 @@ export class Checkout extends Component {
           </div>
         )) : null
         }
+        <h1>Checkout</h1>
+        { this.props.cart }
       </div>
 
     )
@@ -38,7 +40,8 @@ export class Checkout extends Component {
 const mapState = state => {
   return {
     user: state.user,
-    addresses: state.addresses //array of addresses
+    addresses: state.addresses, //array of addresses
+    cart: state.cart
   }
 }
 const mapDispatch = dispatch => {

@@ -9,18 +9,18 @@ module.exports = router
 router.get('/:userId/orders', (req, res, next) => {
   const userId = req.params.userId
   
-  if (req.user) {
-    if (userId === req.user.id || req.user.isAdmin) {
-      Order.findAll({
-        where: {userId},
-        include: [{all: true}]
-      })
-        .then(orders => res.json(orders))
-        .catch(next)
-    }
-  } else {
-    res.json('not authorized')
-  }
+  Order.findAll({
+    where: {userId},
+    include: [{all: true}]
+  })
+    .then(orders => {
+      if (req.user && (userId === req.user.id || req.user.isAdmin)) {
+        res.json(orders)
+      } else {
+        next(new Error('Auth error'))
+      }
+    })
+    .catch(next)
 })
 
 router.get('/', (req, res, next) => {
