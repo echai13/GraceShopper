@@ -8,17 +8,19 @@ module.exports = router
 // to get each user's orders
 router.get('/:userId/orders', (req, res, next) => {
   const userId = req.params.userId
-  Order.findAll({
-    where: { 
-      userId,
-      status: {
-        [Op.ne]: 'open'
-      }
-    },
-    include: [{all: true}]
-  })
-    .then(orders => res.json(orders))
-    .catch(next)
+  
+  if (req.user) {
+    if (userId === req.user.id || req.user.isAdmin) {
+      Order.findAll({
+        where: {userId},
+        include: [{all: true}]
+      })
+        .then(orders => res.json(orders))
+        .catch(next)
+    }
+  } else {
+    res.json('not authorized')
+  }
 })
 
 router.get('/', (req, res, next) => {
@@ -31,15 +33,4 @@ router.get('/', (req, res, next) => {
     .then(users => res.json(users))
     .catch(next)
 })
-
-// to get each user's orders
-router.get('/:userId/orders', (req, res, next) => {
-  const userId = req.params.userId // make sure userId === req.user.id or req.user.isAdmin is true
-  Order.findAll({
-    where: { userId }
-  })
-    .then(orders => res.json(orders))
-    .catch(next)
-})
-
 
