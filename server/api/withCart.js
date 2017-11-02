@@ -11,6 +11,9 @@ const withCart = function (req, res, next) {
   if (withCart._test_session_cartId) {
     req.session.cartId = withCart._test_session_cartId
   }
+  if (withCart._test_user) {
+    req.user = withCart._test_user
+  }
   ////////////////////
 
   if (req.cart) { return next() }

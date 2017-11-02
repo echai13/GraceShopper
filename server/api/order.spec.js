@@ -17,7 +17,7 @@ describe('Order Route', () => {
 
   describe('/api/order', () => {
     let codyorder, codysmith, codyaddress,
-      orderItemOne, productTest;
+      orderItemOne, productTest, noOrderUser;
 
     beforeEach(async () => {
       codysmith = await User.create({
@@ -53,6 +53,12 @@ describe('Order Route', () => {
         orderId: 1,
         productId: 1
       })
+      noOrderUser = await User.create({
+        firstName: 'No Order',
+        lastName: 'User',
+        email: 'mary@smith.com',
+        password: 'hello'
+      })
     })
 
     beforeEach(() => withCart.clearTestpoints())
@@ -63,25 +69,47 @@ describe('Order Route', () => {
         .get('/api/order')
         .expect(200)
         .then(res => {
-          //console.log('inside spec GET /api/order: ', res.body);
           expect(res.body).to.contain(withoutTs(codyorder))
-          // expect(res.body).to.be.an('object')
-          // expect(res.body.status).to.be.equal(codyorder.status)
-          // expect(res.body.addressId).to.be.equal(codyaddress.id)
         })
     })
 
-    it('GET /api/order with test_cart', () => {
-      withCart._test_cart = codyorder
+    it('GET /api/order with test_session_cartId', () => {
+      withCart._test_session_cartId = codyorder.id
       return request(app)
         .get('/api/order')
         .expect(200)
         .then(res => {
-          //console.log('inside spec GET /api/order: ', res.body);
           expect(res.body).to.contain(withoutTs(codyorder))
-          // expect(res.body).to.be.an('object')
-          // expect(res.body.status).to.be.equal(codyorder.status)
-          // expect(res.body.addressId).to.be.equal(codyaddress.id)
+        })
+    })
+
+    it('GET /api/order with test_user for a user with an open cart', () => {
+      withCart._test_user = codysmith
+      return request(app)
+        .get('/api/order')
+        .expect(200)
+        .then(res => {
+          expect(res.body).to.contain(withoutTs(codyorder))
+        })
+    })
+
+    it('GET /api/order with test_user for a user with no open cart', () => {
+      withCart._test_user = noOrderUser
+      return request(app)
+        .get('/api/order')
+        .expect(200)
+        .then(res => {
+          expect(res.body).to.contain({id: 2, status: 'open', userId: noOrderUser.id})
+        })
+    })
+
+    it('GET /api/order creates a new cart when there is no user or cart/cartId', () => {
+      withCart._test_user = null
+      return request(app)
+        .get('/api/order')
+        .expect(200)
+        .then(res => {
+          expect(res.body).to.contain({ id: 2, status: 'open', userId: null })
         })
     })
   })
