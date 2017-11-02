@@ -1,6 +1,6 @@
 //import axios from 'axios'
 import history from '../history'
-
+import axios from 'axios'
 /**
  * ACTION TYPES
  */
@@ -13,19 +13,8 @@ const DELETE_FROM_CART = 'DELETE_FROM_CART'
 /**
  * INITIAL STATE
  */
-let currentCart;
-if (localStorage.getItem('cart')){
-  currentCart = JSON.parse(localStorage.getItem('cart'))
-}
-else {
-  currentCart = []
-}
+let currentCart = [];
 
-// cart is going to be an array of objects
-// keys:
-//    id (integer)
-//    product (object)
-//    quantity (integer)
 
 /**
  * ACTION CREATORS
@@ -43,12 +32,10 @@ export default function (state = currentCart, action) {
   let products, searchid;
   switch (action.type) {
     case CLEAR_CART:
-      console.log('THANK YOU!')
-      history.push('/thankyou')
-      localStorage.setItem('cart', [])
       return []
+
     case GET_CART:
-      return state;
+      return action.cart;
 
     case ADD_TO_CART:
       // search state to find if id is already there
@@ -66,7 +53,6 @@ export default function (state = currentCart, action) {
         }
       ])
     }
-    localStorage.setItem('cart', JSON.stringify(products))
     history.push('/cart')
     return products
 
@@ -79,7 +65,6 @@ export default function (state = currentCart, action) {
         if (products[searchid].quantity > 1) products[searchid].quantity -= 1
         else products.splice(searchid, 1)
       }
-      localStorage.setItem('cart', JSON.stringify(products))
       history.push('/cart')
       return products
 
@@ -89,7 +74,6 @@ export default function (state = currentCart, action) {
         products = state;
         products.splice(searchid, 1)
       }
-      localStorage.setItem('cart', JSON.stringify(products))
       history.push('/cart')
       return products
 
