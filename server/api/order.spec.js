@@ -17,7 +17,7 @@ describe('Order Route', () => {
 
   describe('/api/order', () => {
     let codyorder, codysmith, codyaddress,
-      orderItemOne, productTest, noOrderUser;
+      orderItemOne, productTest, productPutTest, noOrderUser;
 
     beforeEach(async () => {
       codysmith = await User.create({
@@ -44,8 +44,14 @@ describe('Order Route', () => {
         image: 'https://i.pinimg.com/736x/42/3c/cc/423ccc739f8945284f724182505da80a.jpg',
         price: '1.45',
         description: 'flowery but techy bundle of cuteness',
-        stock: 10,
-        reviews: ['needs no sunlight! woot!', 'love her foreva']
+        stock: 10
+      })
+      productPutTest = await Product.create({
+        name: 'rose',
+        image: 'https://i.pinimg.com/736x/42/3c/cc/423ccc739f8945284f724182505da80a.jpg',
+        price: '1.00',
+        description: 'flowery b',
+        stock: 10
       })
       orderItemOne = await OrderItem.create({
         quantity: 2,
@@ -112,6 +118,22 @@ describe('Order Route', () => {
           expect(res.body).to.contain({ id: 2, status: 'open', userId: null })
         })
     })
+
+    it.only('PUT /api/order to create a new orderItem related to that order', () => {
+      withCart._test_user = codysmith
+      return request(app)
+        .put('/api/order')
+        .send({
+          productId: productPutTest.id,
+          quantity: 2,
+          currentPrice: productPutTest.price
+        })
+        .expect(200)
+        .then(res => {
+          expect(res.body.orderitems).to.have.lengthOf(2);
+        })
+    })
+
   })
 })
 

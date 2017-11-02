@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const withCart = require('./withCart');
-const { OrderItem } = require('../db/models')
+const { OrderItem, Order } = require('../db/models')
 
 module.exports = router
 
@@ -13,8 +13,9 @@ router.get('/', (req, res, next) => {
 router.put('/', (req, res, next) => {
   const { currentPrice, quantity, productId } = req.body;
   OrderItem.create({currentPrice, quantity, productId, orderId: req.cart.id })
-    .then(() => {
-      res.json(req.cart)
+    .then( async () => {
+      req.cart = await Order.findById(req.cart.id)
+      res.json(req.cart);
     })
     .catch(next);
 })
