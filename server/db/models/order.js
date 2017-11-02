@@ -6,7 +6,7 @@ const Product = require('./product');
 
 const Order = db.define('order', {
     status: {
-        type: Sequelize.ENUM('open', 'completed', 'confirmed', 'shipped'),
+        type: Sequelize.ENUM('open', 'completed', 'pending', 'confirmed', 'shipped'),
         defaultValue: 'open'
     }
 }, {
