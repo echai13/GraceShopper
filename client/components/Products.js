@@ -9,7 +9,7 @@ import history from '../history'
  * COMPONENT
  */
 export const Products = (props) => {
-  const {products, categories, handleProductClick} = props
+  const {products, categories} = props
 
   return (
     <div>
@@ -22,10 +22,10 @@ export const Products = (props) => {
       {products.map( product => {
         return (
         <div key = {product.id}>
-          <div onClick={() => handleProductClick(product.id)}>
+          <Link to={`/products/${product.id}`}>
             <h3>{product.name}</h3>
             <img src = {product.image} />
-          </div>
+          </Link>
           <h3>{product.price}</h3>
           <p>{product.description}</p>
           <h3>{product.stock} </h3>
@@ -49,12 +49,4 @@ const mapState = (state) => {
   }
 }
 
-const mapDispatch = (dispatch) => {
-  return {
-    handleProductClick (productId) {
-      dispatch(setSingleProductThunk(productId))
-    }
-  }
-}
-
-export default connect(mapState, mapDispatch)(Products)
+export default connect(mapState)(Products)

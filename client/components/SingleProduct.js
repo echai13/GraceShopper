@@ -1,13 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { setSingleProductThunk } from '../store/singleProduct'
 
 /**
 *  COMPONENT: From All Products Page, the singleProduct's state is set when a single product is clicked on
 */
 
 export const SingleProduct = (props) => {
-  const { singleProduct } = props
+  const { singleProduct, fetchSingleProduct } = props
+  fetchSingleProduct()
 
   return (
 
@@ -35,10 +37,16 @@ export const SingleProduct = (props) => {
 * CONTAINER
 */
 const mapState = (state) => {
-  console.log(state.singleProduct)
   return {
     singleProduct: state.singleProduct
   }
 }
 
-export default connect(mapState)(SingleProduct)
+const mapDispatch = (dispatch, ownProps) => {
+  return {
+    fetchSingleProduct () {
+      dispatch(setSingleProductThunk(ownProps.match.params.productId))
+    }
+  }
+}
+export default connect(mapState, mapDispatch)(SingleProduct)
