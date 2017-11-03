@@ -30,7 +30,7 @@ router.put('/incart', async (req, res, next) => {
 
 //working !
 router.put('/inproduct', async (req, res, next) => {
-  const { currentPrice, quantity, productId } = req.body.productInfo;
+  let { quantity, productId } = req.body.productInfo;
 
   const orderItem = await OrderItem.findOne({
     where: { productId: productId, orderId: req.cart.id },
@@ -43,8 +43,9 @@ router.put('/inproduct', async (req, res, next) => {
   }
   // get the previous quantity, add the new quantity to it... if that's higher than the stock, update with the stock and if its not, update with the new quantity
   let oldQuan, newQuan, stock;
-  stock = orderItem.product.stock;
-  oldQuan = orderItem.quantity;
+  stock = Number(orderItem.product.stock);
+  oldQuan = Number(orderItem.quantity);
+  quantity = Number(quantity);
   newQuan = (quantity + oldQuan) > stock ?
               stock
               : (quantity + oldQuan);
@@ -73,37 +74,37 @@ router.post('/neworderitem', (req, res, next) => {
   if there isn't that order item yet, create it
 */
 
-router.put('/', async (req, res, next) => {
-  const { currentPrice, quantity, productId } = req.body.productInfo;
-  console.log('inside of put request', productId, req.cart.id);
+// router.put('/', async (req, res, next) => {
+//   const { currentPrice, quantity, productId } = req.body.productInfo;
+//   console.log('inside of put request', productId, req.cart.id);
 
-	const orderItem = await OrderItem.findOne( {
-    where: {productId: productId, orderId: req.cart.id},
-    include: [{model: Product }] })
+// 	const orderItem = await OrderItem.findOne( {
+//     where: {productId: productId, orderId: req.cart.id},
+//     include: [{model: Product }] })
 
-  console.log('order item is: ', orderItem);
-  console.log('item stock: ', orderItem.product.stock)
-  	if (orderItem) {
-      let oldQuan, newQuan, stock;
-      stock = Number(orderItem.product.stock);
-      oldQuan = Number(orderItem.quantity);
-      newQuan = Number(quantity) + oldQuan > stock ?
-        stock
-        : Number(quantity) + oldQuan;
+//   console.log('order item is: ', orderItem);
+//   console.log('item stock: ', orderItem.product.stock)
+//   	if (orderItem) {
+//       let oldQuan, newQuan, stock;
+//       stock = Number(orderItem.product.stock);
+//       oldQuan = Number(orderItem.quantity);
+//       newQuan = Number(quantity) + oldQuan > stock ?
+//         stock
+//         : Number(quantity) + oldQuan;
 
-      await orderItem.update({ quantity: newQuan })
+//       await orderItem.update({ quantity: newQuan })
 
-      req.cart = await Order.findById(req.cart.id)
-      res.json(req.cart);
-  	} else {
-  		OrderItem.create({currentPrice, quantity, productId, orderId: req.cart.id })
-		    .then( async () => {
-		      req.cart = await Order.findById(req.cart.id)
-		      res.json(req.cart);
-		    })
-		    .catch(next);
-  	}
-})
+//       req.cart = await Order.findById(req.cart.id)
+//       res.json(req.cart);
+//   	} else {
+//   		OrderItem.create({currentPrice, quantity, productId, orderId: req.cart.id })
+// 		    .then( async () => {
+// 		      req.cart = await Order.findById(req.cart.id)
+// 		      res.json(req.cart);
+// 		    })
+// 		    .catch(next);
+//   	}
+// })
 
 
 
