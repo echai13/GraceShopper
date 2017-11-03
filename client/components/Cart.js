@@ -12,6 +12,13 @@ export class Cart extends Component {
   componentDidMount(){
   	this.props.fetchCart();
   }
+  /// soooooooo
+  /*
+   if the quantity for an item is zero, the remove button should switch to say delete and should run a different thunk to actually delete that order item
+
+   if the quantity is at stock, then the add button should be disabled
+
+  */
 
   render() {
   	const { cart } = this.props;
@@ -52,14 +59,14 @@ export class Cart extends Component {
                         <td className="td-number">
                             {element.quantity}
                             <div className="btn-group">
-                                <button 
-                                		className="btn btn-round btn-info btn-xs" 
+                                <button
+                                		className="btn btn-round btn-info btn-xs"
                                 		onClick={() => {
                                 			const updateQuantity = Object.assign({}, element, {quantity : element.quantity -1} )
                                 			this.props.handleQuantity(updateQuantity)}}>
                                 		<i className="material-icons">remove</i> </button>
-                                <button 
-                                		className="btn btn-round btn-info btn-xs" 
+                                <button
+                                		className="btn btn-round btn-info btn-xs"
                                 		onClick={() => {
                                  			const updateQuantity = Object.assign({}, element, {quantity : element.quantity +1} )
                                 			this.props.handleQuantity(updateQuantity)}}>
@@ -85,7 +92,7 @@ export class Cart extends Component {
                         <td className="td-currentPrice">
                             <small>$</small>{cart && orderItems && orderItems.map(el => el.currentPrice * el.quantity).reduce((a,b) => a + b, 0)}
                         </td>
-                        <td colSpan="1" className="text-right"> 
+                        <td colSpan="1" className="text-right">
 							<Link to='/checkout'>
 								<button type="button" className="btn btn-info btn-round">
 									 <i className ="material-icons" >Complete Purchase</i>
@@ -95,7 +102,7 @@ export class Cart extends Component {
 
                     </tr>
                 </tbody>
-            </table>    
+            </table>
 	</div>
 
 )

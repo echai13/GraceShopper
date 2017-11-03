@@ -50,10 +50,10 @@ export const getCartThunk = () => dispatch => {
 
 
 
-export const changeQuantityThunk = (productInfo) => dispatch => { 
-  return axios.put('/api/order' , {productInfo})
+export const changeQuantityThunk = (productInfo) => dispatch => {
+  return axios.put('/api/order/incart', {productInfo})
     .then(res => {
-      dispatch(getCart (formatCart(res) || defaultCart))
+      dispatch(getCart(formatCart(res) || defaultCart))
     })
     .catch(err => console.log(err))
 }
