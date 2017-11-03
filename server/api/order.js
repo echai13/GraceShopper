@@ -28,6 +28,7 @@ router.put('/incart', async (req, res, next) => {
   res.json(req.cart);
 })
 
+//working !
 router.put('/inproduct', async (req, res, next) => {
   const { currentPrice, quantity, productId } = req.body.productInfo;
 

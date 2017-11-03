@@ -32,7 +32,7 @@ export const setSingleProductThunk = productId =>
 
 export const addProductToCart = productInfo => dispatch =>
       {
-        axios.put('/api/order', {productInfo})
+        axios.put('/api/order/inproduct', {productInfo})
         .then( cart => {
           console.log('axios finished with: ', cart)
           history.push('/cart');
