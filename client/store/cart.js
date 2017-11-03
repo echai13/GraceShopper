@@ -13,23 +13,66 @@ const DELETE_FROM_CART = 'DELETE_FROM_CART'
 /**
  * INITIAL STATE
  */
-let currentCart = [];
+let defaultCart = [];
 
 
 /**
  * ACTION CREATORS
  */
-export const getCart = () => ({ type: GET_CART })
-export const addToCart = product => ({type: ADD_TO_CART, product})
-export const removeFromCart = product => ({type: REMOVE_FROM_CART, product})
-export const deleteFromCart = product => ({type: DELETE_FROM_CART, product})
+export const getCart = cart => ({ type: GET_CART, cart })
+export const addToCart = cart => ({type: ADD_TO_CART, cart}) // thunk will take product and return new cart
+export const removeFromCart = cart => ({type: REMOVE_FROM_CART, cart})
+export const deleteFromCart = cart => ({type: DELETE_FROM_CART, cart})
 export const clearCart = () =>  ({ type: CLEAR_CART })
+
+/**
+ * THUNKS
+ */
+const formatCart = (res) => {
+    const cart = res.data;
+    console.log('inside of thunk', cart.id);
+    const orderItems = cart.orderitems;
+    const includeProducts = orderItems.map(item => {
+      return Object.assign({}, item, item.product);
+    })
+    cart.orderitems = includeProducts;
+    return cart;
+}
+
+
+export const getCartThunk = () => dispatch => {
+  return axios.get('/api/order')
+    .then(res => {
+      dispatch(getCart( formatCart(res) || defaultCart ))
+    })
+    .catch(err => console.log(err))
+}
+
+
+
+export const changeQuantityThunk = (productInfo) => dispatch => { 
+  return axios.put('/api/order' , {productInfo})
+    .then(res => {
+      dispatch(getCart (formatCart(res) || defaultCart))
+    })
+    .catch(err => console.log(err))
+}
+
+// export const getProductsThunk = () =>
+//   dispatch =>
+//     axios.get('/api/products')
+//       .then(res => dispatch(getProducts(res.data || defaultProduct)))
+//       .catch(err => console.log(err))
+
+
+
 
 /**
  * REDUCER
  */
-export default function (state = currentCart, action) {
-  let products, searchid;
+export default function (state = defaultCart, action) {
+  //let products, searchid;
+
   switch (action.type) {
     case CLEAR_CART:
       return []
@@ -38,6 +81,8 @@ export default function (state = currentCart, action) {
       return action.cart;
 
     case ADD_TO_CART:
+      return action.cart;
+    /*
       // search state to find if id is already there
       searchid = state.findIndex(el => el.id === action.product.id)
       if (searchid > -1) {
@@ -55,8 +100,11 @@ export default function (state = currentCart, action) {
     }
     history.push('/cart')
     return products
+    */
 
     case REMOVE_FROM_CART:
+      return action.cart;
+    /*
     // search state to find if id is already there
     searchid = state.findIndex(el => el.id === action.product.id)
     if (searchid > -1) {
@@ -67,8 +115,11 @@ export default function (state = currentCart, action) {
       }
       history.push('/cart')
       return products
+      */
 
     case DELETE_FROM_CART:
+      return action.cart;
+    /*
       searchid = state.findIndex(el => el.id === action.product.id)
       if (searchid > -1) {
         products = state;
@@ -76,6 +127,7 @@ export default function (state = currentCart, action) {
       }
       history.push('/cart')
       return products
+      */
 
     default:
       return state

@@ -29,15 +29,17 @@ const withCart = function (req, res, next) {
   }
 
   if (req.user) {
+    console.log("do you knowww who you arreeeeeee" , req.user.firstName)
     return Order.findOrCreate({where: {userId: req.user.id, status: 'open'}})
       .then(([order, _]) => {
+        console.log("what is da order: " , order);
         req.cart = order;
         next();
       })
       .catch(next);
   }
 
-  Order.create({status: 'open'})
+  return Order.create({status: 'open'})
     .then(order => {
       req.cart = order;
       next();
