@@ -7,6 +7,7 @@ import products from './products'
 import categories from './categories'
 import singleProduct from './singleProduct'
 import addresses from './addresses'
+import checkout from './checkout'
 
 const reducer = combineReducers({user, products, categories, singleProduct, addresses})
 const middleware = composeWithDevTools(applyMiddleware(
@@ -21,3 +22,4 @@ export * from './products'
 export * from './categories'
 export * from './singleProduct'
 export * from './addresses'
+export * from './checkout'

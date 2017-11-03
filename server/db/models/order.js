@@ -14,15 +14,6 @@ const Order = db.define('order', {
       include: [
         { model: OrderItem, include: [{model: Product}]} ]
     }
-  }, {
-    getterMethods: {
-      subtotal() {
-        let subtotal;
-        return this.orderitems.map(item => {
-          subtotal += item.subtotal
-        })
-      }
-    }
   }
 )
 
