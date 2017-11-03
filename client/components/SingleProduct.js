@@ -15,6 +15,12 @@ export class SingleProduct extends Component {
 
   render() {
     const { singleProduct } = this.props
+
+    var quantities = [];
+    for (let i = 1; i <= singleProduct.stock; i++){
+      quantities.push(<option value={i}>{i}</option>)
+    }
+
     return (
 
       <div>
@@ -26,7 +32,13 @@ export class SingleProduct extends Component {
           {/* Tells customers if product is in stock */}
           {
             singleProduct.isAvailable ?
-            <span>In Stock</span> :
+            (<div>
+              <span>In Stock</span>
+              <select>
+                {quantities}
+              </select>
+              <button>Add</button>
+            </div> ) :
             <span>Currently Out of Stock</span>
           }
           <h3>{singleProduct.category}</h3>
