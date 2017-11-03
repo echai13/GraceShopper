@@ -22,7 +22,10 @@ export class Cart extends Component {
 
   render() {
   	const { cart } = this.props;
-  	const orderItems = cart.orderitems;
+    const orderItems = cart.orderitems;
+    console.log('our order items are: ', orderItems);
+    if(orderItems)
+    {console.log('first order item product is: ', orderItems[0]);}
 
 	return (
 	  <div className="container">
@@ -66,6 +69,7 @@ export class Cart extends Component {
                                 			this.props.handleQuantity(updateQuantity)}}>
                                 		<i className="material-icons">remove</i> </button>
                                 <button
+                                    disabled={element.quantity === element.stock}
                                 		className="btn btn-round btn-info btn-xs"
                                 		onClick={() => {
                                  			const updateQuantity = Object.assign({}, element, {quantity : element.quantity +1} )
@@ -77,7 +81,7 @@ export class Cart extends Component {
                             <small>&#36;</small>{element.currentPrice * element.quantity}
                         </td>
                         <td className="td-actions">
-                            <button type="button" rel="tooltip" data-placement="left" title="Remove item" className="btn btn-simple" onClick={() => props.handleDelete(element.id)}>
+                            <button type="button" rel="tooltip" data-placement="left" title="Remove item" className="btn btn-simple" onClick={() => this.props.handleDelete(element.id)}>
                                 <i className="material-icons">close</i>
                             </button>
                         </td>
