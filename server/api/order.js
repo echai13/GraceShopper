@@ -12,11 +12,11 @@ router.get('/', (req, res, next) => {
 });
 
 router.put('/', async (req, res, next) => {
-	const { currentPrice, quantity, productId } = req.body.productInfo;
-
+  console.log('inside of router PUT /api/order with req.cart: ', req.cart, ' and req.body: ', req.body);
+  const { currentPrice, quantity, productId } = req.body.productInfo;
 
 	const orderItem = await OrderItem.findOne( {
-  	where: {productId: productId , orderId: req.cart.id} }) 
+  	where: {productId: productId , orderId: req.cart.id} })
   	if (orderItem) {
   		const newQuantity = await orderItem.update({ quantity: quantity})
   		req.cart = await Order.findById(req.cart.id)
@@ -34,4 +34,4 @@ router.put('/', async (req, res, next) => {
 
 
 
-//?take the else statement in the put request and turn it into a post request? 
+//?take the else statement in the put request and turn it into a post request?

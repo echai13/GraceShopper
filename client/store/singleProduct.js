@@ -1,7 +1,6 @@
 import axios from 'axios'
 import history from '../history'
 
-
 /**
 * ACTION TYPES
 */
@@ -32,14 +31,15 @@ export const setSingleProductThunk = productId =>
       .catch(err => console.log(err))
 
 export const addProductToCart = productInfo => dispatch =>
-      { console.log('inside thunk with productinfo: ', productInfo);
-        return axios.put('/api/order', productInfo)
+      {
+        axios.put('/api/order', {productInfo})
         .then( cart => {
           console.log('axios finished with: ', cart)
           history.push('/cart');
           dispatch(setSingleProduct(singleProduct))
         })
-        .catch(err => console.log(err))}
+        .catch(err => console.log(err))
+      }
 
 /**
 * REDUCER
