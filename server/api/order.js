@@ -19,22 +19,19 @@ router.put('/', async (req, res, next) => {
   	where: {productId: productId , orderId: req.cart.id} }) 
   	if (orderItem) {
   		const newQuantity = await orderItem.update({ quantity: quantity})
-  		console.log("newQuantity is : " , newQuantity);
   		req.cart = await Order.findById(req.cart.id)
  		res.json(req.cart);
   	} else {
   		OrderItem.create({currentPrice, quantity, productId, orderId: req.cart.id })
 		    .then( async () => {
-		      console.log("i shouldn't show up oops");
 		      req.cart = await Order.findById(req.cart.id)
 		      res.json(req.cart);
 		    })
 		    .catch(next);
-
   	}
 })
 
 
 
 
-//take the else statement in the put request and turn it into a post request? 
+//?take the else statement in the put request and turn it into a post request? 

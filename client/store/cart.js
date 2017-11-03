@@ -58,14 +58,6 @@ export const changeQuantityThunk = (productInfo) => dispatch => {
     .catch(err => console.log(err))
 }
 
-// export const getProductsThunk = () =>
-//   dispatch =>
-//     axios.get('/api/products')
-//       .then(res => dispatch(getProducts(res.data || defaultProduct)))
-//       .catch(err => console.log(err))
-
-
-
 
 /**
  * REDUCER

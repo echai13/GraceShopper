@@ -8,13 +8,8 @@ import {getCartThunk, changeQuantityThunk, removeFromCart, deleteFromCart} from 
 export class Cart extends Component {
 
   // const products = props.products
-  // const cart = [
-  // 	{ id: 1, productId: 2, orderId: 1 ,quantity: 2, currentcurrentPrice: 3.33 , category: 'domestic', image: 'http://wallpaper.sc/id/ipad/wp-content/uploads/2016/10/ipad-2048x2048-thumbnail_00158-256x256.jpg'},
-  //  	{ id: 2, productId: 1, quantity: 2, currentcurrentPrice: 58.65 , category: 'domestic', image: 'http://wallpaper.sc/id/ipad/wp-content/uploads/2016/10/ipad-2048x2048-thumbnail_00158-256x256.jpg'}
-  // ]
 
   componentDidMount(){
-  	console.log('component has mounted')
   	this.props.fetchCart();
   }
 
@@ -61,12 +56,13 @@ export class Cart extends Component {
                                 		className="btn btn-round btn-info btn-xs" 
                                 		onClick={() => {
                                 			const updateQuantity = Object.assign({}, element, {quantity : element.quantity -1} )
-                                			this.props.handleQuantity(updateQuantity)}}> 
+                                			this.props.handleQuantity(updateQuantity)}}>
                                 		<i className="material-icons">remove</i> </button>
                                 <button 
                                 		className="btn btn-round btn-info btn-xs" 
                                 		onClick={() => {
-                                			this.props.handleQuantity(element)}}> 
+                                 			const updateQuantity = Object.assign({}, element, {quantity : element.quantity +1} )
+                                			this.props.handleQuantity(updateQuantity)}}>
                                 		<i className="material-icons">add</i> </button>
                             </div>
                         </td>
@@ -92,7 +88,7 @@ export class Cart extends Component {
                         <td colSpan="1" className="text-right"> 
 							<Link to='/checkout'>
 								<button type="button" className="btn btn-info btn-round">
-									Complete Purchase <i className="material-icons">keyboard_arrow_right</i>
+									 <i className ="material-icons" >Complete Purchase</i>
 								</button>
 							</Link>
 						</td>
