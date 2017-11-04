@@ -30,10 +30,9 @@ export const removeCart = () =>  ({ type: REMOVE_CART })
  */
 const formatCart = (res) => {
     const cart = res.data;
-    console.log('inside of thunk', cart.id);
     const orderItems = cart.orderitems;
     const includeProducts = orderItems.map(item => {
-      return Object.assign({}, item, item.product);
+      return Object.assign({}, item, item.product, {id: item.id});
     })
     cart.orderitems = includeProducts;
     return cart;
@@ -43,12 +42,11 @@ const formatCart = (res) => {
 export const getCartThunk = () => dispatch => {
   return axios.get('/api/order')
     .then(res => {
+      console.log('axios call is returning', res);
       dispatch(getCart( formatCart(res) || defaultCart ))
     })
     .catch(err => console.log(err))
 }
-
-
 
 export const changeQuantityThunk = (productInfo) => dispatch => {
   return axios.put('/api/order/incart', {productInfo})
@@ -58,6 +56,13 @@ export const changeQuantityThunk = (productInfo) => dispatch => {
     .catch(err => console.log(err))
 }
 
+export const deleteFromCartThunk = (orderItemId) => dispatch => {
+  return axios.delete(`/api/order/incart/${orderItemId}`)
+    .then(res => {
+      dispatch(getCart(formatCart(res) || defaultCart))
+    })
+    .catch(err => console.log(err))
+}
 
 /**
  * REDUCER

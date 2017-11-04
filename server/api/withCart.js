@@ -16,10 +16,12 @@ const withCart = function (req, res, next) {
   }
   ////////////////////
 
-  if (req.cart) { return next() }
+  //if (req.cart) { return next() }
+  console.log('inside of withCart and req has...', req.cart, req.session.cartId);
 
-  if (req.session.cartId) {
-    const { cartId } = req.session;
+  if ( req.cart || req.session.cartId) {
+    //const { cartId } = req.session;
+    const cartId = req.cart ? req.cart.id : req.session.cartId
     return Order.findById(cartId)
       .then(order => {
         req.cart = order;
