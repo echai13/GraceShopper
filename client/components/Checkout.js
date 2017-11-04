@@ -47,7 +47,7 @@ export class Checkout extends Component {
         <h1>Checkout</h1>
         {/* make sure this is connected to the cart stuff */}
          { this.props.cart ? this.props.cart.orderitems.map((item, index) => (
-          <div>
+          <div key = {item.id} >
             <p>{item.name}</p>
             <p>{item.image}</p>
             <p>{item.quantity}</p>

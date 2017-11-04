@@ -27,8 +27,6 @@ export class SingleProduct extends Component {
     const { singleProduct } = this.props
     evt.preventDefault();
     const handleAdd = this.props.handleAdd;
-    console.log('single product is: ', singleProduct);
-    console.log('quantity is: ', this.state.value);
     return handleAdd({
       productId: singleProduct.id,
       quantity: this.state.value,
@@ -91,7 +89,6 @@ const mapDispatch = (dispatch, ownProps) => {
       dispatch(setSingleProductThunk(ownProps.match.params.productId))
     },
     handleAdd(productInfo) {
-      console.log('handling add: ', productInfo)
       dispatch(addProductToCart(productInfo));
     }
   }
