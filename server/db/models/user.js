@@ -1,6 +1,7 @@
 const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
+const Address = require('./address')
 
 const User = db.define('user', {
   firstName: {
@@ -32,8 +33,17 @@ const User = db.define('user', {
         return this.firstName + ' ' + this.lastName
       }
     }
-  }
-)
+  })
+
+//   , {
+//   scopes: {
+//     addresses: () => ({
+//       include: [{
+//         model: Address, where: { userId: this.id }
+//       }]
+//     })
+//   }
+// }
 
 module.exports = User
 

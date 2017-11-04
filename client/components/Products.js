@@ -42,7 +42,7 @@ export class Products extends Component {
         {products.map(product => {
           const categoryNames = product.categories.map(category => category.name);
           return currentCategory === 'all' || categoryNames.indexOf(currentCategory) > -1 ?
-            ( <ProductPreview product={product} />
+            ( <ProductPreview key ={product.id} product={product} />
             )
             :
             null

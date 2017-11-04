@@ -11,10 +11,6 @@ router.get('/', (req, res, next) => {
     res.json(req.cart)
 });
 
-// put /incart
-/*
-  find the orderItem and update it (swap out quantity values)
-*/
 
 router.put('/incart', async (req, res, next) => {
   const { quantity, productId } = req.body.productInfo;
@@ -36,9 +32,8 @@ router.put('/inproduct', async (req, res, next) => {
     where: { productId: productId, orderId: req.cart.id },
     include: [{ model: Product }]
   })
-
   if (!orderItem) {
-    req.method = 'POST';
+    // req.method = 'PUT';
     res.redirect('/api/order/neworderitem');
   }
   // get the previous quantity, add the new quantity to it... if that's higher than the stock, update with the stock and if its not, update with the new quantity
@@ -57,9 +52,8 @@ router.put('/inproduct', async (req, res, next) => {
 
 })
 
-router.post('/neworderitem', (req, res, next) => {
+router.put('/neworderitem', (req, res, next) => {
   const { currentPrice, quantity, productId } = req.body.productInfo;
-
   OrderItem.create({ currentPrice, quantity, productId, orderId: req.cart.id })
     .then(async () => {
       req.cart = await Order.findById(req.cart.id)
