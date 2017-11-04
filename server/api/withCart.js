@@ -23,7 +23,7 @@ const withCart = function (req, res, next) {
     return Order.findById(cartId)
       .then(order => {
         req.cart = order;
-        next();
+        return next();
       })
       .catch(next);
   }
@@ -32,7 +32,7 @@ const withCart = function (req, res, next) {
     return Order.findOrCreate({where: {userId: req.user.id, status: 'open'}})
       .then(([order, _]) => {
         req.cart = order;
-        next();
+        return next();
       })
       .catch(next);
   }
@@ -40,7 +40,7 @@ const withCart = function (req, res, next) {
   return Order.create({status: 'open'})
     .then(order => {
       req.cart = order;
-      next();
+      return next();
     })
     .catch(next);
 }
