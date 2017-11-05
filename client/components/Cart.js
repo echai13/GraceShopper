@@ -78,7 +78,7 @@ export class Cart extends Component {
                             </div>
                         </td>
                         <td className="td-number">
-                            <small>&#36;</small>{element.currentPrice * element.quantity}
+                            <small>&#36;</small>{element.subtotal}
                         </td>
                         <td className="td-actions">
                             <button type="button" rel="tooltip" data-placement="left" title="Remove item" className="btn btn-simple" onClick={() => this.props.handleDelete(element.id)}>
@@ -108,11 +108,8 @@ export class Cart extends Component {
                 </tbody>
             </table>
 	</div>
-
-)
-
-  }
-  }
+  )}
+}
 
 const mapPropToCart = (state) => {
   return {
@@ -137,24 +134,3 @@ const mapDispatch = (dispatch, ownProps) => {
 
 
 export default connect(mapPropToCart, mapDispatch)(Cart)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

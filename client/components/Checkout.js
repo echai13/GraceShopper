@@ -44,17 +44,29 @@ export class Checkout extends Component {
           </div>
         )) : null
         }
-        <h1>Checkout</h1>
-        {/* make sure this is connected to the cart stuff */}
-         { this.props.cart ? this.props.cart.orderitems.map((item, index) => (
-          <div key = {item.id} >
-            <p>{item.name}</p>
-            <p>{item.image}</p>
-            <p>{item.quantity}</p>
-            <p>{item.currentPrice}</p>
-          </div>
-        )) : null }
-         {/* Subtotal: ${this.props.cart.findOrderTotal} */}
+        <h1>Checkout Summary</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Description</th>
+              <th>Price</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+          { this.props.cart ? this.props.cart.orderitems.map(item => (
+            <tr key={item.id}>
+              <td><img src={item.image} /></td>
+              <td>{item.name}</td>
+              <td>{item.currentPrice}</td>
+              <td>{item.quantity}</td>
+            </tr>
+        )) : null}
+        </tbody>
+        </table>
+         <h3>Subtotal:</h3> {this.props.cart.total}
+         <h3>Order Total:</h3> {this.props.cart.total * 1.08875}
 
          <form onSubmit={(evt) => { evt.preventDefault(); this.props.handlePayment(this.state, 1000)}}>
            <div>
@@ -92,6 +104,7 @@ export class Checkout extends Component {
 
 
 const mapState = state => {
+  console.log(state.cart.total)
   return {
     user: state.user,
     addresses: state.addresses, //array of addresses

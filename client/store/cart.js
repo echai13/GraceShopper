@@ -43,6 +43,7 @@ const formatCart = (res) => {
 export const getCartThunk = () => dispatch => {
   return axios.get('/api/order')
     .then(res => {
+      console.log(`${res}`)
       dispatch(getCart( formatCart(res) || defaultCart ))
     })
     .catch(err => console.log(err))
@@ -70,6 +71,7 @@ export default function (state = defaultCart, action) {
       return []
 
     case GET_CART:
+      console.log(action.cart)
       return action.cart;
 
     case ADD_TO_CART:
