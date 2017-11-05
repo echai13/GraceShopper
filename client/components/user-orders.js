@@ -30,7 +30,7 @@ export class UserOrders extends Component {
                 </thead>
                 <tbody>
                 { 
-                    this.props.orders.map(order => {
+                    !this.props.orders.error ? this.props.orders.map(order => {
                         return order ? <tr key={order.id}>
                         <td>{order.createdAt.slice(0, 10)}</td>
                         <td>{order.status}</td>
@@ -45,7 +45,7 @@ export class UserOrders extends Component {
                         }
                         <tr>Order Total: ${order.findOrderTotal}</tr>
                         </tr> : ''
-                    })
+                    }): ''
                 }
             </tbody>
             </table>
