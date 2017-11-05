@@ -1,37 +1,34 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import UserOrders from './user-orders'
+import UserDetails from './user-details'
+import { setAddressThunk } from '../store'
 
 /**
  * COMPONENT
  */
-export const UserHome = (props) => {
-  const {email} = props
-
-  return (
-    <div>
-      <h3>Welcome, {email}</h3>
-      <Link to="/orders">Orders</Link>
-    </div>
-  )
-}
+export const UserHome = props => {
+  const {name} = props
+  
+    return (
+      <div>
+        <h3>Welcome, {name}</h3>
+        <h4>Account Details</h4>
+          <UserDetails />
+        <h4>Order History</h4>
+          <UserOrders />
+      </div>
+    )
+  }
 
 /**
  * CONTAINER
  */
 const mapState = (state) => {
-  console.log('STATE', state)
   return {
-    email: state.user.email
+    name: state.user.firstName,
   }
 }
 
 export default connect(mapState)(UserHome)
-
-/**
- * PROP TYPES
- */
-UserHome.propTypes = {
-  email: PropTypes.string
-}

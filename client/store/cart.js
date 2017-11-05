@@ -74,7 +74,7 @@ export default function (state = defaultCart, action) {
 
     case ADD_TO_CART:
       return action.cart;
-    /*
+    
       // search state to find if id is already there
       searchid = state.findIndex(el => el.id === action.product.id)
       if (searchid > -1) {
@@ -92,11 +92,11 @@ export default function (state = defaultCart, action) {
     }
     history.push('/cart')
     return products
-    */
+    
 
     case REMOVE_FROM_CART:
       return action.cart;
-    /*
+    
     // search state to find if id is already there
     searchid = state.findIndex(el => el.id === action.product.id)
     if (searchid > -1) {
@@ -107,11 +107,11 @@ export default function (state = defaultCart, action) {
       }
       history.push('/cart')
       return products
-      */
+      
 
     case DELETE_FROM_CART:
       return action.cart;
-    /*
+    
       searchid = state.findIndex(el => el.id === action.product.id)
       if (searchid > -1) {
         products = state;
@@ -119,7 +119,7 @@ export default function (state = defaultCart, action) {
       }
       history.push('/cart')
       return products
-      */
+      
 
     default:
       return state
