@@ -13,6 +13,12 @@ export class UserHome extends Component {
     this.state = {
       showEditForm: false
     }
+    this.updateToggle = this.updateToggle.bind(this)
+  }
+
+  updateToggle() {
+    console.log(this.state.showEditForm)
+    this.setState({ showEditForm: !this.state.showEditForm })
   }
 
   render() {
@@ -28,11 +34,11 @@ export class UserHome extends Component {
         <div>
           { this.state.showEditForm ?
             <div>
-              <button type="submit" onClick={() => {this.setState({showEditForm: false})}}>Close Edit</button>
-              <EditUser />
+              <button type="submit" onClick={this.updateToggle }>Close Edit</button>
+              <EditUser closeForm={this.updateToggle} />
             </div>
             :
-            <button type="submit" onClick={() => {this.setState({showEditForm: true})}}>Edit Your Details</button>
+            <button type="submit" onClick={this.updateToggle}>Edit Your Details</button>
           }
         </div>
       </div>
@@ -46,7 +52,8 @@ export class UserHome extends Component {
 const mapState = (state) => {
   console.log('STATE', state)
   return {
-    email: state.user.email
+    user: state.user,
+    email: state.user.email,
   }
 }
 

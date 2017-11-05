@@ -8,7 +8,7 @@ module.exports = router
 // to get each user's orders
 router.get('/:userId/orders', (req, res, next) => {
   const userId = req.params.userId
-  
+
   Order.findAll({
     where: {userId},
     include: [{all: true}]
@@ -34,3 +34,16 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
+router.put(`/:userId`, (req, res, next) => {
+  User.findById(req.params.userId)
+    .then(user => {
+      user.update({
+        firstName: req.body.firstName || user.firstName,
+        lastName: req.body.lastName || user.lastName,
+        email: req.body.email || user.email,
+        password: req.body.password || user.password
+      })
+      .then(updatedUser => res.json(updatedUser))
+      .catch(next)
+    })
+})
