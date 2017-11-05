@@ -2,6 +2,7 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 const OrderItem = require('./orderitem');
 const Product = require('./product');
+const User = require('./user')
 
 
 const Order = db.define('order', {
@@ -12,7 +13,7 @@ const Order = db.define('order', {
 }, {
     defaultScope: {
       include: [
-        { model: OrderItem, include: [{model: Product}]} ]
+        { model: OrderItem, include: [{model: Product}]}, { model: User } ]
     }
   }
 )
