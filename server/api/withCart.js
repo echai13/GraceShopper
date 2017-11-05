@@ -24,6 +24,7 @@ const withCart = function (req, res, next) {
     const cartId = req.cart ? req.cart.id : req.session.cartId
     return Order.findById(cartId)
       .then(order => {
+        console.log('inside of withCart with req.cart: ', req.cart);
         req.cart = order;
         return next();
       })

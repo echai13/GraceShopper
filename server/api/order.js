@@ -4,14 +4,21 @@ const { OrderItem, Order, Product } = require('../db/models')
 
 module.exports = router
 
+// router.use((req, res, next) => {
+//   console.log(req.body, req.cart, req.session.cartId);
+//   next();
+// })
+
 router.use(withCart);
 
 router.get('/', (req, res, next) => {
+    console.log('inside of getcart route with req.cart', req.cart);
     res.json(req.cart)
 });
 
 
 router.put('/incart', async (req, res, next) => {
+  console.log('inside of incart route with req.cart', req.cart);
   const { quantity, productId } = req.body.productInfo;
 
   const orderItem = await OrderItem.findOne({
@@ -25,6 +32,7 @@ router.put('/incart', async (req, res, next) => {
 
 //working !
 router.put('/inproduct', async (req, res, next) => {
+  console.log('inside of inproduct route with req.cart', req.cart);
   let { quantity, productId } = req.body.productInfo;
 
   const orderItem = await OrderItem.findOne({
@@ -52,6 +60,7 @@ router.put('/inproduct', async (req, res, next) => {
 })
 
 router.put('/neworderitem', (req, res, next) => {
+  console.log('inside of neworderitem route with req.cart', req.cart);
   const { currentPrice, quantity, productId } = req.body.productInfo;
   OrderItem.create({ currentPrice, quantity, productId, orderId: req.cart.id })
     .then(async () => {
