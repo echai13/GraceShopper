@@ -31,15 +31,9 @@ export const removeCart = () =>  ({ type: REMOVE_CART })
 const formatCart = (res) => {
     const cart = res.data;
     const orderItems = cart.orderitems;
-<<<<<<< HEAD
     const includeProducts = orderItems ? orderItems.map(item => {
       return Object.assign({}, item, item.product);
     }) : [];
-=======
-    const includeProducts = orderItems.map(item => {
-      return Object.assign({}, item, item.product, {id: item.id});
-    })
->>>>>>> 81-cart-buttons
     cart.orderitems = includeProducts;
     return cart;
 }

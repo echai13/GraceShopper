@@ -7,7 +7,7 @@ module.exports = router
 router.use(withCart);
 
 router.get('/', (req, res, next) => {
-  res.json(req.cart)
+    res.json(req.cart)
 });
 
 
