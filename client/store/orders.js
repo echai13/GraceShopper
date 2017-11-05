@@ -4,3 +4,4 @@ import history from '../history'
 export const getAllOrders = () =>
   dispatch =>
     axios.get('/api/orders/')
+      .then(res => res.data);

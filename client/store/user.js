@@ -50,15 +50,21 @@ export const logout = () =>
       })
       .catch(err => console.log(err))
 
-export const orders = (userId) => 
+export const orders = (userId) =>
   dispatch => {
-    axios.get(`/api/users/${userId}/orders`)   
+    axios.get(`/api/users/${userId}/orders`)
       .then(res => {
         dispatch(getOrders(res.data))
-      }) 
-      .catch(error => 
+      })
+      .catch(error =>
         dispatch(getOrders({error})))
-  }  
+  }
+
+export const getAllUsers = () =>
+  dispatch => {
+    return axios.get('/api/users')
+      .then(res => res.data);
+  }
 
 /**
  * REDUCER
