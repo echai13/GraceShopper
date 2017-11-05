@@ -22,13 +22,13 @@ export class UserHome extends Component {
   }
 
   render() {
-    const {email} = this.props
+    const {user} = this.props
 
     return (
       <div>
         <div>
-          <h3>Welcome, {email}</h3>
-          <Link to="/orders">Orders</Link>
+          <h3>Welcome, {user.fullName}</h3>
+          <Link to="/orders">View Past Orders</Link>
         </div>
         <hr />
         <div>
