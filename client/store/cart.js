@@ -5,7 +5,7 @@ import axios from 'axios'
  * ACTION TYPES
  */
 const GET_CART = 'GET_CART'
-const CLEAR_CART = 'CLEAR_CART'
+const REMOVE_CART = 'REMOVE_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 const DELETE_FROM_CART = 'DELETE_FROM_CART'
@@ -23,18 +23,23 @@ export const getCart = cart => ({ type: GET_CART, cart })
 export const addToCart = cart => ({type: ADD_TO_CART, cart}) // thunk will take product and return new cart
 export const removeFromCart = cart => ({type: REMOVE_FROM_CART, cart})
 export const deleteFromCart = cart => ({type: DELETE_FROM_CART, cart})
-export const clearCart = () =>  ({ type: CLEAR_CART })
+export const removeCart = () =>  ({ type: REMOVE_CART })
 
 /**
  * THUNKS
  */
 const formatCart = (res) => {
     const cart = res.data;
-    console.log('inside of thunk', cart.id);
     const orderItems = cart.orderitems;
+<<<<<<< HEAD
     const includeProducts = orderItems ? orderItems.map(item => {
       return Object.assign({}, item, item.product);
     }) : [];
+=======
+    const includeProducts = orderItems.map(item => {
+      return Object.assign({}, item, item.product, {id: item.id});
+    })
+>>>>>>> 81-cart-buttons
     cart.orderitems = includeProducts;
     return cart;
 }
@@ -43,12 +48,11 @@ const formatCart = (res) => {
 export const getCartThunk = () => dispatch => {
   return axios.get('/api/order')
     .then(res => {
+      console.log('axios call is returning', res);
       dispatch(getCart( formatCart(res) || defaultCart ))
     })
     .catch(err => console.log(err))
 }
-
-
 
 export const changeQuantityThunk = (productInfo) => dispatch => {
   return axios.put('/api/order/incart', {productInfo})
@@ -58,6 +62,13 @@ export const changeQuantityThunk = (productInfo) => dispatch => {
     .catch(err => console.log(err))
 }
 
+export const deleteFromCartThunk = (orderItemId) => dispatch => {
+  return axios.delete(`/api/order/incart/${orderItemId}`)
+    .then(res => {
+      dispatch(getCart(formatCart(res) || defaultCart))
+    })
+    .catch(err => console.log(err))
+}
 
 /**
  * REDUCER
@@ -66,14 +77,15 @@ export default function (state = defaultCart, action) {
   //let products, searchid;
 
   switch (action.type) {
-    case CLEAR_CART:
-      return []
 
     case GET_CART:
       return action.cart;
 
     case ADD_TO_CART:
       return action.cart;
+
+    case REMOVE_CART:
+      return state;
     /*
       // search state to find if id is already there
       searchid = state.findIndex(el => el.id === action.product.id)
