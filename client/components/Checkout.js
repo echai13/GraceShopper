@@ -19,7 +19,6 @@ export class Checkout extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.user)
     this.props.fetchCheckoutPage(this.props.user.id)
   }
 
@@ -65,10 +64,9 @@ export class Checkout extends Component {
         )) : null}
         </tbody>
         </table>
-         <h3>Subtotal:</h3> {this.props.cart.total}
-         <h3>Order Total:</h3> {this.props.cart.total * 1.08875}
+         <h3>Order total: {this.props.cart.total}</h3>
 
-         <form onSubmit={(evt) => { evt.preventDefault(); this.props.handlePayment(this.state, 1000)}}>
+         <form onSubmit={(evt) => { evt.preventDefault(); this.props.handlePayment(this.state, this.props.cart.total)}}>
            <div>
              <label htmlFor="cardNumber"><small>Card Number</small></label>
              <input onChange={this.handleChange} name="cardNumber" type="text" />
@@ -85,7 +83,7 @@ export class Checkout extends Component {
           <div>
              <label htmlFor="expYear"><small>Expiration Year</small></label>
              <select onChange={this.handleChange} name="expYear">
-               {[2017, 2018, 2019, 2020].map(year => (
+               {[2017, 2018, 2019, 2020, 2021, 2022, 2023].map(year => (
                  <option value={year} key={year}>{year}</option>
                ))}
              </select>
@@ -104,7 +102,6 @@ export class Checkout extends Component {
 
 
 const mapState = state => {
-  console.log(state.cart.total)
   return {
     user: state.user,
     addresses: state.addresses, //array of addresses
@@ -118,10 +115,8 @@ const mapDispatch = dispatch => {
     },
     handlePayment(cardData, amount) {
       console.log(cardData)
-      dispatch(sendStripePayment(cardData, 1000))
+      dispatch(sendStripePayment(cardData, amount))
     },
-
-
   }
 }
 
