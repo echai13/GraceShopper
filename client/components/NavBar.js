@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import {withRouter, Link } from 'react-router-dom'
-import { logout } from '../store'
+import { logout, removeCart } from '../store'
 
 export const NavBar = (props) => {
   const {handleClick, isLoggedIn, handleSubmit} = props
@@ -31,7 +31,7 @@ export const NavBar = (props) => {
             </div>
           }
           <div>
-            <Link to="/cart" className="shopping-cart"><i className="fa fa-shopping-cart" /><span className="badge">3</span></Link>
+            <Link to="/cart" className="shopping-cart"><i className="fa fa-shopping-cart" /><span className="badge" /></Link>
             {/*  badge will changed base on number of cartItems in cart */}
           </div>
         </div>
@@ -50,6 +50,9 @@ const mapDispatch = (dispatch) => {
   return {
     handleClick () {
       dispatch(logout())
+      dispatchEvent(removeCart)
+      //dispatch removeUser (from store)
+      //dispatch removeCart(from store)
     },
     handleSubmit (evt) {
       dispatch(searchProducts(evt.target.search.value)) //searchProducts from store reducer
