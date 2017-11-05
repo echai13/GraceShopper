@@ -32,9 +32,9 @@ const formatCart = (res) => {
     const cart = res.data;
     console.log('inside of thunk', cart.id);
     const orderItems = cart.orderitems;
-    const includeProducts = orderItems.map(item => {
+    const includeProducts = orderItems ? orderItems.map(item => {
       return Object.assign({}, item, item.product);
-    })
+    }) : [];
     cart.orderitems = includeProducts;
     return cart;
 }
