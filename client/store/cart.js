@@ -30,6 +30,7 @@ export const removeCart = () =>  ({ type: REMOVE_CART })
  */
 const formatCart = (res) => {
     const cart = res.data;
+    console.log("cart; ", cart);
     const orderItems = cart.orderitems;
     const includeProducts = orderItems.map(item => {
       return Object.assign({}, item, item.product, {id: item.id});
@@ -79,55 +80,9 @@ export default function (state = defaultCart, action) {
       return action.cart;
 
     case REMOVE_CART:
-      return state;
-    /*
-      // search state to find if id is already there
-      searchid = state.findIndex(el => el.id === action.product.id)
-      if (searchid > -1) {
-        // if its there add 1
-        products = state;
-        products[searchid].quantity += 1
-      } else {
-        // if not there concat
-        products = state.concat([{
-          id: action.product.id,
-          product: action.product,
-          quantity: 1
-        }
-      ])
-    }
-    history.push('/cart')
-    return products
-    
-
-    case REMOVE_FROM_CART:
-      return action.cart;
-    
-    // search state to find if id is already there
-    searchid = state.findIndex(el => el.id === action.product.id)
-    if (searchid > -1) {
-        // if its there decrease by 1 or delete if quantity is already 1
-        products = state;
-        if (products[searchid].quantity > 1) products[searchid].quantity -= 1
-        else products.splice(searchid, 1)
-      }
-      history.push('/cart')
-      return products
-      
-
-    case DELETE_FROM_CART:
-      return action.cart;
-    
-      searchid = state.findIndex(el => el.id === action.product.id)
-      if (searchid > -1) {
-        products = state;
-        products.splice(searchid, 1)
-      }
-      history.push('/cart')
-      return products
-      
+      return [];
 
     default:
-      return state
+      return state;
   }
 }
