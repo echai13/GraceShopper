@@ -35,14 +35,14 @@ const CartRow = (props) => {
               const updateQuantity = Object.assign({}, element, { quantity: element.quantity - 1 })
               handleQuantity(updateQuantity)
             }}>
-          remove </button>)
+          -</button>)
             : (
               <button
                 className="btn btn-round btn-info btn-xs"
                 onClick={() => {
                   handleDelete(element.id)
                 }}>
-                delete </button>)}
+                -</button>)}
 
           <button
             disabled={element.quantity === element.stock}
@@ -51,7 +51,7 @@ const CartRow = (props) => {
               const updateQuantity = Object.assign({}, element, { quantity: element.quantity + 1 })
               handleQuantity(updateQuantity)
             }}>
-            <i className="material-icons">add</i> </button>
+            <i className="material-icons">+</i> </button>
         </div>
       </td>
       <td className="td-number">
@@ -59,7 +59,7 @@ const CartRow = (props) => {
       </td>
       <td className="td-actions">
         <button type="button" rel="tooltip" data-placement="left" title="Remove item" className="btn btn-simple" onClick={() => handleDelete(element.id)}>
-          <i className="material-icons">close</i>
+          <i className="material-icons">Remove</i>
         </button>
       </td>
     </tr>
