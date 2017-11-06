@@ -14,12 +14,7 @@ const Homepage = props => {
   return (
     <div className="homepage">
       <div
-        className="page-header header-filter"
-        style={{
-          backgroundImage:
-            "url('http://globalblog.posco.com//wp-content/uploads/2017/02/POSCO_cover_watermark_1300x550_170307_1.jpg')"
-        }}
-      >
+        className="page-header header-filter">
         <div className="container">
           <div className="row">
             <div className="col-md-6">

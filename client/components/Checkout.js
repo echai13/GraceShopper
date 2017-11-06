@@ -19,7 +19,6 @@ export class Checkout extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.user)
     this.props.fetchCheckoutPage(this.props.user.id)
   }
 
@@ -44,19 +43,30 @@ export class Checkout extends Component {
           </div>
         )) : null
         }
-        <h1>Checkout</h1>
-        {/* make sure this is connected to the cart stuff */}
-         { this.props.cart ? this.props.cart.orderitems.map((item, index) => (
-          <div key = {item.id} >
-            <p>{item.name}</p>
-            <p>{item.image}</p>
-            <p>{item.quantity}</p>
-            <p>{item.currentPrice}</p>
-          </div>
-        )) : null }
-         {/* Subtotal: ${this.props.cart.findOrderTotal} */}
+        <h1>Checkout Summary</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Description</th>
+              <th>Price</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+          { this.props.cart ? this.props.cart.orderitems.map(item => (
+            <tr key={item.id}>
+              <td><img src={item.image} /></td>
+              <td>{item.name}</td>
+              <td>{item.currentPrice}</td>
+              <td>{item.quantity}</td>
+            </tr>
+        )) : null}
+        </tbody>
+        </table>
+         <h3>Order total: {this.props.cart.total}</h3>
 
-         <form onSubmit={(evt) => { evt.preventDefault(); this.props.handlePayment(this.state, 1000)}}>
+         <form onSubmit={(evt) => { evt.preventDefault(); this.props.handlePayment(this.state, this.props.cart.total)}}>
            <div>
              <label htmlFor="cardNumber"><small>Card Number</small></label>
              <input onChange={this.handleChange} name="cardNumber" type="text" />
@@ -73,7 +83,7 @@ export class Checkout extends Component {
           <div>
              <label htmlFor="expYear"><small>Expiration Year</small></label>
              <select onChange={this.handleChange} name="expYear">
-               {[2017, 2018, 2019, 2020].map(year => (
+               {[2017, 2018, 2019, 2020, 2021, 2022, 2023].map(year => (
                  <option value={year} key={year}>{year}</option>
                ))}
              </select>
@@ -105,10 +115,8 @@ const mapDispatch = dispatch => {
     },
     handlePayment(cardData, amount) {
       console.log(cardData)
-      dispatch(sendStripePayment(cardData, 1000))
+      dispatch(sendStripePayment(cardData, amount))
     },
-
-
   }
 }
 

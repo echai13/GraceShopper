@@ -11,7 +11,7 @@ export class Cart extends Component {
   // const products = props.products
 
   componentDidMount(){
-  	this.props.fetchCart();
+    this.props.fetchCart();
   }
   /// soooooooo
   /*
@@ -52,10 +52,10 @@ export class Cart extends Component {
                             Total
                           </td>
                           <td className="td-currentPrice">
-                              <small>$</small>{cart && orderItems && orderItems.map(el => el.currentPrice * el.quantity).reduce((a,b) => a + b, 0)}
+                              <small>$</small>{cart.total}
                           </td>
                           <td colSpan="1" className="text-right">
-                <Link to='/checkout'>
+                <Link to="/checkout">
                   <button type="button" className="btn btn-info btn-round">
                     <i className ="material-icons" >Complete Purchase</i>
                   </button>
@@ -66,11 +66,9 @@ export class Cart extends Component {
                   </tbody>
               </table>
     </div>
-
-)
-
+    )
   }
-  }
+}
 
 const mapPropToCart = (state) => {
   return {
@@ -98,24 +96,3 @@ const mapDispatch = (dispatch, ownProps) => {
 
 
 export default connect(mapPropToCart, mapDispatch)(Cart)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
