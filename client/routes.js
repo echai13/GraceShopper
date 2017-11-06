@@ -32,7 +32,8 @@ class Routes extends Component {
             <Route exact path="/products" component={Products} />
             {
               isAdmin &&
-              <Route exact path="/admin" component={AdminPanel} />
+                <Route exact path="/admin" component={AdminPanel} />
+
             }
             {
               isLoggedIn &&

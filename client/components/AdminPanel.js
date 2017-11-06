@@ -1,24 +1,21 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getAllOrders, getAllUsers } from '../store'
+import { AdminUser, AdminProduct, AdminOrder } from './index.js'
+import { getAdminUsers, getAdminOrders, getProductsThunk } from '../store'
+
 
 export class AdminPanel extends Component {
-  constructor(){
-    super();
-    this.state = {view: '', orders: [], users: []}
-    this.handleClick = this.handleClick.bind(this);
+  constructor() {
+    super()
+    this.state = {
+      view: ''
+    }
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount(){
-    this.props.getAllOrders()
-      .then(orders => {
-        this.setState({orders: orders})
-      })
-    this.props.getAllUsers()
-      .then(users => {
-        this.setState({users: users})
-      })
+    this.props.fetchAll()
   }
 
   handleClick(evt) {
@@ -26,9 +23,9 @@ export class AdminPanel extends Component {
   }
 
   render() {
-    const { products } = this.props;
-    const { orders, users } = this.state;
-    console.log(users);
+    // const { products } = this.props;
+    // const { orders, users } = this.state;
+    // console.log(users);
     return (
       <div>
         <h1>Admin Panel</h1>
@@ -39,74 +36,13 @@ export class AdminPanel extends Component {
         </div>
         <div>
           {this.state.view === 'users' &&
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Admin?</th>
-                </tr>
-              </thead>
-              <tbody>
-                { users.map(user => {
-                  return (
-                    <tr key={user.id}>
-                      <td>{user.fullName}</td>
-                      <td>{user.email}</td>
-                      <td>{user.isAdmin ? 'yes' : 'no'}</td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
+            <AdminUser />
           }
           {this.state.view === 'orders' && //could add total
-            <table>
-              <thead>
-                <tr>
-                  <th>User</th>
-                  <th>Email</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-              { orders.map(order => {
-                  return (
-                    <tr key={order.id}>
-                      <td>{order.user.fullName}</td>
-                      <td>{order.user.email}</td>
-                      <td>{order.status}</td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
+            <AdminOrder />
           }
           {this.state.view === 'products' &&
-            <table>
-              <thead>
-                <tr>
-                  <th />
-                  <th>Name</th>
-                  <th>Stock</th>
-                  <th>Price</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                {products.map(product => {
-                  return (
-                    <tr key={product.id}>
-                      <td><img src={product.image} /></td>
-                      <td>{product.name}</td>
-                      <td>{product.stock}</td>
-                      <td>{product.price}</td>
-                      <td>{product.description}</td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
+            <AdminProduct />
           }
         </div>
       </div>
@@ -115,19 +51,21 @@ export class AdminPanel extends Component {
 }
 
 const mapPropToCart = (state) => {
+  console.log(state)
   return {
-    products: state.products
+    products: state.products,
+    orders: state.admin.orders,
+    users: state.admin.users
   };
 }
 
 
-const mapDispatch = (dispatch, ownProps) => {
+const mapDispatch = (dispatch) => {
   return {
-    getAllOrders() {
-      return dispatch(getAllOrders());
-    },
-    getAllUsers() {
-      return dispatch(getAllUsers());
+    fetchAll: () => {
+      dispatch(getAdminUsers())
+      dispatch(getAdminOrders())
+      dispatch(getProductsThunk())
     }
   }
 }

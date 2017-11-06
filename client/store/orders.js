@@ -1,12 +1,10 @@
 import axios from 'axios'
-<<<<<<< HEAD
 import history from '../history'
 
 export const getAllOrders = () =>
   dispatch =>
     axios.get('/api/orders/')
       .then(res => res.data);
-=======
 
 /**
 * ACTION TYPES
@@ -26,15 +24,15 @@ const getOrders = orders => ({type: GET_ORDERS, orders})
 /**
 * THUNK CREATORS
 */
-export const getOrdersThunk = userId => 
+export const getOrdersThunk = userId =>
   dispatch => {
-    axios.get(`/api/users/${userId}/orders`)   
+    axios.get(`/api/users/${userId}/orders`)
       .then(res => {
         dispatch(getOrders(res.data))
-      }) 
-      .catch(error => 
+      })
+      .catch(error =>
         dispatch(getOrders({error})))
-  }  
+  }
 
 /**
 * REDUCER
@@ -48,4 +46,3 @@ export default function (state = defaultState, action) {
       return state
   }
 }
->>>>>>> master

@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom'
 import { editUserThunk } from '../store/user'
 
 const EditUser = props => {
+  console.log(props)
   return (
     <form onSubmit={(evt) => {evt.preventDefault(); props.handleSubmit(props.user.id, {firstName: evt.target.firstName.value, lastName: evt.target.lastName.value, email: evt.target.email.value, password: evt.target.password.value }, props.closeForm)}}>
       <div className="form-group">

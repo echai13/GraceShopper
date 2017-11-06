@@ -29,21 +29,22 @@ export class UserOrders extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                { 
+                {
                     !this.props.orders.error ? this.props.orders.map(order => {
                         return order ? <tr key={order.id}>
                         <td>{order.createdAt.slice(0, 10)}</td>
                         <td>{order.status}</td>
                         {
                             order.orderitems.map(orderitem => {
-                                return orderitem ? <div key={orderitem.id}>
+                                return orderitem ?
+                                <tr>
                                 <td>{orderitem.product.name}</td>
                                 <td>{orderitem.product.price}</td>
                                 <td>{orderitem.quantity}</td>
-                                </div> : ''
+                              </tr> : ''
                             })
                         }
-                        <tr>Order Total: ${order.findOrderTotal}</tr>
+                        <tr>Order Total: ${order.total}</tr>
                         </tr> : ''
                     }): ''
                 }
