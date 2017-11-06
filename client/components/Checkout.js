@@ -5,6 +5,7 @@ import { Link, withRouter } from 'react-router-dom'
 import history from '../history'
 import { setAddressThunk } from '../store/addresses'
 import { sendStripePayment } from '../store/checkout'
+import { AddAddress } from './index'
 
 export class Checkout extends Component {
   constructor() {
@@ -13,9 +14,11 @@ export class Checkout extends Component {
       expMonth: '',
       expYear: 0,
       cardNumber: '',
-      cvc: ''
+      cvc: '',
+      addAddress: false
     }
     this.handleChange = this.handleChange.bind(this)
+    this.hideAdd = this.hideAdd.bind(this);
   }
 
   componentDidMount() {
@@ -26,23 +29,36 @@ export class Checkout extends Component {
     this.setState({ [evt.target.name]: evt.target.value }, () => {console.log(this.state)})
   }
 
+  hideAdd(){
+    this.setState({addAddress: false})
+  }
+
   render() {
     return (
       <div>
-        <h1>Addresses</h1>
-        { this.props.addresses ? this.props.addresses.map((address, index) => (
-          <div key={address.id}>
-            <h3>Address #{index + 1}</h3>
-            <p>{address.street1}</p>
-            { address.street2 ?
-              <p>{address.street2}</p> : null
-            }
-            <p>{address.city}, {address.state} {address.zipcode}</p>
-            <p>{address.country}</p>
-            <button type="submit">Ship To This</button>
-          </div>
-        )) : null
-        }
+        <div>
+          <h1>Addresses</h1>
+          { this.props.addresses ? this.props.addresses.map((address, index) => (
+            <div key={address.id}>
+              <h3>Address #{index + 1}</h3>
+              <p>{address.street1}</p>
+              { address.street2 ?
+                <p>{address.street2}</p> : null
+              }
+              <p>{address.city}, {address.state} {address.zipcode}</p>
+              <p>{address.country}</p>
+              <button type="submit">Ship To This</button>
+            </div>
+          )) : null
+          }
+          <button
+            onClick={() => {
+              this.setState({ addAddress: !this.state.addAddress})
+            }}>
+            Add Address
+          </button>
+          {this.state.addAddress && <AddAddress hide={this.hideAdd} />}
+        </div>
         <h1>Checkout Summary</h1>
         <table>
           <thead>

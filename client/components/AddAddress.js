@@ -25,6 +25,15 @@ export class AddAddress extends Component {
     const addressInfo = this.state;
     addressInfo.userId = this.props.id;
     this.props.addAddress(addressInfo)
+    this.setState({
+      street1: '',
+      street2: '',
+      city: '',
+      state: '',
+      zipcode: '',
+      country: ''
+    })
+    this.props.hide();
   }
 
   handleChange(evt) {
