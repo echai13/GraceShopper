@@ -10,7 +10,6 @@ import { logout } from "../store"
 const Homepage = props => {
   const {handleClick, isLoggedIn, handleSubmit} = props
   // eventually find a few products from all products and display them on home?
-
   return (
     <div className="homepage">
       <div
@@ -20,10 +19,10 @@ const Homepage = props => {
             <div className="col-md-6">
               <h1 className="title">Buy Our Robot Pals</h1>
               <h4>
-                 Humanely raised and created to be humaely loved and cherished.
+                 Humanely raised and created to be humanely loved and cherished.
                  Our borg companions are loving and come with their own personalities,
                  to contribute to a more organic bonding process as you learn how your
-                 pet reacts to and interacts with it's environment. Namely, you.
+                 pet reacts to and interacts with its environment. Namely, you.
               </h4>
               <br />
               <Link to="/products">
