@@ -21,7 +21,8 @@ export const NavBar = (props) => {
             </div>
           { isLoggedIn ?
             <div>
-              <Link to="/home">Home</Link>
+              <Link to="/home">Your Account</Link>
+              <Link to="/checkout">Checkout</Link>
               <Link to="/home" onClick={handleClick}>Logout</Link>
             </div>
             : <div>

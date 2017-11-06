@@ -78,6 +78,7 @@ export class SingleProduct extends Component {
 * CONTAINER
 */
 const mapState = (state) => {
+  console.log('the state', state)
   return {
     singleProduct: state.singleProduct
   }

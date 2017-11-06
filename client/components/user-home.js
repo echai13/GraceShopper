@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import UserOrders from './user-orders'
+import UserDetails from './user-details'
+import { setAddressThunk } from '../store'
 import {Link} from 'react-router-dom'
 import EditUser from './EditUser'
 
 /**
  * COMPONENT
  */
+
 export class UserHome extends Component {
   constructor() {
     super()
@@ -28,7 +32,6 @@ export class UserHome extends Component {
       <div>
         <div>
           <h3>Welcome, {user.fullName}</h3>
-          <Link to="/orders">View Past Orders</Link>
         </div>
         <hr />
         <div>
@@ -41,6 +44,10 @@ export class UserHome extends Component {
             <button type="submit" onClick={this.updateToggle}>Edit Your Details</button>
           }
         </div>
+        <h4>Account Details</h4>
+          <UserDetails />
+        <h4>Order History</h4>
+          <UserOrders />
       </div>
     )
   }
@@ -50,18 +57,9 @@ export class UserHome extends Component {
  * CONTAINER
  */
 const mapState = (state) => {
-  console.log('STATE', state)
   return {
-    user: state.user,
-    email: state.user.email,
+    user: state.user
   }
 }
 
 export default connect(mapState)(UserHome)
-
-/**
- * PROP TYPES
- */
-UserHome.propTypes = {
-  email: PropTypes.string
-}
