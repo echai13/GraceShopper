@@ -1,9 +1,11 @@
 const router = require('express').Router()
-var stripe = require('stripe')('sk_test_J6jbAmLgjo0q6jt1vfO4cYuz')
+const stripeKey = require('../../secrets')
+var stripe = require('stripe')(stripeKey)
 module.exports = router
 
 router.post('/', (req, res, next) => {
   console.log('entered checkout api')
+  console.log (stripeKey);
   return stripe.tokens.create({
     card: {
       'number': req.body.cardDetails.cardNumber,
@@ -15,7 +17,7 @@ router.post('/', (req, res, next) => {
     .then(token => {
       console.log(token)
       return stripe.charges.create({
-        amount: req.body.amount * 100,
+        amount: Math.round(req.body.amount * 100),
         currency: 'usd',
         source: token.id,
         description: 'new order for ferrets'
