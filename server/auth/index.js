@@ -31,11 +31,11 @@ router.post('/signup', (req, res, next) => {
 })
 
 router.post('/logout', (req, res) => {
-  // delete req.cart
-  // delete req.session.cartId
-  console.log('REQ.BODYYYYYY', req.body)
-  console.log('REQ.USERRRR', req.user)
-  console.log('inside of logout cart and session.cartId: ', req.cart, req.session.cartId)
+  // // delete req.cart
+  // // delete req.session.cartId
+  // console.log('REQ.BODYYYYYY', req.body)
+  // console.log('REQ.USERRRR', req.user)
+  // console.log('inside of logout cart and session.cartId: ', req.cart, req.session.cartId)
   req.logout()
   res.redirect('/')
 })

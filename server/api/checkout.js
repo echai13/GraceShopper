@@ -15,7 +15,7 @@ router.post('/', (req, res, next) => {
     .then(token => {
       console.log(token)
       return stripe.charges.create({
-        amount: req.body.amount,
+        amount: req.body.amount * 100,
         currency: 'usd',
         source: token.id,
         description: 'new order for ferrets'

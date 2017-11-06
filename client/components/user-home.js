@@ -1,20 +1,49 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import EditUser from './EditUser'
 
 /**
  * COMPONENT
  */
-export const UserHome = (props) => {
-  const {email} = props
+export class UserHome extends Component {
+  constructor() {
+    super()
+    this.state = {
+      showEditForm: false
+    }
+    this.updateToggle = this.updateToggle.bind(this)
+  }
 
-  return (
-    <div>
-      <h3>Welcome, {email}</h3>
-      <Link to="/orders">Orders</Link>
-    </div>
-  )
+  updateToggle() {
+    console.log(this.state.showEditForm)
+    this.setState({ showEditForm: !this.state.showEditForm })
+  }
+
+  render() {
+    const {user} = this.props
+
+    return (
+      <div>
+        <div>
+          <h3>Welcome, {user.fullName}</h3>
+          <Link to="/orders">View Past Orders</Link>
+        </div>
+        <hr />
+        <div>
+          { this.state.showEditForm ?
+            <div>
+              <button type="submit" onClick={this.updateToggle }>Close Edit</button>
+              <EditUser closeForm={this.updateToggle} />
+            </div>
+            :
+            <button type="submit" onClick={this.updateToggle}>Edit Your Details</button>
+          }
+        </div>
+      </div>
+    )
+  }
 }
 
 /**
@@ -23,7 +52,8 @@ export const UserHome = (props) => {
 const mapState = (state) => {
   console.log('STATE', state)
   return {
-    email: state.user.email
+    user: state.user,
+    email: state.user.email,
   }
 }
 
