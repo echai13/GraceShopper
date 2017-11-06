@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 import history from '../history'
-import { setAddressThunk } from '../store/addresses'
-import { sendStripePayment } from '../store/checkout'
+import { setAddressThunk, setOrderAddress, sendStripePayment } from '../store'
 import { AddAddress } from './index'
 
 export class Checkout extends Component {
@@ -34,6 +33,7 @@ export class Checkout extends Component {
   }
 
   render() {
+    const cartId = this.props.cart.id;
     return (
       <div>
         <div>
@@ -47,7 +47,9 @@ export class Checkout extends Component {
               }
               <p>{address.city}, {address.state} {address.zipcode}</p>
               <p>{address.country}</p>
-              <button type="submit">Ship To This</button>
+              <button
+                type="submit"
+                onClick= {() => this.props.setOrderAddress(cartId, address.id)}>Ship To This</button>
             </div>
           )) : null
           }
@@ -133,6 +135,9 @@ const mapDispatch = dispatch => {
       console.log(cardData)
       dispatch(sendStripePayment(cardData, amount))
     },
+    setOrderAddress(id, addressId) {
+      dispatch(setOrderAddress({id, addressId}))
+    }
   }
 }
 
