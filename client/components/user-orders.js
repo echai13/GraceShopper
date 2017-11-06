@@ -21,31 +21,29 @@ export class UserOrders extends Component {
             <table className="table table-shopping">
                 <thead>
                     <tr>
-                        <th className="text-right">Date Ordered</th>
-                        <th className="text-right">Status</th>
-                        <th className="text-right">Pet List</th>
-                        <th className="text-right">Price</th>
-                        <th className="text-right">Quantity</th>
+                        <th>Date Ordered</th>
+                        <th>Status</th>
+                        <th>Pet List</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
                     </tr>
                 </thead>
                 <tbody>
                 { 
                     !this.props.orders.error ? this.props.orders.map(order => {
-                        return order ? <tr key={order.id}>
-                        <td>{order.createdAt.slice(0, 10)}</td>
-                        <td>{order.status}</td>
-                        {
-                            order.orderitems.map(orderitem => {
-                                return orderitem ? <div key={orderitem.id}>
+                        return order ? 
+                            order.orderitems.map((orderitem, i) => {
+                                return orderitem ? <tr key={i}>
+                                <td>{i == 0 ? order.createdAt.slice(0, 10) : ''}</td>
+                                <td>{i == 0 ? order.status : ''}</td>
                                 <td>{orderitem.product.name}</td>
                                 <td>{orderitem.product.price}</td>
                                 <td>{orderitem.quantity}</td>
-                                </div> : ''
-                            })
-                        }
-                        <tr>Order Total: ${order.findOrderTotal}</tr>
-                        </tr> : ''
-                    }): ''
+                                <td>{orderitem.quantity} * {orderitem.currentPrice} = {orderitem.subtotal}</td>
+                                </tr> : ''
+                            }) : ''
+                        }) : ''
                 }
             </tbody>
             </table>

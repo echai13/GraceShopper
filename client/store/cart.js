@@ -81,7 +81,7 @@ export default function (state = defaultCart, action) {
 
     case REMOVE_CART:
       return [];
-
+      
     default:
       return state;
   }
