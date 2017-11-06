@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Here is an ECommerceWebsite!",
   "engines": {
-    "node": ">= 7.0.0"
+    "node": "^9"
   },
   "main": "index.js",
   "scripts": {
