@@ -79,7 +79,7 @@ export default function (state = defaultCart, action) {
       return action.cart;
 
     case REMOVE_CART:
-      return state;
+      return [];
     /*
       // search state to find if id is already there
       searchid = state.findIndex(el => el.id === action.product.id)
