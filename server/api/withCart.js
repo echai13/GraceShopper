@@ -15,16 +15,13 @@ const withCart = function (req, res, next) {
     req.user = withCart._test_user
   }
   ////////////////////
+  if (req.cart) { return next(); }
 
-  //if (req.cart) { return next() }
-  console.log('inside of withCart and req has...', req.cart, req.session.cartId);
-
-  if ( req.cart || req.session.cartId) {
+  if (req.session.cartId) {
     //const { cartId } = req.session;
-    const cartId = req.cart ? req.cart.id : req.session.cartId
+    const cartId = req.session.cartId;
     return Order.findById(cartId)
       .then(order => {
-        console.log('inside of withCart with req.cart: ', req.cart);
         req.cart = order;
         return next();
       })
@@ -35,6 +32,7 @@ const withCart = function (req, res, next) {
     return Order.findOrCreate({where: {userId: req.user.id, status: 'open'}})
       .then(([order, _]) => {
         req.cart = order;
+        req.session.cartId = order.id;
         return next();
       })
       .catch(next);
@@ -43,6 +41,7 @@ const withCart = function (req, res, next) {
   return Order.create({status: 'open'})
     .then(order => {
       req.cart = order;
+      req.session.cartId = order.id;
       return next();
     })
     .catch(next);

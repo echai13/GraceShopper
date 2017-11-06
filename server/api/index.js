@@ -1,6 +1,12 @@
 const router = require('express').Router()
 module.exports = router
 
+router.use((req, res, next) => {
+  console.log('inside of api/index with req....', req.cart, req.session)
+  next();
+}
+)
+
 router.use('/users', require('./users'));
 router.use('/order', require('./order'));
 router.use('/orders', require('./orders'));

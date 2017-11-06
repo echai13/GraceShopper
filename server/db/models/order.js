@@ -12,7 +12,9 @@ const Order = db.define('order', {
     total: {
       type: Sequelize.VIRTUAL,
       get: function() {
-        return (this.orderitems.map(item => item.subtotal)).reduce((a, b) => a + b)
+        return (this.orderitems ?
+                this.orderitems.map(item => item.subtotal).reduce((a, b) => a + b)
+                : 0 )
       }
     }
 }, {
