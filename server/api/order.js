@@ -7,8 +7,7 @@ module.exports = router
 router.use(withCart);
 
 router.get('/', (req, res, next) => {
-
-    res.json(req.cart)
+  res.json(req.cart)
 });
 
 
@@ -61,6 +60,17 @@ router.put('/neworderitem', (req, res, next) => {
     })
     .catch(next);
 
+})
+
+router.delete('/incart/:id', (req, res, next) => {
+  const orderItemId = req.params.id;
+  OrderItem.findById(orderItemId)
+    .then(async (orderItem) => {
+      await orderItem.destroy();
+      req.cart = await Order.findById(req.cart.id);
+      res.json(req.cart);
+    })
+    .catch(next);
 })
 // put /inproduct
 /*

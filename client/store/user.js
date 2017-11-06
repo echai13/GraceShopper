@@ -48,6 +48,13 @@ export const logout = () =>
       })
       .catch(err => console.log(err))
 
+export const editUserThunk = (userId, userEdits) =>
+  dispatch => {
+    axios.put(`/api/users/${userId}`, userEdits)
+      .then(res => dispatch(getUser(res.data)))
+      .catch(error => dispatch(getUser({error})))
+  }
+
 /**
  * REDUCER
  */

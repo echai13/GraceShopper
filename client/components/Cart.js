@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import {getCartThunk, changeQuantityThunk, removeFromCart, deleteFromCart} from '../store'
+import { getCartThunk, changeQuantityThunk, deleteFromCartThunk} from '../store'
+import CartRow from './CartRow';
 
 
 export class Cart extends Component {
@@ -10,7 +11,7 @@ export class Cart extends Component {
   // const products = props.products
 
   componentDidMount(){
-  	this.props.fetchCart();
+    this.props.fetchCart();
   }
   /// soooooooo
   /*
@@ -21,98 +22,53 @@ export class Cart extends Component {
   */
 
   render() {
-  	const { cart } = this.props;
+    const { cart } = this.props;
     const orderItems = cart.orderitems;
-    console.log('our order items are: ', orderItems);
-    if(orderItems)
-    {console.log('first order item product is: ', orderItems[0]);}
 
-	return (
-	  <div className="container">
-            <table className="table table-shopping">
-                <thead>
-                    <tr>
-                        <th >Product</th>
-                        <th className="text-right">Description</th>
-                        <th className="text-right">currentPrice</th>
-                        <th className="text-right">Qty</th>
-                        <th className="text-right">Subtotal</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-              	{cart && orderItems && orderItems.map((element, index) => (
-                    <tr key={element.id}>
-                        <td>
-                            <div className="img-container">
-			  					<Link to={`/products/${element.id}`}>
-                                	<img src={element.image} alt="..." />
-								</Link>
-                            </div>
-                        </td>
-                        <td className="td-name">
-			  					<Link to={`/products/${element.id}`}>
-                            		{element.name}
-								</Link>
-                            <br /><small>from {element.category}</small>
-                        </td>
-                        <td className="td-number">
-                            <small>&#36;</small>{element.currentPrice}
-                        </td>
-                        <td className="td-number">
-                            {element.quantity}
-                            <div className="btn-group">
-                                <button
-                                		className="btn btn-round btn-info btn-xs"
-                                		onClick={() => {
-                                			const updateQuantity = Object.assign({}, element, {quantity : element.quantity -1} )
-                                			this.props.handleQuantity(updateQuantity)}}>
-                                		<i className="material-icons">remove</i> </button>
-                                <button
-                                    disabled={element.quantity === element.stock}
-                                		className="btn btn-round btn-info btn-xs"
-                                		onClick={() => {
-                                 			const updateQuantity = Object.assign({}, element, {quantity : element.quantity +1} )
-                                			this.props.handleQuantity(updateQuantity)}}>
-                                		<i className="material-icons">add</i> </button>
-                            </div>
-                        </td>
-                        <td className="td-number">
-                            <small>&#36;</small>{element.currentPrice * element.quantity}
-                        </td>
-                        <td className="td-actions">
-                            <button type="button" rel="tooltip" data-placement="left" title="Remove item" className="btn btn-simple" onClick={() => this.props.handleDelete(element.id)}>
-                                <i className="material-icons">close</i>
-                            </button>
-                        </td>
-                    </tr>
-              ))}
-                    <tr>
-                        <td colSpan="2">
-                        </td>
-                        <td className="td-total">
-                           Total
-                        </td>
-                        <td className="td-currentPrice">
-                            <small>$</small>{cart && orderItems && orderItems.map(el => el.currentPrice * el.quantity).reduce((a,b) => a + b, 0)}
-                        </td>
-                        <td colSpan="1" className="text-right">
-							<Link to='/checkout'>
-								<button type="button" className="btn btn-info btn-round">
-									 <i className ="material-icons" >Complete Purchase</i>
-								</button>
-							</Link>
-						</td>
+    return (
+      <div className="container">
+              <table className="table table-shopping">
+                  <thead>
+                      <tr>
+                          <th>Product</th>
+                          <th>Description</th>
+                          <th>currentPrice</th>
+                          <th>Qty</th>
+                          <th>Subtotal</th>
+                          <th>Delete</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                  {cart && orderItems && orderItems.map((element) => (
+                      <CartRow
+                        key={element.id}
+                        element={element}
+                        handleQuantity={this.props.handleQuantity}
+                        handleDelete = {this.props.handleDelete} />
+                  ))}
+                      <tr>
+                          <td colSpan="2" />
+                          <td className="td-total">
+                            Total
+                          </td>
+                          <td className="td-currentPrice">
+                              <small>$</small>{cart.total}
+                          </td>
+                          <td colSpan="1" className="text-right">
+                <Link to="/checkout">
+                  <button type="button" className="btn btn-info btn-round">
+                    <i className ="material-icons" >Complete Purchase</i>
+                  </button>
+                </Link>
+              </td>
 
-                    </tr>
-                </tbody>
-            </table>
-	</div>
-
-)
-
+                      </tr>
+                  </tbody>
+              </table>
+    </div>
+    )
   }
-  }
+}
 
 const mapPropToCart = (state) => {
   return {
@@ -131,30 +87,12 @@ const mapDispatch = (dispatch, ownProps) => {
     },
     handleQuantity(quantity) {
       dispatch(changeQuantityThunk(quantity))
+    },
+    handleDelete(orderItemId){
+      dispatch(deleteFromCartThunk(orderItemId))
     }
   }
 }
 
 
 export default connect(mapPropToCart, mapDispatch)(Cart)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
