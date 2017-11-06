@@ -4,14 +4,14 @@ import {connect} from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 import history from '../history'
 import { setAddressThunk } from '../store/addresses'
-import { sendStripePayment } from '../store/checkout'
+import { removeCart, sendStripePayment } from '../store'
 
 export class Checkout extends Component {
   constructor() {
     super()
     this.state = {
-      expMonth: '',
-      expYear: 0,
+      expMonth: '01',
+      expYear: 2017,
       cardNumber: '',
       cvc: ''
     }
@@ -66,7 +66,7 @@ export class Checkout extends Component {
         </table>
          <h3>Order total: {this.props.cart.total}</h3>
 
-         <form onSubmit={(evt) => { evt.preventDefault(); this.props.handlePayment(this.state, this.props.cart.total)}}>
+         <form onSubmit={(evt) => { evt.preventDefault(); this.props.handlePayment(this.state, this.props.cart.total, this.props.cart.id)}}>
            <div>
              <label htmlFor="cardNumber"><small>Card Number</small></label>
              <input onChange={this.handleChange} name="cardNumber" type="text" />
@@ -113,9 +113,9 @@ const mapDispatch = dispatch => {
     fetchCheckoutPage(userId) {
       dispatch(setAddressThunk(userId)) //grabbing all addresses associated with user
     },
-    handlePayment(cardData, amount) {
+    handlePayment(cardData, amount, orderId) {
       console.log(cardData)
-      dispatch(sendStripePayment(cardData, amount))
+      dispatch(sendStripePayment(cardData, amount, orderId))
     },
   }
 }

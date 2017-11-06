@@ -36,6 +36,8 @@ const withCart = function (req, res, next) {
       .then(([order, _]) => {
         req.cart = order;
         req.session.cartId = order.id;
+        console.log('cart: ', req.cart)
+        console.log('req.session.cartId; ', req.session.cartId)
         return next();
       })
       .catch(next);
