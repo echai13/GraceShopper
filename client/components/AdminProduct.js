@@ -17,6 +17,7 @@ export const AdminProduct = (props) => {
             <th>Stock</th>
             <th>Price</th>
             <th>Description</th>
+            <th>Categories</th>
             <th>Remove</th>
           </tr>
         </thead>
@@ -29,6 +30,7 @@ export const AdminProduct = (props) => {
                 <td>{product.stock}</td>
                 <td>{product.price}</td>
                 <td>{product.description}</td>
+                <td>{product.categories.map(category => category.name).join(', ')}</td>
                 <td><button type="submit" onClick={() => {props.handleClick(product.id)}}>X</button></td>
               </tr>
             )

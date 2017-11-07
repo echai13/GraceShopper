@@ -67,7 +67,7 @@ export class SingleProduct extends Component {
             </form>) :
             <span>Currently Out of Stock</span>
           }
-          <h3>{singleProduct.category}</h3>
+          <h3>{singleProduct.categories && singleProduct.categories.map(category => category.name).join(', ')}</h3>
           <p>{singleProduct.description}</p>
           <p>{singleProduct.reviews}</p>
         </div>
