@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import { getOrdersThunk } from '../store'
+import { Link } from 'react-router-dom'
 
 /**
  * COMPONENT
@@ -20,7 +21,14 @@ export class UserOrderDetails extends Component {
     return (
         <div>
             <h3>Order Details</h3>
-            <p><strong>Date Ordered:</strong> {order && order.createdAt.slice(0, 10)}</p>
+            <p>
+                <strong>Order Placed:</strong> {order && (order.createdAt.slice(5, 7) + '/' + order.createdAt.slice(8, 10) + '/' + order.createdAt.slice(0, 4) + ' ')}
+                at {order ? (
+                    order.createdAt.slice(11, 13) <= 12 ? order.createdAt.slice(11, 13) + ':' + order.createdAt.slice(14, 16) + ' AM'
+                    : (Number(order.createdAt.slice(11, 13)) - 12) + ':' + order.createdAt.slice(14, 16) + ' PM'
+                    ) : ''
+                }
+            </p>
             <p><strong>Status:</strong> {order && order.status}</p>
             <p><strong>Shipped To:</strong>
             <br />{order && order.address.street1}
@@ -30,8 +38,10 @@ export class UserOrderDetails extends Component {
             </p>
             {
                 order && order.orderitems.map((orderitem, i) => {
-                  return orderitem && [<p key={i + 'name'}><strong>{orderitem.product.name}</strong></p>,
-                  <img key={i + 'image'} src={orderitem.product.image} />,
+                  return orderitem && [<Link key={i + 'link'} to={`/products/${orderitem.product.id}`}>
+                    <p key={i + 'name'}><strong>{orderitem.product.name}</strong></p>
+                    <img key={i + 'image'} src={orderitem.product.image} />
+                  </Link>,
                   <ul key={i}>
                   <li><strong>Price:</strong> <small>$</small>{orderitem.product.price}</li>
                   <li><strong>Quantity:</strong> {orderitem.quantity}</li>
