@@ -4,13 +4,13 @@ const db = require('../db')
 const Address = require('./address')
 
 const User = db.define('user', {
-  firstName: {
+  firstName: { // update to name and first name and last name getters
     type: Sequelize.STRING,
-    allowNull: false
+    //allowNull: false
   },
   lastName: {
     type: Sequelize.STRING,
-    allowNull: false
+    //allowNull: false
   },
   email: {
     type: Sequelize.STRING,
@@ -26,7 +26,8 @@ const User = db.define('user', {
   },
   salt: {
     type: Sequelize.STRING
-  }
+  },
+  googleId: Sequelize.STRING
 }, {
     getterMethods: {
       fullName() {
