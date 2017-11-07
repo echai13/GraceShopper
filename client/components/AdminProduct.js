@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 import { AddProduct } from './index.js'
+import { removeProductThunk } from '../store'
 
 
 export const AdminProduct = (props) => {
@@ -16,6 +17,7 @@ export const AdminProduct = (props) => {
             <th>Stock</th>
             <th>Price</th>
             <th>Description</th>
+            <th>Remove</th>
           </tr>
         </thead>
         <tbody>
@@ -27,6 +29,7 @@ export const AdminProduct = (props) => {
                 <td>{product.stock}</td>
                 <td>{product.price}</td>
                 <td>{product.description}</td>
+                <td><button type="submit" onClick={() => {props.handleClick(product.id)}}>X</button></td>
               </tr>
             )
           })}
@@ -42,6 +45,12 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = null
+const mapDispatch = dispatch => {
+  return {
+    handleClick(productId) {
+      dispatch(removeProductThunk(productId))
+    }
+  }
+}
 
 export default withRouter(connect(mapState, mapDispatch)(AdminProduct))

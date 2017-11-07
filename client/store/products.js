@@ -39,11 +39,16 @@ export const editProductThunk = (product, productId) =>
   dispatch =>
     axios.put(`/api/products/${productId}`, product)
       .then(updatedProduct => {
-        console.log(updatedProduct)
         dispatch(setSingleProduct(updatedProduct.data))
         dispatch(getProductsThunk())
       })
       .catch(err => console.log(err))
+
+export const removeProductThunk = productId =>
+  dispatch =>
+    axios.delete(`/api/products/${productId}`)
+    .then(_ => dispatch(getProductsThunk()))
+    .catch(err => console.log(err))
 
 /**
  * REDUCER
