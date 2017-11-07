@@ -41,7 +41,7 @@ export class Checkout extends Component {
           { this.props.addresses ? this.props.addresses.map((address, index) => (
             <div key={address.id}>
               <h3>Address #{index + 1}</h3>
-              <br />{address.street1}
+              {address.street1}
               { address.street2 ?
                 <span><br />{address.street2}</span> : null
               }

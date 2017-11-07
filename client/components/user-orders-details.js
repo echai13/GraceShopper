@@ -20,7 +20,14 @@ export class UserOrderDetails extends Component {
     return (
         <div>
             <h3>Order Details</h3>
-            <p><strong>Date Ordered:</strong> {order && order.createdAt.slice(0, 10)}</p>
+            <p>
+                <strong>Order Placed:</strong> {order && (order.createdAt.slice(5, 7) + '/' + order.createdAt.slice(8, 10) + '/' + order.createdAt.slice(0, 4) + ' ')}
+                at {order ? (
+                    order.createdAt.slice(11, 13) <= 12 ? order.createdAt.slice(11, 13) + ':' + order.createdAt.slice(14, 16) + ' AM'
+                    : (Number(order.createdAt.slice(11, 13)) - 12) + ':' + order.createdAt.slice(14, 16) + ' PM'
+                    ) : ''
+                }
+            </p>
             <p><strong>Status:</strong> {order && order.status}</p>
             <p><strong>Shipped To:</strong>
             <br />{order && order.address.street1}
