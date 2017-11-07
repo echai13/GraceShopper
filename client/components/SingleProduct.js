@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { setSingleProductThunk, addProductToCart } from '../store'
-import { EditProduct } from './index.js'
+import { EditProduct, MakeReview } from './index.js'
 
 /**
 *  COMPONENT: From All Products Page, the singleProduct's state is set when a single product is clicked on
@@ -69,8 +69,13 @@ export class SingleProduct extends Component {
           }
           <h3>{singleProduct.categories && singleProduct.categories.map(category => category.name).join(', ')}</h3>
           <p>{singleProduct.description}</p>
-          <p>{singleProduct.reviews}</p>
+          <h2> Reviews </h2>
+          {singleProduct && singleProduct.reviews && singleProduct.reviews.map(review => {
+            return (
+              <p> {review.reviewText} </p>)
+          })}
         </div>
+        <MakeReview />
       </div>
     )
   }

@@ -1,6 +1,7 @@
 const {ENUM, STRING, DECIMAL, INTEGER, ARRAY, TEXT, BOOLEAN, VIRTUAL} = require('sequelize')
 const db = require('../db')
 const Category = require('./category')
+const Review = require('./review')
 
 const Product = db.define('product', {
 	name: {
@@ -32,7 +33,7 @@ const Product = db.define('product', {
 }, {
     defaultScope: {
       include: [
-        { model: Category } ]
+        { model: Category }, { model: Review } ]
     }
 })
 

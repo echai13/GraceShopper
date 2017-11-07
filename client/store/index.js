@@ -11,8 +11,9 @@ import checkout from './checkout'
 import cart from './cart'
 import orders from './orders'
 import admin from './admin'
+import review from './review'
 
-const reducer = combineReducers({user, products, categories, singleProduct, addresses, cart, orders, admin})
+const reducer = combineReducers({user, products, categories, singleProduct, addresses, cart, orders, admin, review})
 
 
 const middleware = composeWithDevTools(applyMiddleware(
@@ -31,3 +32,4 @@ export * from './checkout'
 export * from './cart'
 export * from './orders'
 export * from './admin'
+export * from './review'
