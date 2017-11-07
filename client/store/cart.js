@@ -65,10 +65,12 @@ export const deleteFromCartThunk = (orderItemId) => dispatch => {
     .catch(err => console.log(err))
 }
 
-export const updateCartStatus = (orderId, status, updateOrders) =>
+export const updateCartStatus = (orderId, status, getAdminOrders) =>
   dispatch => {
     return axios.put(`/api/orders/${orderId}`, {status})
-      .then(dispatch(updateOrders()))
+      .then(() => {
+        dispatch(getAdminOrders)
+      })
       .catch(err => console.log(err))
   }
 
