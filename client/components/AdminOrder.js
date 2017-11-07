@@ -86,6 +86,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     updateStatus(id, status){
+      console.log('has getAdminOrders: ', getAdminOrders)
       dispatch(updateCartStatus(id, status, getAdminOrders));
     }
   }

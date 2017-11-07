@@ -16,6 +16,7 @@ router.put('/:id', (req, res, next) => {
   Order.findById(req.params.id)
     .then(order => {
       order.update({ status: status })
+        .then(order => res.json(order))
         .catch(next);
     })
     .catch(next);

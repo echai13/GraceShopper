@@ -19,11 +19,12 @@ export const getAdminUsers = () =>
 
 export const getAdminOrders = () =>
   dispatch =>
-      axios.get(`/api/orders`)
+      { console.log('inside of getAdminOrders')
+        axios.get(`/api/orders`)
       .then(orders => {
         console.log(orders)
         dispatch(setAdminOrders(orders.data))
-      })
+      })}
 
 
 export default function (state = defaultAdmin, action) {
