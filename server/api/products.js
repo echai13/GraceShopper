@@ -26,7 +26,7 @@ router.get('/:productId', (req, res, next) => {
 router.put(`/:productId`, (req, res, next) => {
   Product.findById(req.params.productId)
     .then(product => {
-      return product.update({
+      product.update({
         name: req.body.name || product.name,
         image: req.body.image || product.image,
         price: req.body.price || product.price,
@@ -35,7 +35,9 @@ router.put(`/:productId`, (req, res, next) => {
       })
       .then(updatedProduct => {
         updatedProduct.setCategories(req.body.categories)
+        res.sendStatus(200)
       })
+    })
     .catch(next)
 })
 

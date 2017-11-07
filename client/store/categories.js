@@ -28,6 +28,14 @@ export const getCategoriesThunk = () =>
       .then(res => dispatch(getCategories(res.data || defaultCategory)))
       .catch(err => console.log(err))
 
+export const addCategoriesThunk = category =>
+  dispatch =>
+    axios.post('/api/categories', category)
+      .then(() => {
+        dispatch(getCategoriesThunk())
+      })
+      .catch(err => console.log(err))
+
 /**
  * REDUCER
  */

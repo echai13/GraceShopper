@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
-import { AddProduct } from './index.js'
+import { AddProduct, CategoryForm } from './index.js'
 import { removeProductThunk } from '../store'
-
 
 export const AdminProduct = (props) => {
   return (
     <div>
+      <CategoryForm />
       <AddProduct />
       <table>
         <thead>

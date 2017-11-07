@@ -1,6 +1,6 @@
 import axios from 'axios'
 import history from '../history'
-import { setSingleProduct } from './singleProduct'
+import { setSingleProductThunk } from './singleProduct'
 
 /**
  * ACTION TYPES
@@ -40,7 +40,7 @@ export const editProductThunk = (product, productId) =>
     axios.put(`/api/products/${productId}`, product)
       .then(updatedProduct => {
         console.log(updatedProduct.data)
-        dispatch(setSingleProduct(updatedProduct.data))
+        dispatch(setSingleProductThunk(productId))
         dispatch(getProductsThunk())
       })
       .catch(err => console.log(err))
