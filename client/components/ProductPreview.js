@@ -10,7 +10,7 @@ const ProductPreview = (props) => {
         <h3>{product.name}</h3>
         <img src={product.image} />
       </Link>
-      <h3>{product.price}</h3>
+      <h3><small>$</small>{product.price}</h3>
       <p>{product.description}</p>
       <h3>{product.stock} </h3>
       <h3>{product.isAvailable} </h3>

@@ -55,7 +55,7 @@ export class Cart extends Component {
                         Subtotal
                       </td>
                       <td className="td-currentPrice">
-                          <small>$</small>{subtotal}
+                          <small>$</small>{subtotal && subtotal.toFixed(2)}
                       </td>
                       </tr>
                     <tr>
@@ -73,7 +73,7 @@ export class Cart extends Component {
                         Shipping
                       </td>
                       <td className="td-currentPrice">
-                          <small>$</small>{shipping}
+                          <small>$</small>{shipping.toFixed(2)}
                       </td>
                       </tr>
                       <tr>
@@ -82,7 +82,7 @@ export class Cart extends Component {
                           Total
                         </td>
                         <td className="td-currentPrice">
-                            <small>$</small>{Number(subtotal) + Number(tax) + Number(shipping)}
+                            <small>$</small>{(Number(subtotal) + Number(tax) + Number(shipping)).toFixed(2)}
                         </td>
                         <td colSpan="1" className="text-right">
                       <Link to="/checkout">

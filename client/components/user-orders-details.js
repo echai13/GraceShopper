@@ -40,9 +40,9 @@ export class UserOrderDetails extends Component {
                 })
             }
             <h4>Order Summary</h4>
-            <p><strong>Subtotal:</strong> <small>$</small>{order && order.total}
+            <p><strong>Subtotal:</strong> <small>$</small>{order && order.total.toFixed(2)}
             <br /><strong>Tax:</strong> <small>$</small>{order && (order.total * .09).toFixed(2)}
-            <br /><strong>Shipping:</strong> <small>$</small>10
+            <br /><strong>Shipping:</strong> <small>$</small>10.00
             <br /><strong>Grand Total:</strong> <small>$</small>{order && (Number(order.total) + Number(order.total*.09) + 10).toFixed(2)}
             </p>
         </div>
