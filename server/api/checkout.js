@@ -1,11 +1,13 @@
 const router = require('express').Router()
 const stripeKey = require('../../secrets')
 var stripe = require('stripe')(stripeKey)
+const { Order } = require('../db/models')
 module.exports = router
 
 router.post('/', (req, res, next) => {
-  console.log('entered checkout api')
-  console.log (stripeKey);
+  delete req.session.cartId;
+  req.session.save();
+  delete req.cart;
   return stripe.tokens.create({
     card: {
       'number': req.body.cardDetails.cardNumber,
@@ -15,7 +17,6 @@ router.post('/', (req, res, next) => {
     }
   })
     .then(token => {
-      console.log(token)
       return stripe.charges.create({
         amount: Math.round(req.body.amount * 100),
         currency: 'usd',
@@ -23,7 +24,13 @@ router.post('/', (req, res, next) => {
         description: 'new order for ferrets'
       })
         .then(charge => {
-          console.log(charge)
+          if (!charge.failure_code) {
+            return Order.findById(req.body.orderId)
+              .then(order => {
+                order.update({ status: 'confirmed' })
+              })
+              .catch(next);
+          }
           res.status(200).redirect('/')
         })
     })
