@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import { Link } from 'react-router-dom'
-import { setSingleProductThunk } from '../store'
+import { getProductsThunk } from '../store'
 import history from '../history'
 import ProductPreview from './ProductPreview'
 
@@ -22,6 +22,7 @@ export class Products extends Component {
   updateCategory = (category) => {
     console.log('updating state')
     this.setState({currentCategory: category});
+    this.props.fetchAllProducts()
   }
 
   render() {
@@ -63,4 +64,12 @@ const mapState = (state) => {
   }
 }
 
-export default connect(mapState)(Products)
+const mapDispatch = dispatch => {
+  return {
+    fetchAllProducts () {
+      dispatch(getProductsThunk())
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(Products)
