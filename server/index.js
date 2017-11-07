@@ -51,6 +51,10 @@ const createApp = () => {
   app.use(passport.initialize())
   app.use(passport.session())
 
+  app.get('/github', (req, res, next) => {
+    res.redirect('https://github.com/cmccarthy15/GraceShopper')
+  })
+
   // auth and api routes
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
