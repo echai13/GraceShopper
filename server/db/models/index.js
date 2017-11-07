@@ -22,16 +22,17 @@ const Review = require('./review')
  Order.belongsTo(Address);
 
 
+ Review.belongsTo(User, { as: "user" });
+ Review.belongsTo(Product, { as: "product" });
+ Product.hasMany(Review);
+
  Order.hasMany(OrderItem)
  OrderItem.belongsTo(Order)
  OrderItem.belongsTo(Product)
 
  Product.belongsToMany(Category, { through: 'ProductCategory' });
- // Product now has getCategories, setCategories), addCategory,addCategories and removeCategory
- // ex productInstance.addCategory(categoryInstance)
  Category.belongsToMany(Product, { through: 'ProductCategory' });
 
- Review.belongsTo(User);
  User.hasMany(Review);
 
 /**
