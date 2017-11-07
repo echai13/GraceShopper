@@ -5,7 +5,7 @@ import {withRouter, Link } from 'react-router-dom'
 import { logout, removeCart } from '../store'
 
 export const NavBar = (props) => {
-  const {handleClick, isLoggedIn, handleSubmit} = props
+  const {handleClick, isLoggedIn, handleSubmit, isAdmin} = props
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
@@ -24,6 +24,7 @@ export const NavBar = (props) => {
               <Link to="/home">Your Account</Link>
               <Link to="/checkout">Checkout</Link>
               <Link to="/home" onClick={handleClick}>Logout</Link>
+              { isAdmin ? <Link to="/admin">Admin</Link> : null}
             </div>
             : <div>
               <Link to="/login">Login</Link>
@@ -42,7 +43,8 @@ export const NavBar = (props) => {
 
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id //coerces empty objects to boolean
+    isLoggedIn: !!state.user.id, //coerces empty objects to boolean
+    isAdmin: !!state.user.isAdmin
   }
 }
 

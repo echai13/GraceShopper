@@ -30,9 +30,9 @@ export class UserOrders extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                { 
+                {
                     !this.props.orders.error ? this.props.orders.map(order => {
-                        return order ? 
+                        return order ?
                             order.orderitems.map((orderitem, i) => {
                                 return orderitem ? <tr key={i}>
                                 <td>{i == 0 ? order.createdAt.slice(0, 10) : ''}</td>
