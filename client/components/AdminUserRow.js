@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 import { EditUser } from './index'
-import { getAdminUsers } from '../store'
+import { getAdminUsers, deleteUserThunk } from '../store'
 
 
 export class AdminUserRow extends Component{
@@ -26,7 +26,7 @@ export class AdminUserRow extends Component{
           <td>{user.email}</td>
           <td>{user.isAdmin ? 'yes' : 'no'}</td>
           <td><button onClick={() => { this.setState({editOpen: !this.state.editOpen}) }}>Edit User</button></td>
-          <td />
+          <td><button onClick={() => this.props.deleteUser(user.id)}>x</button></td>
         </tr>
         <tr>
           <td colSpan="6">{this.state.editOpen &&
@@ -43,6 +43,12 @@ export class AdminUserRow extends Component{
 
 const mapState = null
 
-const mapDispatch = null
+const mapDispatch = dispatch => {
+  return {
+    deleteUser(userId){
+      dispatch(deleteUserThunk(userId, getAdminUsers));
+    }
+  }
+}
 
 export default connect(mapState, mapDispatch)(AdminUserRow)

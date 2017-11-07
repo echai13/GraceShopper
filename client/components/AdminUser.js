@@ -15,6 +15,7 @@ export const AdminUser = (props) => {
             <th>Email</th>
             <th>Admin?</th>
             <th />
+            <th>Delete</th>
           </tr>
         </thead>
           { props.users.map(user => {

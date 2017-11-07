@@ -48,3 +48,14 @@ router.put(`/:userId`, (req, res, next) => {
       .catch(next)
     })
 })
+
+router.delete(`/:userId`, (req, res, next) => {
+  User.findById(req.params.userId)
+    .then(user => {
+      user.destroy()
+      .then(() => res.send('user was destroyed'))
+      .catch(next);
+    })
+    .catch(next);
+})
+

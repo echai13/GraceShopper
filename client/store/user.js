@@ -72,6 +72,13 @@ export const editUserThunk = (userId, userEdits, updateThunk) =>
       .catch(err => console.log(err))
   }
 
+export const deleteUserThunk = (userId, updateThunk) =>
+  dispatch => {
+    axios.delete(`/api/users/${userId}`)
+      .then(() => dispatch(updateThunk()))
+      .catch(err => console.log(err));
+  }
+
 /**
  * REDUCER
  */
