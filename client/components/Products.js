@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import { Link } from 'react-router-dom'
-import { addProductToCart } from '../store'
+import { addProductToCart, getProductsThunk } from '../store'
 import history from '../history'
 import ProductPreview from './ProductPreview'
 
@@ -22,6 +22,7 @@ export class Products extends Component {
   updateCategory = (category) => {
     console.log('updating state')
     this.setState({currentCategory: category});
+    this.props.fetchAllProducts()
   }
 
   /* this could be used in the product preview to add a single product to the cart
@@ -71,10 +72,14 @@ const mapState = (state) => {
   }
 }
 
+
 const mapDispatch = (dispatch, ownProps) => {
   return {
     handleAdd(productInfo) {
       dispatch(addProductToCart(productInfo));
+    }, 
+    fetchAllProducts () {
+      dispatch(getProductsThunk())
     }
   }
 }

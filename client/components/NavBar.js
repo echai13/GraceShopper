@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import {withRouter, Link } from 'react-router-dom'
-import { logout, removeCart } from '../store'
+import { logout, removeCart, searchProducts } from '../store'
 
 export const NavBar = (props) => {
   const {handleClick, isLoggedIn, handleSubmit, isAdmin} = props
@@ -56,6 +56,7 @@ const mapDispatch = (dispatch) => {
       //dispatch removeCart(from store)
     },
     handleSubmit (evt) {
+      evt.preventDefault()
       dispatch(searchProducts(evt.target.search.value)) //searchProducts from store reducer
     }
   }

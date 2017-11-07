@@ -51,6 +51,16 @@ export const removeProductThunk = productId =>
     .then(_ => dispatch(getProductsThunk()))
     .catch(err => console.log(err))
 
+export const searchProducts = searchTerm =>
+  dispatch =>
+    axios.get(`/api/products/search/${searchTerm}`)
+      .then(res => {
+        console.log(res.data)
+        dispatch(getProducts(res.data))
+        history.push(`/products`)
+      })
+      .catch(err => console.log(err))
+
 /**
  * REDUCER
  */
