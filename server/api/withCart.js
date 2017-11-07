@@ -18,7 +18,7 @@ const withCart = function (req, res, next) {
 
   if (req.cart) { return next() }
   console.log('inside of withCart and session and id is...', req.cart, req.session , req.session.cartId);
-
+  console.log('inside of with cart and req.session is...: ', req.session)
   if (req.session.cartId) {
     //const { cartId } = req.session;
     const cartId = req.session.cartId

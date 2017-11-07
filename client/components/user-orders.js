@@ -21,7 +21,7 @@ export class UserOrders extends Component {
               <tr>
                 <th>Date Ordered</th>
                 <th>Status</th>
-                <th>Pet List</th>
+                <th>Item List</th>
                 <th>Price</th>
                 <th>Quantity</th>
               </tr>
@@ -31,7 +31,7 @@ export class UserOrders extends Component {
               !this.props.orders.error && this.props.orders.map(order => {
                 return order && order.status !== 'open' && [order.orderitems.map((orderitem, i) => {
                   return orderitem && <tr key={i}>
-                  <td>{i == 0 ? order.createdAt.slice(0, 10) : ''}</td>
+                  <td>{i == 0 ? order.createdAt.slice(5, 7) + '/' + order.createdAt.slice(8, 10) + '/' + order.createdAt.slice(0, 4) : ''}</td>
                   <td>{i == 0 ? order.status : ''}</td>
                   <td>{orderitem.product.name}</td>
                   <td><small>$</small>{orderitem.product.price}</td>

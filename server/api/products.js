@@ -51,8 +51,6 @@ router.delete(`/:productId`, (req, res, next) => {
     })
 })
 
-
-
 //all reviews related routes   //momo started writing from here
 
 router.get("/:productId/reviews", (req, res, next) => {
@@ -114,3 +112,21 @@ router.delete( "/:productId/reviews/:reviewId", (req, res, next) => {
     });
   }
 );
+
+router.get(`/search/:searchTerm`, (req, res, next) => {
+  const searchTerm = req.params.searchTerm
+  Product.findAll({
+    where: {
+      $or: {
+        name: {
+          $like: '%' + searchTerm + '%'
+        },
+        description: {
+          $like: '%' + searchTerm + '%'
+        }
+      }
+    }
+  })
+    .then(results => res.json(results))
+})
+

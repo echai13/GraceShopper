@@ -11,9 +11,13 @@ import { EditProduct, MakeReview } from './index.js'
 export class SingleProduct extends Component {
   constructor(){
     super();
-    this.state = {value: 1}
+    this.state = {
+      value: 1,
+      showEditForm: false
+    }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.updateToggle = this.updateToggle.bind(this);
   }
 
   componentDidMount(){
@@ -35,6 +39,11 @@ export class SingleProduct extends Component {
     })
   }
 
+  updateToggle() {
+    console.log(this.state.showEditForm)
+    this.setState({ showEditForm: !this.state.showEditForm })
+  }
+
   render() {
     const { singleProduct, isAdmin } = this.props
     var quantities = [];
@@ -44,7 +53,10 @@ export class SingleProduct extends Component {
     return (
 
       <div>
-        { isAdmin && <EditProduct /> }
+        { isAdmin && this.state.showEditForm ? 
+        <div><button type="submit" onClick={this.updateToggle }>Close Edit</button><EditProduct /></div>
+        : <button type="submit" onClick={this.updateToggle}>Edit Product Details</button>}
+
         <h1>{singleProduct.name}</h1>
         <img src={singleProduct.image} />
 
