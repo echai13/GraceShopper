@@ -49,7 +49,7 @@ export class SingleProduct extends Component {
         <img src={singleProduct.image} />
 
         <div>
-          <h3>{singleProduct.price}</h3>
+          <h3><small>$</small>{singleProduct.price}</h3>
           {/* Tells customers if product is in stock */}
           {
             singleProduct.isAvailable ?

@@ -41,13 +41,13 @@ export class Checkout extends Component {
           { this.props.addresses ? this.props.addresses.map((address, index) => (
             <div key={address.id}>
               <h3>Address #{index + 1}</h3>
-              <p>{address.street1}</p>
+              <br />{address.street1}
               { address.street2 ?
-                <p>{address.street2}</p> : null
+                <span><br />{address.street2}</span> : null
               }
-              <p>{address.city}, {address.state} {address.zipcode}</p>
-              <p>{address.country}</p>
-              <button
+              <br />{address.city}, {address.state} {address.zipcode}
+              <br />{address.country}
+              <br /><button
                 type="submit"
                 onClick= {() => this.props.setOrderAddress(cartId, address.id)}>Ship To This</button>
             </div>
@@ -76,7 +76,7 @@ export class Checkout extends Component {
             <tr key={item.id}>
               <td><img src={item.image} /></td>
               <td>{item.name}</td>
-              <td>{item.currentPrice}</td>
+              <td><small>$</small>{item.currentPrice}</td>
               <td>{item.quantity}</td>
             </tr>
         )) : null}
