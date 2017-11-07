@@ -65,6 +65,13 @@ export const deleteFromCartThunk = (orderItemId) => dispatch => {
     .catch(err => console.log(err))
 }
 
+export const updateCartStatus = (orderId, status, updateOrders) =>
+  dispatch => {
+    return axios.put(`/api/orders/${orderId}`, {status})
+      .then(dispatch(updateOrders()))
+      .catch(err => console.log(err))
+  }
+
 /**
  * REDUCER
  */
@@ -81,7 +88,7 @@ export default function (state = defaultCart, action) {
 
     case REMOVE_CART:
       return [];
-      
+
     default:
       return state;
   }
