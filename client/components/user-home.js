@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import UserOrders from './user-orders'
 import UserDetails from './user-details'
-import { setAddressThunk } from '../store'
+import { setAddressThunk, me } from '../store'
 import {Link} from 'react-router-dom'
 import EditUser from './EditUser'
 
@@ -38,7 +38,7 @@ export class UserHome extends Component {
           { this.state.showEditForm ?
             <div>
               <button type="submit" onClick={this.updateToggle }>Close Edit</button>
-              <EditUser closeForm={this.updateToggle} />
+              <EditUser closeForm={this.updateToggle} updateThunk={me} />
             </div>
             :
             <button type="submit" onClick={this.updateToggle}>Edit Your Details</button>

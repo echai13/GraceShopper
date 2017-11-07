@@ -65,11 +65,11 @@ export const getAllUsers = () =>
       .then(res => res.data);
   }
 
-export const editUserThunk = (userId, userEdits) =>
+export const editUserThunk = (userId, userEdits, updateThunk) =>
   dispatch => {
     axios.put(`/api/users/${userId}`, userEdits)
-      .then(res => dispatch(getUser(res.data)))
-      .catch(error => dispatch(getUser({error})))
+      .then(() => dispatch(updateThunk()))
+      .catch(err => console.log(err))
   }
 
 /**

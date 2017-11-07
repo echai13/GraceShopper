@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
+import { AdminUserRow } from './index'
 
 
 export const AdminUser = (props) => {
@@ -13,20 +14,14 @@ export const AdminUser = (props) => {
             <th>Last Name</th>
             <th>Email</th>
             <th>Admin?</th>
+            <th />
           </tr>
         </thead>
-        <tbody>
           { props.users.map(user => {
             return (
-              <tr key={user.id}>
-                <td>{user.firstName}</td>
-                <td>{user.lastName}</td>
-                <td>{user.email}</td>
-                <td>{user.isAdmin ? 'yes' : 'no'}</td>
-              </tr>
-            )
-          })}
-        </tbody>
+              <AdminUserRow key={user.id} user={user} />
+            )}
+          )}
       </table>
     </div>
   )
