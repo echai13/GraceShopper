@@ -50,3 +50,20 @@ router.delete(`/:productId`, (req, res, next) => {
       .catch(next)
     })
 })
+
+router.get(`/search/:searchTerm`, (req, res, next) => {
+  const searchTerm = req.params.searchTerm
+  Product.findAll({
+    where: {
+      $or: {
+        name: {
+          $like: '%' + searchTerm + '%'
+        },
+        description: {
+          $like: '%' + searchTerm + '%'
+        }
+      }
+    }
+  })
+    .then(results => res.json(results))
+})
