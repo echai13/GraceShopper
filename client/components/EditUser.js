@@ -12,9 +12,10 @@ const EditUser = props => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    console.log('isAdmin set to...', evt.target.isAdmin.value)
     props.handleSubmit(
       user.id,
-      { firstName: evt.target.firstName.value, lastName: evt.target.lastName.value, email: evt.target.email.value, password: evt.target.password.value },
+      { firstName: evt.target.firstName.value, lastName: evt.target.lastName.value, email: evt.target.email.value, password: evt.target.password.value, isAdmin: evt.target.isAdmin.value },
       props.closeForm,
       props.updateThunk)
   }
@@ -37,6 +38,14 @@ const EditUser = props => {
         <label htmlFor="password"><small>Password</small></label>
         <input name="password" type="password" className="form-control" />
       </div>
+      {props.editUser &&  <div className="form-group">
+        <label ><small>Is Admin?</small>
+        <select defaultValue={false} name="isAdmin" type="text" className="form-control">
+          <option value={false}>no</option>
+          <option value={true}>yes</option>
+        </select>
+        </label>
+      </div> }
       <div className="form-group">
         <button type="submit">Submit Changes</button>
       </div>

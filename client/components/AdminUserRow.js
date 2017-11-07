@@ -26,9 +26,10 @@ export class AdminUserRow extends Component{
           <td>{user.email}</td>
           <td>{user.isAdmin ? 'yes' : 'no'}</td>
           <td><button onClick={() => { this.setState({editOpen: !this.state.editOpen}) }}>Edit User</button></td>
+          <td />
         </tr>
         <tr>
-          <td colSpan="5">{this.state.editOpen &&
+          <td colSpan="6">{this.state.editOpen &&
             <EditUser
               editUser={user}
               closeForm={this.handleEdit}
