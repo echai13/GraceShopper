@@ -2,14 +2,12 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import { getOrdersThunk } from '../store'
+import { Link } from 'react-router-dom'
 
 /**
  * COMPONENT
  */
 export class UserOrders extends Component {
-  constructor() {
-    super()
-  }
 
   componentDidMount() {
     this.props.fetchOrders(this.props.id);
@@ -17,37 +15,40 @@ export class UserOrders extends Component {
 
   render() {
     return (
-        <div className="container">
-            <table className="table table-shopping">
-                <thead>
-                    <tr>
-                        <th>Date Ordered</th>
-                        <th>Status</th>
-                        <th>Pet List</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Subtotal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                { 
-                    !this.props.orders.error ? this.props.orders.map(order => {
-                        return order ? 
-                            order.orderitems.map((orderitem, i) => {
-                                return orderitem ? <tr key={i}>
-                                <td>{i == 0 ? order.createdAt.slice(0, 10) : ''}</td>
-                                <td>{i == 0 ? order.status : ''}</td>
-                                <td>{orderitem.product.name}</td>
-                                <td>{orderitem.product.price}</td>
-                                <td>{orderitem.quantity}</td>
-                                <td>{orderitem.quantity} * {orderitem.currentPrice} = {orderitem.subtotal}</td>
-                                </tr> : ''
-                            }) : ''
-                        }) : ''
-                }
-            </tbody>
-            </table>
-        </div>
+      <div className="container">
+        <table className="table table-shopping">
+            <thead>
+              <tr>
+                <th>Date Ordered</th>
+                <th>Status</th>
+                <th>Pet List</th>
+                <th>Price</th>
+                <th>Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+            { 
+              !this.props.orders.error && this.props.orders.map(order => {
+                return order && order.status !== 'open' && [order.orderitems.map((orderitem, i) => {
+                  return orderitem && <tr key={i}>
+                  <td>{i == 0 ? order.createdAt.slice(0, 10) : ''}</td>
+                  <td>{i == 0 ? order.status : ''}</td>
+                  <td>{orderitem.product.name}</td>
+                  <td><small>$</small>{orderitem.product.price}</td>
+                  <td>{orderitem.quantity}</td>
+                  </tr>
+                }), 
+                <tr key={order.id + 'total'}>
+                  <td colSpan ="5" className="text-right"><strong>Order Total:</strong> <small>$</small>{order.total}</td>
+                </tr>,
+                <tr key={order.id + 'details'}>
+                  <td colSpan ="5" className="text-right"><Link to={`/home/${order.id}`}>Order Details</Link></td>
+                </tr>]
+              })
+            }
+          </tbody>
+        </table>
+      </div>
     )
   }
 }

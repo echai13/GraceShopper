@@ -4,7 +4,7 @@ import {Router} from 'react-router'
 import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome, UserOrders, Products, SingleProduct, Homepage, Cart, Checkout} from './components'
+import {Main, Login, Signup, UserHome, UserOrders, Products, SingleProduct, Homepage, Cart, Checkout, UserOrderDetails} from './components'
 import {me, orders, getCategoriesThunk, getProductsThunk} from './store'
 
 /**
@@ -35,6 +35,7 @@ class Routes extends Component {
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
                   <Route exact path="/home" component={UserHome} />
+                  <Route exact path="/home/:orderId" component={UserOrderDetails} />
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}

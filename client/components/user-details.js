@@ -17,10 +17,10 @@ export class UserDetails extends Component {
       <div>
         { 
           this.props.addresses.map(address => {
-            return address ? <div key={address.id}><p>{address.street1}</p>
-            <p>{address.street2}</p>
-            <p>{address.city}, {address.state} {address.zipcode}</p>
-            <p>{address.country}</p> </div> : ''
+            return address && <p key={address.id}>{address.street1}
+            {address.street2 && <span><br />{address.street2}</span>}
+            <br />{address.city}, {address.state} {address.zipcode}
+            <br />{address.country} </p>
           })
         }
       </div>
