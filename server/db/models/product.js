@@ -1,5 +1,6 @@
 const {ENUM, STRING, DECIMAL, INTEGER, ARRAY, TEXT, BOOLEAN, VIRTUAL} = require('sequelize')
 const db = require('../db')
+const Category = require('./category')
 
 const Product = db.define('product', {
 	name: {
@@ -28,6 +29,11 @@ const Product = db.define('product', {
 			return this.stock !== 0
 		}
   }
+}, {
+    defaultScope: {
+      include: [
+        { model: Category } ]
+    }
 })
 
 module.exports = Product

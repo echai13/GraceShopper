@@ -27,7 +27,7 @@ export class UserOrders extends Component {
               </tr>
             </thead>
             <tbody>
-            { 
+            {
               !this.props.orders.error && this.props.orders.map(order => {
                 return order && order.status !== 'open' && [order.orderitems.map((orderitem, i) => {
                   return orderitem && <tr key={i}>
@@ -37,7 +37,7 @@ export class UserOrders extends Component {
                   <td><small>$</small>{orderitem.product.price}</td>
                   <td>{orderitem.quantity}</td>
                   </tr>
-                }), 
+                }),
                 <tr key={order.id + 'total'}>
                   <td colSpan ="5" className="text-right"><strong>Order Total:</strong> <small>$</small>{order.total}</td>
                 </tr>,

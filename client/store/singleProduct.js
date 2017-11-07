@@ -22,13 +22,15 @@ export const setSingleProduct = product => {
 * THUNK CREATORS
 */
 export const setSingleProductThunk = productId =>
-  dispatch =>
+  dispatch => {
+    console.log(`in single product ..... ${productId}`)
     axios.get(`/api/products/${productId}`)
       .then(res => {
         dispatch(setSingleProduct(res.data))
         history.push(`/products/${productId}`)
       })
       .catch(err => console.log(err))
+    }
 
 export const addProductToCart = productInfo => dispatch =>
       {
