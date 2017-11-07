@@ -27,7 +27,6 @@ export const setSingleProductThunk = productId =>
     axios.get(`/api/products/${productId}`)
       .then(res => {
         dispatch(setSingleProduct(res.data))
-        history.push(`/products/${productId}`)
       })
       .catch(err => console.log(err))
     }
