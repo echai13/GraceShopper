@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import { Link } from 'react-router-dom'
-import { setSingleProductThunk } from '../store'
+import { addProductToCart } from '../store'
 import history from '../history'
 import ProductPreview from './ProductPreview'
 
@@ -16,12 +16,19 @@ export class Products extends Component {
       currentCategory: 'all'
     }
     this.updateCategory = this.updateCategory.bind(this);
+    this.addProductToCart = this.addProductToCart.bind(this);
   }
-
 
   updateCategory = (category) => {
     console.log('updating state')
     this.setState({currentCategory: category});
+  }
+
+  /* this could be used in the product preview to add a single product to the cart
+  but it is not working currently and it's low priority
+  */
+  addProductToCart = (id) => {
+    this.props.handleAdd({productId: id, quantity: 1});
   }
 
   render() {
@@ -40,9 +47,10 @@ export class Products extends Component {
         </div>
 
         {products.map(product => {
+          console.log('product is: ', product);
           const categoryNames = product.categories.map(category => category.name);
-          return currentCategory === 'all' || categoryNames.indexOf(currentCategory) > -1 ?
-            ( <ProductPreview key ={product.id} product={product} />
+          return (currentCategory === 'all' || categoryNames.indexOf(currentCategory) > -1) && product.isAvailable ?
+            ( <ProductPreview key ={product.id} product={product} handleAdd={this.addProductToCart} />
             )
             :
             null
@@ -63,4 +71,12 @@ const mapState = (state) => {
   }
 }
 
-export default connect(mapState)(Products)
+const mapDispatch = (dispatch, ownProps) => {
+  return {
+    handleAdd(productInfo) {
+      dispatch(addProductToCart(productInfo));
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(Products)
