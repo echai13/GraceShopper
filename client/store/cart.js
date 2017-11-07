@@ -68,7 +68,8 @@ export const deleteFromCartThunk = (orderItemId) => dispatch => {
 export const updateCartStatus = (orderId, status, getAdminOrders) =>
   dispatch => {
     console.log('inside updateCartStatus with getAdminOrders: ', getAdminOrders)
-    return axios.put(`/api/orders/${orderId}`, {status}).then(() => {
+    return axios.put(`/api/orders/${orderId}`, {status})
+      .then(() => {
         console.log('is it trying to dispatch this? ')
         return dispatch(getAdminOrders())
       })
