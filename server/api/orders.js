@@ -11,7 +11,7 @@ router.get('/:id', (req, res, next) => {
 })
 
 router.get('/', (req, res, next) => {
-  Order.findAll() // include all: true, nested: true to get product data
+  return Order.findAll() // include all: true, nested: true to get product data
     .then(orders => {
       res.json(orders)
     })

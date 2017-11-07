@@ -4,7 +4,9 @@ import {Router} from 'react-router'
 import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome, UserOrders, Products, SingleProduct, Homepage, Cart, Checkout, UserOrderDetails} from './components'
+
+import {Main, Login, Signup, UserHome, UserOrders, Products, SingleProduct, Homepage, Cart, Checkout, UserOrderDetails, AddAddress, AdminPanel} from './components'
+
 import {me, orders, getCategoriesThunk, getProductsThunk} from './store'
 
 /**
@@ -16,7 +18,7 @@ class Routes extends Component {
   }
 
   render () {
-    const {isLoggedIn} = this.props
+    const {isLoggedIn, isAdmin} = this.props
 
     return (
       <Router history={history}>
@@ -31,11 +33,17 @@ class Routes extends Component {
             <Route exact path="/products/:productId" component={SingleProduct} />
             <Route exact path="/products" component={Products} />
             {
+              isAdmin &&
+                <Route exact path="/admin" component={AdminPanel} />
+
+            }
+            {
               isLoggedIn &&
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
                   <Route exact path="/home" component={UserHome} />
                   <Route exact path="/home/:orderId" component={UserOrderDetails} />
+                  <Route exact path="/addresses/add" component={AddAddress} />
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
@@ -54,7 +62,8 @@ const mapState = (state) => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    isAdmin: !!state.user.isAdmin
   }
 }
 

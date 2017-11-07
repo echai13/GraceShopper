@@ -28,6 +28,19 @@ export const setAddressThunk = userId =>
       })
       .catch(err => console.log(err))
 
+
+export const addAddress = addressData =>
+  dispatch =>
+    axios.post(`/api/addresses/`, addressData)
+      .then(res => {
+        dispatch(setAddress(res.data))
+      })
+      .catch(err => console.log(err))
+
+export const setOrderAddress = ({id, addressId}) =>
+  dispatch =>
+    axios.put('api/order/changeaddr', {id, addressId})
+
 /**
 * REDUCER
 */

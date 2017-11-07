@@ -48,11 +48,35 @@ export const logout = () =>
       })
       .catch(err => console.log(err))
 
-export const editUserThunk = (userId, userEdits) =>
+export const orders = (userId) =>
+  dispatch => {
+    axios.get(`/api/users/${userId}/orders`)
+      .then(res => {
+        dispatch(getOrders(res.data))
+      })
+      .catch(error =>
+        dispatch(getOrders({error})))
+  }
+
+
+export const getAllUsers = () =>
+  dispatch => {
+    return axios.get('/api/users')
+      .then(res => res.data);
+  }
+
+export const editUserThunk = (userId, userEdits, updateThunk) =>
   dispatch => {
     axios.put(`/api/users/${userId}`, userEdits)
-      .then(res => dispatch(getUser(res.data)))
-      .catch(error => dispatch(getUser({error})))
+      .then(() => dispatch(updateThunk()))
+      .catch(err => console.log(err))
+  }
+
+export const deleteUserThunk = (userId, updateThunk) =>
+  dispatch => {
+    axios.delete(`/api/users/${userId}`)
+      .then(() => dispatch(updateThunk()))
+      .catch(err => console.log(err));
   }
 
 /**
