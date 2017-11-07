@@ -22,7 +22,6 @@ export const NavBar = (props) => {
           { isLoggedIn ?
             <div>
               <Link to="/home">Your Account</Link>
-              <Link to="/checkout">Checkout</Link>
               <Link to="/home" onClick={handleClick}>Logout</Link>
               { isAdmin ? <Link to="/admin">Admin</Link> : null}
             </div>
