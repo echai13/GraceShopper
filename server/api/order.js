@@ -10,6 +10,13 @@ router.get('/', (req, res, next) => {
   res.json(req.cart)
 });
 
+router.put('/changeaddr', (req, res, next) => {
+  return Order.findById(req.body.id)
+    .then(order => {
+      order.update({addressId: req.body.addressId})
+    })
+    .catch(next);
+})
 
 router.put('/incart', async (req, res, next) => {
   const { quantity, productId } = req.body.productInfo;

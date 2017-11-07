@@ -41,9 +41,21 @@ router.put(`/:userId`, (req, res, next) => {
         firstName: req.body.firstName || user.firstName,
         lastName: req.body.lastName || user.lastName,
         email: req.body.email || user.email,
-        password: req.body.password || user.password
+        password: req.body.password || user.password,
+        isAdmin: req.body.isAdmin
       })
       .then(updatedUser => res.json(updatedUser))
       .catch(next)
     })
 })
+
+router.delete(`/:userId`, (req, res, next) => {
+  User.findById(req.params.userId)
+    .then(user => {
+      user.destroy()
+      .then(() => res.send('user was destroyed'))
+      .catch(next);
+    })
+    .catch(next);
+})
+

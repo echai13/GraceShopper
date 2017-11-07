@@ -24,6 +24,9 @@ export class Cart extends Component {
   render() {
     const { cart } = this.props;
     const orderItems = cart.orderitems;
+    const subtotal = cart.total;
+    const tax = (cart.total * .09).toFixed(2);
+    const shipping = 10;
 
     return (
       <div className="container">
@@ -46,20 +49,47 @@ export class Cart extends Component {
                         handleQuantity={this.props.handleQuantity}
                         handleDelete = {this.props.handleDelete} />
                   ))}
+                    <tr>
+                      <td colSpan="2" className="text-right"><strong>Order Summary</strong></td>
+                      <td className="td-total">
+                        Subtotal
+                      </td>
+                      <td className="td-currentPrice">
+                          <small>$</small>{subtotal}
+                      </td>
+                      </tr>
+                    <tr>
+                      <td colSpan="2" />
+                      <td className="td-total">
+                        Tax
+                      </td>
+                      <td className="td-currentPrice">
+                          <small>$</small>{tax}
+                      </td>
+                      </tr>
                       <tr>
-                          <td colSpan="2" />
-                          <td className="td-total">
-                            Total
-                          </td>
-                          <td className="td-currentPrice">
-                              <small>$</small>{cart.total}
-                          </td>
-                          <td colSpan="1" className="text-right">
-                <Link to="/checkout">
-                  <button type="button" className="btn btn-info btn-round">
-                    <i className ="material-icons" >Complete Purchase</i>
-                  </button>
-                </Link>
+                      <td colSpan="2" />
+                      <td className="td-total">
+                        Shipping
+                      </td>
+                      <td className="td-currentPrice">
+                          <small>$</small>{shipping}
+                      </td>
+                      </tr>
+                      <tr>
+                        <td colSpan="2" />
+                        <td className="td-total">
+                          Total
+                        </td>
+                        <td className="td-currentPrice">
+                            <small>$</small>{Number(subtotal) + Number(tax) + Number(shipping)}
+                        </td>
+                        <td colSpan="1" className="text-right">
+                      <Link to="/checkout">
+                        <button type="button" className="btn btn-info btn-round">
+                          <i className ="material-icons" >Complete Purchase</i>
+                        </button>
+                      </Link>
               </td>
 
                       </tr>
