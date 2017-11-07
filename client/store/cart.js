@@ -65,6 +65,17 @@ export const deleteFromCartThunk = (orderItemId) => dispatch => {
     .catch(err => console.log(err))
 }
 
+export const updateCartStatus = (orderId, status, getAdminOrders) =>
+  dispatch => {
+    console.log('inside updateCartStatus with getAdminOrders: ', getAdminOrders)
+    return axios.put(`/api/orders/${orderId}`, {status})
+      .then(() => {
+        console.log('is it trying to dispatch this? ')
+        return dispatch(getAdminOrders())
+      })
+      .catch(err => console.log(err))
+  }
+
 /**
  * REDUCER
  */
@@ -81,7 +92,7 @@ export default function (state = defaultCart, action) {
 
     case REMOVE_CART:
       return [];
-      
+
     default:
       return state;
   }
