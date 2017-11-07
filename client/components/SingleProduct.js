@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { setSingleProductThunk, addProductToCart } from '../store'
+import { EditProduct } from './index.js'
 
 /**
 *  COMPONENT: From All Products Page, the singleProduct's state is set when a single product is clicked on
@@ -35,7 +36,7 @@ export class SingleProduct extends Component {
   }
 
   render() {
-    const { singleProduct } = this.props
+    const { singleProduct, isAdmin } = this.props
     var quantities = [];
     for (let i = 1; i <= singleProduct.stock; i++){
       quantities.push(<option key={i} value={i}>{i}</option>)
@@ -43,6 +44,7 @@ export class SingleProduct extends Component {
     return (
 
       <div>
+        { isAdmin && <EditProduct /> }
         <h1>{singleProduct.name}</h1>
         <img src={singleProduct.image} />
 
@@ -80,7 +82,8 @@ export class SingleProduct extends Component {
 const mapState = (state) => {
   console.log('the state', state)
   return {
-    singleProduct: state.singleProduct
+    singleProduct: state.singleProduct,
+    isAdmin: !!state.user.isAdmin
   }
 }
 

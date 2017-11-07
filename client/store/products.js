@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import { setSingleProduct } from './singleProduct'
 
 /**
  * ACTION TYPES
@@ -26,6 +27,22 @@ export const getProductsThunk = () =>
   dispatch =>
     axios.get('/api/products')
       .then(res => dispatch(getProducts(res.data || defaultProduct)))
+      .catch(err => console.log(err))
+
+export const addProductThunk = (product) =>
+  dispatch =>
+    axios.post(`/api/products/`, product)
+      .then(() => dispatch(getProductsThunk()))
+      .catch(err => console.log(err))
+
+export const editProductThunk = (product, productId) =>
+  dispatch =>
+    axios.put(`/api/products/${productId}`, product)
+      .then(updatedProduct => {
+        console.log(updatedProduct)
+        dispatch(setSingleProduct(updatedProduct.data))
+        dispatch(getProductsThunk())
+      })
       .catch(err => console.log(err))
 
 /**
