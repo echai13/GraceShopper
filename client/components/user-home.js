@@ -30,11 +30,9 @@ export class UserHome extends Component {
 
     return (
       <div>
-        <div>
-          <h3>Welcome, {user.fullName}</h3>
-        </div>
+        <h3>Welcome, {user.fullName}</h3>
         <hr />
-        <div>
+        <p>
           { this.state.showEditForm ?
             <div>
               <button type="submit" onClick={this.updateToggle }>Close Edit</button>
@@ -43,7 +41,7 @@ export class UserHome extends Component {
             :
             <button type="submit" onClick={this.updateToggle}>Edit Your Details</button>
           }
-        </div>
+        </p>
         <h4>Account Details</h4>
           <UserDetails />
         <h4>Order History</h4>
