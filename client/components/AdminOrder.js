@@ -44,15 +44,13 @@ export class AdminOrder extends Component {
                ( <tr key={order.id}>
                   <td>{order.user ? order.user.fullName : 'Unauth User'}</td>
                   <td>{order.user ? order.user.email : 'Unauth User'}</td>
-                  <td>
-                    <p>{order.address && order.address.street1}</p>
-                    <p>{order.address && order.address.street2}</p>
-                    <p>{order.address && order.address.city},
-                      {order.address && order.address.state}
-                      {order.address && order.address.country}
-                      {order.address && order.address.zipcode}</p>
+                  <td className="address">
+                    <br />{order.address && order.address.street1}
+                    {order.address && order.address.street2 && <span><br />{order.address.street2}</span>}
+                    <br />{order.address && order.address.city + ', ' + order.address.state + ' ' + order.address.zipcode}
+                    <br />{order.address && order.address.country}
                   </td>
-                  <td>
+                  <td className="select">
                     <select
                       defaultValue={order.status}
                       name="orderStatus"
@@ -68,8 +66,15 @@ export class AdminOrder extends Component {
                       <option value="completed">completed</option>
                     </select>
                   </td>
-                  <td>{order.total.toFixed(2)}</td>
-                  <td>{order && (order.createdAt.slice(5, 7) + '/' + order.createdAt.slice(8, 10) + '/' + order.createdAt.slice(0, 4) + ' ')}</td>
+                  <td><small>$</small>{order.total.toFixed(2)}</td>
+                  <td>
+                    {order && (order.createdAt.slice(5, 7) + '/' + order.createdAt.slice(8, 10) + '/' + order.createdAt.slice(0, 4) + ' ')}
+                at {order ? (
+                    order.createdAt.slice(11, 13) <= 12 ? order.createdAt.slice(11, 13) + ':' + order.createdAt.slice(14, 16) + ' AM'
+                    : (Number(order.createdAt.slice(11, 13)) - 12) + ':' + order.createdAt.slice(14, 16) + ' PM'
+                    ) : ''
+                }
+                  </td>
                 </tr>)
               )
             })}
