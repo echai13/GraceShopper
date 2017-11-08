@@ -7,6 +7,7 @@ const CategoryForm = (props) => {
 
   return (
     <div>
+      <h3>Add New Category</h3>
       <form onSubmit={props.handleSubmit} className="auth-form">
 
         <div className="form-group">
