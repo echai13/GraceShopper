@@ -17,11 +17,14 @@ router.post('/', (req, res, next) => {
     }
   })
     .then(token => {
+      console.log(token)
+      console.log('EMAAAAAAIIILL', req.body.email)
       return stripe.charges.create({
         amount: Math.round(req.body.amount * 100),
         currency: 'usd',
         source: token.id,
-        description: 'new order for ferrets'
+        description: 'new order for ferrets',
+        receipt_email: req.body.email
       })
         .then(charge => {
           if (!charge.failure_code) {
