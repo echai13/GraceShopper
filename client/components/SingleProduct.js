@@ -94,7 +94,7 @@ export class SingleProduct extends Component {
           return (
             <p> {review.reviewText} </p>)
         })}
-        <MakeReview />
+        <MakeReview history={this.props.history}/>
       </div>
     )
   }

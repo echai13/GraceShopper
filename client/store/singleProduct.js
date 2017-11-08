@@ -23,7 +23,6 @@ export const setSingleProduct = product => {
 */
 export const setSingleProductThunk = productId =>
   dispatch => {
-    console.log(`in single product ..... ${productId}`)
     axios.get(`/api/products/${productId}`)
       .then(res => {
         dispatch(setSingleProduct(res.data))

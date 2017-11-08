@@ -56,7 +56,7 @@ router.delete(`/:productId`, (req, res, next) => {
 router.get("/:productId/reviews", (req, res, next) => {
   return Review.findAll({
     where: {
-      productId: req.params.id
+      productId: req.params.productId
     }
   })
     .then(reviews => res.json(reviews))
@@ -76,6 +76,7 @@ router.get("/:productId/reviews", (req, res, next) => {
 
 //post a review to a product
 router.post("/:id/reviews", (req, res, next) => {
+  console.log('plz')
   return Product.findById(req.params.id).then(product => {
     if (!product) {
       res.sendStatus(404);
@@ -83,6 +84,7 @@ router.post("/:id/reviews", (req, res, next) => {
       let review = req.body;
       review.userId = req.user.id;
       review.productId = req.params.id;
+      console.log(review, 'hi back')
       return Review.create(review).then(createdReview => res.json(createdReview));
     }
   });
