@@ -101,9 +101,9 @@ export class Cart extends Component {
 }
 
 const mapPropToCart = (state) => {
+  console.log(state.cart)
   return {
-	cart: state.cart,
-
+	cart: state.cart
   }
 }
 
