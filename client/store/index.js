@@ -13,7 +13,7 @@ import orders from './orders'
 import admin from './admin'
 import review from './review'
 
-const reducer = combineReducers({user, products, categories, singleProduct, addresses, cart, orders, admin, review, checkout})
+const reducer = combineReducers({user, products, categories, singleProduct, addresses, cart, orders, admin, review})
 
 
 const middleware = composeWithDevTools(applyMiddleware(

@@ -59,6 +59,7 @@ router.put('/inproduct', async (req, res, next) => {
 })
 
 router.put('/neworderitem', (req, res, next) => {
+  console.log('getting to neworderitem ', req.body.productInfo, req.cart.id)
   const { currentPrice, quantity, productId } = req.body.productInfo;
   OrderItem.create({ currentPrice, quantity, productId, orderId: req.cart.id })
     .then(async () => {

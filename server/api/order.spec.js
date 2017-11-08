@@ -15,7 +15,7 @@ describe('Order Route', () => {
     return db.sync({ force: true })
   })
 
-  describe('/api/order', () => {
+  describe.only('/api/order', () => {
     let codyorder, codysmith, codyaddress,
       orderItemOne, productTest, productPutTest, noOrderUser;
 
@@ -85,7 +85,8 @@ describe('Order Route', () => {
         .get('/api/order')
         .expect(200)
         .then(res => {
-          expect(res.body).to.contain(withoutTs(codyorder))
+          expect(res.body).to.have.property('id', 1);
+          expect(res.body).to.have.property('total', 2.9);
         })
     })
 
@@ -95,7 +96,8 @@ describe('Order Route', () => {
         .get('/api/order')
         .expect(200)
         .then(res => {
-          expect(res.body).to.contain(withoutTs(codyorder))
+          expect(res.body).to.have.property('id', 1);
+          expect(res.body).to.have.property('total', 2.9);
         })
     })
 
@@ -119,15 +121,15 @@ describe('Order Route', () => {
         })
     })
 
-    it.only('PUT /api/order to create a new orderItem related to that order', () => {
+    it('PUT /api/order to create a new orderItem related to that order', () => {
       withCart._test_user = codysmith
       return request(app)
-        .put('/api/order')
-        .send({
+        .put('/api/order/neworderitem')
+        .send({productInfo: {
           productId: productPutTest.id,
           quantity: 2,
           currentPrice: productPutTest.price
-        })
+        }})
         .expect(200)
         .then(res => {
           expect(res.body.orderitems).to.have.lengthOf(2);
