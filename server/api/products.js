@@ -82,7 +82,7 @@ router.post("/:id/reviews", (req, res, next) => {
       res.sendStatus(404);
     } else {
       let review = req.body;
-      // review.userId = req.user.id;
+      review.userId = req.user.id;
       review.productId = req.params.id;
       console.log(review, 'hi back')
       return Review.create(review).then(createdReview => res.json(createdReview));

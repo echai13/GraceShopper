@@ -6,7 +6,7 @@ import history from '../history'
  */
 const GET_REVIEWS = 'GET_REVIEWS'
 const REMOVE_REVIEWS = 'REMOVE_REVIEWS'
-
+const MAKE_REVIEWS = 'MAKE_REVIEWS'
 /**
  * INITIAL STATE
  */
@@ -16,6 +16,7 @@ const defaultReviews = []
  * ACTION CREATORS
  */
 const getReviews = review => ({type:GET_REVIEWS, review})
+const makeReviews = review => ({type: MAKE_REVIEWS, review})
 // const removeReviews = () => ({type: REMOVE_REVIEWS})
 
 /**
@@ -28,17 +29,21 @@ export const getReviewsThunk = () =>
       .then(res => dispatch(getReviews(res.data || defaultReviews)))
       .catch(err => console.log(err))
 
-// export const makeReviewsThunk = () => 
-//   dispatch => 
-//     axios.post(`/api/products/${this.props.match.params.productId}/reviews`)
-    
-/**
+export const makeReviewsThunk = (review, id) => 
+  dispatch => 
+    axios.post(`/api/products/${id}/reviews`, review)
+      .then(res => dispatch(getReviews(res.data || defaultReviews)))
+      .catch(err => console.log(err))
+ 
+/*
  * REDUCER
  */
 
 export default function (state = defaultReviews, action) {
   switch (action.type) {
     case GET_REVIEWS:
+      return action.review
+    case MAKE_REVIEWS:
       return action.review
     default:
       return state

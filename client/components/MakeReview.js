@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios'
 import { connect } from 'react-redux'
-import { getReviewsThunk } from '../store'
+import { getReviewsThunk, makeReviewsThunk} from '../store'
 
 
 class MakeReview extends Component {
@@ -18,11 +18,10 @@ class MakeReview extends Component {
   }
 
   handleSubmit(){
-    console.log(this.props.singleProduct, 'props')
-      return axios.post(`/api/products/${this.props.singleProduct.id}/reviews`, this.state)
-    // this.props.history.push('/myaccount/orders')
-
-
+    this.props.writeReviews(this.state, this.props.singleProduct.id)
+    console.log('props', this.props)
+    this.props.history.push(`/products`)
+    this.setState({reviewText: ''})
   }
   render() {
 
@@ -34,10 +33,10 @@ class MakeReview extends Component {
           </h3>
           <br />
            <div className="media-body">
-		        <div className="form-group">
+            <div className="form-group">
               <textarea className="form-control" name="review" onChange={this.handleChange} placeholder="Leave a review" rows="6"></textarea>
 
-		        </div>
+            </div>
           </div>
           <div className="media-footer">
             <span onClick={this.handleSubmit} className="btn btn-primary btn-wd pull-right">Submit Review</span>
@@ -59,10 +58,13 @@ const mapState = (state) => {
   }
 }
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch, ownProps) => {
   return {
     fetchReviews (id) {
       dispatch(getReviewsThunk(id))
+    },
+    writeReviews (review, id) {
+      dispatch(makeReviewsThunk(review, id))
     }
   }
 }
