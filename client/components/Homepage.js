@@ -12,8 +12,7 @@ const Homepage = props => {
   // eventually find a few products from all products and display them on home?
   return (
     <div className="homepage">
-      <div
-        className="page-header header-filter">
+      <div className="page-header header-filter">
         <div className="container">
           <div className="row">
             <div className="col-md-6">
