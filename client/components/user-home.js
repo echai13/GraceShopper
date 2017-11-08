@@ -43,6 +43,7 @@ export class UserHome extends Component {
           }
         </div>
         <h4>Account Details</h4>
+          <h5>Your Addresses</h5>
           <UserDetails />
         <h4>Order History</h4>
           <UserOrders />

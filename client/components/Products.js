@@ -46,16 +46,18 @@ export class Products extends Component {
             <button key={category.id} onClick={() => this.updateCategory(category.name)}>{category.name}</button>
           ))}
         </div>
-
+        <div className="row">
         {products.map(product => {
           console.log('product is: ', product);
           const categoryNames = product.categories.map(category => category.name);
           return (currentCategory === 'all' || categoryNames.indexOf(currentCategory) > -1) && product.isAvailable ?
-            ( <ProductPreview key ={product.id} product={product} handleAdd={this.addProductToCart} />
+            (
+              <ProductPreview key ={product.id} product={product} handleAdd={this.addProductToCart} />
             )
             :
             null
         })}
+        </div>
       </div>
     )
   }
@@ -77,7 +79,7 @@ const mapDispatch = (dispatch, ownProps) => {
   return {
     handleAdd(productInfo) {
       dispatch(addProductToCart(productInfo));
-    }, 
+    },
     fetchAllProducts () {
       dispatch(getProductsThunk())
     }
