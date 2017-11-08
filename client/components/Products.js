@@ -41,9 +41,9 @@ export class Products extends Component {
         <h1>All Products Page</h1>
 
         <div className="categories">
-          <button key={0} onClick={() => this.updateCategory('all')}>all</button>
+          <button key={0} className="long-button" onClick={() => this.updateCategory('all')}>all</button>
           {categories.map(category => (
-            <button key={category.id} onClick={() => this.updateCategory(category.name)}>{category.name}</button>
+            <button key={category.id} className="long-button" onClick={() => this.updateCategory(category.name)}>{category.name}</button>
           ))}
         </div>
         <div className="row">

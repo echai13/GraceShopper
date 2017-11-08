@@ -13,8 +13,7 @@ const Homepage = props => {
   return (
     <div className="homepage">
       <div className="page-header header-filter">
-        <div className="container">
-          <div className="row">
+        <div className="row">
             <div className="col-md-6">
               <h1 className="title">Buy Our Robot Pals</h1>
               <h4>
@@ -31,8 +30,45 @@ const Homepage = props => {
               </Link>
             </div>
           </div>
-        </div>
       </div>
+      <hr />
+      <h2>Our Team</h2>
+        <div className="row">
+          <div className="col-md-6">
+            <img src="/alex-lion.png" />
+          </div>
+          <div className="col-md-6">
+            <h3>Name</h3>
+            <p>Brownie icing macaroon jelly tiramisu caramels jujubes oat cake cheesecake. Jelly beans jelly-o jelly beans. Cake jelly beans sesame snaps halvah lemon drops halvah chupa chups. Carrot cake soufflé candy canes. Marshmallow sugar plum jelly dessert biscuit pudding ice cream apple pie wafer. Muffin fruitcake jelly-o sugar plum. Bonbon tiramisu cupcake danish tart biscuit jelly tiramisu powder. Sweet roll tiramisu sweet jujubes. Jelly cheesecake marshmallow muffin macaroon tootsie roll wafer toffee. Cotton candy powder fruitcake liquorice tart gummi bears pudding. </p>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-6">
+            <img src="/mort.png" />
+          </div>
+          <div className="col-md-6">
+            <p>Brownie icing macaroon jelly tiramisu caramels jujubes oat cake cheesecake. Jelly beans jelly-o jelly beans. Cake jelly beans sesame snaps halvah lemon drops halvah chupa chups. Carrot cake soufflé candy canes. Marshmallow sugar plum jelly dessert biscuit pudding ice cream apple pie wafer. Muffin fruitcake jelly-o sugar plum. Bonbon tiramisu cupcake danish tart biscuit jelly tiramisu powder. Sweet roll tiramisu sweet jujubes. Jelly cheesecake marshmallow muffin macaroon tootsie roll wafer toffee. Cotton candy powder fruitcake liquorice tart gummi bears pudding. </p>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-6">
+            <img src="/gloria-hippo.png" />
+          </div>
+          <div className="col-md-6">
+            <p>Brownie icing macaroon jelly tiramisu caramels jujubes oat cake cheesecake. Jelly beans jelly-o jelly beans. Cake jelly beans sesame snaps halvah lemon drops halvah chupa chups. Carrot cake soufflé candy canes. Marshmallow sugar plum jelly dessert biscuit pudding ice cream apple pie wafer. Muffin fruitcake jelly-o sugar plum. Bonbon tiramisu cupcake danish tart biscuit jelly tiramisu powder. Sweet roll tiramisu sweet jujubes. Jelly cheesecake marshmallow muffin macaroon tootsie roll wafer toffee. Cotton candy powder fruitcake liquorice tart gummi bears pudding. </p>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-6">
+            <img src="/melman-giraffe.png" />
+          </div>
+          <div className="col-md-6">
+            <p>Brownie icing macaroon jelly tiramisu caramels jujubes oat cake cheesecake. Jelly beans jelly-o jelly beans. Cake jelly beans sesame snaps halvah lemon drops halvah chupa chups. Carrot cake soufflé candy canes. Marshmallow sugar plum jelly dessert biscuit pudding ice cream apple pie wafer. Muffin fruitcake jelly-o sugar plum. Bonbon tiramisu cupcake danish tart biscuit jelly tiramisu powder. Sweet roll tiramisu sweet jujubes. Jelly cheesecake marshmallow muffin macaroon tootsie roll wafer toffee. Cotton candy powder fruitcake liquorice tart gummi bears pudding. </p>
+          </div>
+        </div>
     </div>
   );
 };

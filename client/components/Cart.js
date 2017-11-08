@@ -35,7 +35,7 @@ export class Cart extends Component {
                       <tr>
                           <th>Product</th>
                           <th>Description</th>
-                          <th>currentPrice</th>
+                          <th>Price</th>
                           <th>Qty</th>
                           <th>Subtotal</th>
                           <th>Delete</th>

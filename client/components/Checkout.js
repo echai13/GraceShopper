@@ -36,24 +36,26 @@ export class Checkout extends Component {
     const cartId = this.props.cart.id;
     console.log('THE EMAIL HOPEFULLY', this.props.user.email)
     return (
-      <div>
+      <div className="checkout">
         <div>
           <h1>Addresses</h1>
-          { this.props.addresses ? this.props.addresses.map((address, index) => (
-            <div key={address.id}>
-              <h3>Address #{index + 1}</h3>
-              {address.street1}
-              { address.street2 ?
-                <span><br />{address.street2}</span> : null
-              }
-              <br />{address.city}, {address.state} {address.zipcode}
-              <br />{address.country}
-              <br /><button
-                type="submit"
-                onClick= {() => this.props.setOrderAddress(cartId, address.id)}>Ship To This</button>
-            </div>
-          )) : null
-          }
+          <div className="row">
+            { this.props.addresses ? this.props.addresses.map((address, index) => (
+              <div key={address.id} className="col-md-3">
+                <h3>Address #{index + 1}</h3>
+                {address.street1}
+                { address.street2 ?
+                  <span><br />{address.street2}</span> : null
+                }
+                <br />{address.city}, {address.state} {address.zipcode}
+                <br />{address.country}
+                <br /><button
+                  type="submit"
+                  onClick= {() => this.props.setOrderAddress(cartId, address.id)}>Ship To This</button>
+              </div>
+            )) : null
+            }
+          </div>
           <button
             onClick={() => {
               this.setState({ addAddress: !this.state.addAddress})
@@ -83,8 +85,10 @@ export class Checkout extends Component {
         )) : null}
         </tbody>
         </table>
-         <h3>Order total: {this.props.cart.total}</h3>
+          <br />
+          <h4>Order total: {this.props.cart.total}</h4>
 
+        <h1>Enter Payment Information</h1>
          <form onSubmit={(evt) => { evt.preventDefault(); this.props.handlePayment(this.state, this.props.cart.total, this.props.cart.id, this.props.user.email)}}>
            <div>
              <label htmlFor="cardNumber"><small>Card Number</small></label>
