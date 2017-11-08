@@ -127,3 +127,8 @@ table {
 .select {
   min-width: 125px
 }
+
+.homepage h3 {
+  color: blue
+}
+
