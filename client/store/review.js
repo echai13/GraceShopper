@@ -28,7 +28,10 @@ export const getReviewsThunk = () =>
       .then(res => dispatch(getReviews(res.data || defaultReviews)))
       .catch(err => console.log(err))
 
-
+// export const makeReviewsThunk = () => 
+//   dispatch => 
+//     axios.post(`/api/products/${this.props.match.params.productId}/reviews`)
+    
 /**
  * REDUCER
  */

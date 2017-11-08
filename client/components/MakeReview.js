@@ -18,8 +18,9 @@ class MakeReview extends Component {
   }
 
   handleSubmit(){
-    axios.post(`/api/products/${this.props.match.params.productId}/reviews`, this.state)
-    this.props.history.push('/myaccount/orders')
+    console.log(this.props.singleProduct, 'props')
+      return axios.post(`/api/products/${this.props.singleProduct.id}/reviews`, this.state)
+    // this.props.history.push('/myaccount/orders')
 
 
   }
@@ -53,7 +54,8 @@ class MakeReview extends Component {
  */
 const mapState = (state) => {
   return {
-    review: state.review
+    review: state.review,
+    singleProduct: state.singleProduct
   }
 }
 
