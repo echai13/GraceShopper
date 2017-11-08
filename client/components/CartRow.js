@@ -10,13 +10,13 @@ const CartRow = (props) => {
     <tr key={element.id}>
       <td>
         <div className="img-container">
-          <Link to={`/products/${element.id}`}>
+          <Link to={`/products/${element.productId}`}>
             <img src={element.image} alt="..." />
           </Link>
         </div>
       </td>
       <td className="td-name">
-        <Link to={`/products/${element.id}`}>
+        <Link to={`/products/${element.productId}`}>
           {element.name}
         </Link>
         <br /><small>from {element.category}</small>
