@@ -7,7 +7,7 @@ import history from './history'
 
 import {Main, Login, Signup, UserHome, UserOrders, Products, SingleProduct, Homepage, Cart, Checkout, UserOrderDetails, AddAddress, AdminPanel} from './components'
 
-import {me, orders, getCategoriesThunk, getProductsThunk} from './store'
+import {me, orders, getCategoriesThunk, getProductsThunk, writeReviewsThunk} from './store'
 
 /**
  * COMPONENT
@@ -31,6 +31,7 @@ class Routes extends Component {
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/cart" component={Cart} />
             <Route exact path="/products/:productId" component={SingleProduct} />
+            
             <Route exact path="/products" component={Products} />
             {
               isAdmin &&
