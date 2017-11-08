@@ -31,10 +31,10 @@ export class UserOrderDetails extends Component {
             </p>
             <p><strong>Status:</strong> {order && order.status}</p>
             <p><strong>Shipped To:</strong>
-            <br />{order && order.address.street1}
-            {order && order.address.street2 && <span><br />{order.address.street2}</span>}
-            <br />{order && order.address.city + ', ' + order.address.state + ' ' + order.address.zipcode}
-            <br />{order && order.address.country}
+            <br />{order.address && order.address.street1}
+            {order.address && order.address.street2 && <span><br />{order.address.street2}</span>}
+            <br />{order.address && order.address.city + ', ' + order.address.state + ' ' + order.address.zipcode}
+            <br />{order.address && order.address.country}
             </p>
             {
                 order && order.orderitems.map((orderitem, i) => {
