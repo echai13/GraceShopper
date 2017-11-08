@@ -34,6 +34,8 @@ export class AdminOrder extends Component {
               <th>Email</th>
               <th>Address</th>
               <th>Status</th>
+              <th>Total</th>
+              <th>Date</th>
             </tr>
           </thead>
           <tbody>
@@ -66,6 +68,8 @@ export class AdminOrder extends Component {
                       <option value="completed">completed</option>
                     </select>
                   </td>
+                  <td>{order.total.toFixed(2)}</td>
+                  <td>{order && (order.createdAt.slice(5, 7) + '/' + order.createdAt.slice(8, 10) + '/' + order.createdAt.slice(0, 4) + ' ')}</td>
                 </tr>)
               )
             })}
