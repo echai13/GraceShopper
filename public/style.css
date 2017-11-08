@@ -109,3 +109,7 @@ table {
 .homepage .row {
   margin-top: 8%
 }
+
+.homepage h3 {
+  color: blue
+}
