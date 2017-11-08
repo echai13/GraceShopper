@@ -43,12 +43,12 @@ export class AdminOrder extends Component {
                   <td>{order.user ? order.user.fullName : 'Unauth User'}</td>
                   <td>{order.user ? order.user.email : 'Unauth User'}</td>
                   <td>
-                    <p>{order.address.street1}</p>
-                    <p>{order.address.street2}</p>
-                    <p>{order.address.city},
-                      {order.address.state}
-                      {order.address.country}
-                      {order.address.zipcode}</p>
+                    <p>{order.address && order.address.street1}</p>
+                    <p>{order.address && order.address.street2}</p>
+                    <p>{order.address && order.address.city},
+                      {order.address && order.address.state}
+                      {order.address && order.address.country}
+                      {order.address && order.address.zipcode}</p>
                   </td>
                   <td>
                     <select
