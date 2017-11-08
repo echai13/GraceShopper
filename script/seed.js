@@ -382,9 +382,9 @@ async function seed () {
   console.log(`seeded ${products.length} products`)
 
   const users = await Promise.all([
-    User.create({ firstName: ' Moyouri', lastName: 'Bhattacharjee', email: 'momo@gmail.com', isAdmin: true, password: 'DjangoCoder' }),
+    User.create({ firstName: ' Moyouri', lastName: 'Bhattacharjee', email: 'moyourib@gmail.com', isAdmin: true, password: 'DjangoCoder' }),
     User.create({ firstName: ' Erica', lastName: 'Chai', email: 'echai@gmail.com', isAdmin: true, password: 'DjangoCoderb' }),
-    User.create({ firstName: ' Sam', lastName: 'Zhang', email: 'szhang@gmail.com', isAdmin: true, password: 'DjangoCoderc' }),
+    User.create({ firstName: ' Sam', lastName: 'Zhang', email: 'samanthazhang9@gmail.com', isAdmin: true, password: 'DjangoCoderc' }),
     User.create({ firstName: ' Caryn', lastName: 'McCarthy', email: 'CMcCarthy@gmail.com', isAdmin: true, password: 'DjangoCoderd' }),
     User.create({ firstName: ' Victor', lastName: 'Bhattacharjee', email: 'vbhattac@gmail.com', isAdmin: false, password: 'DjangoCodernever' })
   ])
