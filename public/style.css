@@ -57,9 +57,35 @@ button {
   margin: 30px;
   border-radius: 10px;
   background-color: #aeecef;
+}
+
+.long-button {
   width: 150px
 }
 
+.short-button {
+  width: 75px
+}
+
 table, th, td {
-  border: 1px solid black
+  border: 1px solid black;
+  text-align: center;
+}
+
+table {
+  max-width: 50%;
+}
+
+.checkout table {
+  text-align: center;
+  margin: 0px auto;
+}
+
+.checkout td {
+  min-width: 200px
+}
+
+.checkout img {
+  width: 200px;
+  height: 200px
 }

@@ -19,7 +19,7 @@ const CartRow = (props) => {
         <Link to={`/products/${element.id}`}>
           {element.name}
         </Link>
-        <br /><small>from {element.category}</small>
+        <br /><small>from {element.categories.map(category => category.name).join(', ')}</small>
       </td>
       <td className="td-number">
         <small>&#36;</small>{element.currentPrice}
