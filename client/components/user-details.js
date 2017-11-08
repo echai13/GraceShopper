@@ -27,14 +27,20 @@ export class UserDetails extends Component {
   render() {
     return (
       <div>
+        <div className="row">
         {
+
           this.props.addresses.map(address => {
-            return address && <p key={address.id}>{address.street1}
-            {address.street2 && <span><br />{address.street2}</span>}
-            <br />{address.city}, {address.state} {address.zipcode}
-            <br />{address.country} </p>
+            return (
+              address && <div className="col-md-3" key={address.id}><p>{address.street1}
+              {address.street2 && <span><br />{address.street2}</span>}
+              <br />{address.city}, {address.state} {address.zipcode}
+              <br />{address.country} </p></div>
+            )
           })
+
         }
+        </div>
         <button
           onClick={() => {
             this.setState({ addAddress: !this.state.addAddress })

@@ -6,7 +6,7 @@ const ProductPreview = (props) => {
   //const handleAdd = props.handleAdd;
 
   return (
-    <div key={product.id}>
+    <div key={product.id} className="col-md-4 product">
       <Link to={`/products/${product.id}`}>
         <h3>{product.name}</h3>
         <img src={product.image} />

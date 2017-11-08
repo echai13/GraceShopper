@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { setSingleProductThunk, addProductToCart } from '../store'
-import { EditProduct } from './index.js'
+import { EditProduct, MakeReview } from './index.js'
 
 /**
 *  COMPONENT: From All Products Page, the singleProduct's state is set when a single product is clicked on
@@ -53,15 +53,19 @@ export class SingleProduct extends Component {
     return (
 
       <div>
-        { isAdmin && this.state.showEditForm ? 
+        { isAdmin && this.state.showEditForm ?
         <div><button type="submit" onClick={this.updateToggle }>Close Edit</button><EditProduct /></div>
         : <button type="submit" onClick={this.updateToggle}>Edit Product Details</button>}
+        <div className="row single-product">
+        <div className="col-md-6">
+          <img src={singleProduct.image} />
+        </div>
 
-        <h1>{singleProduct.name}</h1>
-        <img src={singleProduct.image} />
 
-        <div>
-          <h3><small>$</small>{singleProduct.price}</h3>
+
+        <div className="col-md-6">
+          <h1>{singleProduct.name}</h1>
+          <h3>Price: <small>$</small>{singleProduct.price}</h3>
           {/* Tells customers if product is in stock */}
           {
             singleProduct.isAvailable ?
@@ -79,10 +83,16 @@ export class SingleProduct extends Component {
             </form>) :
             <span>Currently Out of Stock</span>
           }
-          <h3>{singleProduct.categories && singleProduct.categories.map(category => category.name).join(', ')}</h3>
-          <p>{singleProduct.description}</p>
-          <p>{singleProduct.reviews}</p>
+          <p>Categories: {singleProduct.categories && singleProduct.categories.map(category => category.name).join(', ')}</p>
+          <p>Details: {singleProduct.description}</p>
         </div>
+      </div>
+        <h2> Reviews </h2>
+        {singleProduct && singleProduct.reviews && singleProduct.reviews.map(review => {
+          return (
+            <p> {review.reviewText} </p>)
+        })}
+        <MakeReview />
       </div>
     )
   }

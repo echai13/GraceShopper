@@ -10,8 +10,8 @@ export class Checkout extends Component {
   constructor() {
     super()
     this.state = {
-      expMonth: '',
-      expYear: 0,
+      expMonth: '01',
+      expYear: 2017,
       cardNumber: '',
       cvc: '',
       addAddress: false
@@ -85,7 +85,7 @@ export class Checkout extends Component {
         </table>
          <h3>Order total: {this.props.cart.total}</h3>
 
-         <form onSubmit={(evt) => { evt.preventDefault(); this.props.handlePayment(this.state, this.props.cart.total, this.props.user.email)}}>
+         <form onSubmit={(evt) => { evt.preventDefault(); this.props.handlePayment(this.state, this.props.cart.total, this.props.cart.id, this.props.user.email)}}>
            <div>
              <label htmlFor="cardNumber"><small>Card Number</small></label>
              <input onChange={this.handleChange} name="cardNumber" type="text" />
@@ -132,9 +132,9 @@ const mapDispatch = dispatch => {
     fetchCheckoutPage(userId) {
       dispatch(setAddressThunk(userId)) //grabbing all addresses associated with user
     },
-    handlePayment(cardData, amount, email) {
+    handlePayment(cardData, amount, orderId, email) {
       console.log(cardData)
-      dispatch(sendStripePayment(cardData, amount, email))
+      dispatch(sendStripePayment(cardData, amount, orderId, email))
     },
     setOrderAddress(id, addressId) {
       dispatch(setOrderAddress({id, addressId}))

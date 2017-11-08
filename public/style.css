@@ -1,5 +1,9 @@
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
 
+body {
+  background-color: white
+}
+
 nav {
   background-image: url('night-light-black.jpeg');
 }
@@ -26,6 +30,36 @@ nav {
   color: white
 }
 
-.page-header {
-  background-image: url('http://globalblog.posco.com//wp-content/uploads/2017/02/POSCO_cover_watermark_1300x550_170307_1.jpg')
+.homepage {
+  background-image: url('http://globalblog.posco.com//wp-content/uploads/2017/02/POSCO_cover_watermark_1300x550_170307_1.jpg');
+  min-height: 100%;
+  min-width: 100%
+}
+
+.col-md-4.product {
+  padding: 30px
+}
+
+.product img {
+  height: 200px;
+  width: 200px
+}
+
+.product h3 {
+  font-size: 24px
+}
+
+.single-product {
+  margin-top: 10%
+}
+
+button {
+  margin: 30px;
+  border-radius: 10px;
+  background-color: #aeecef;
+  width: 150px
+}
+
+table, th, td {
+  border: 1px solid black
 }
