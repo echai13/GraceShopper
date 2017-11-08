@@ -30,10 +30,20 @@ nav {
   color: white
 }
 
-.homepage {
+.page-header {
   background-image: url('http://globalblog.posco.com//wp-content/uploads/2017/02/POSCO_cover_watermark_1300x550_170307_1.jpg');
-  min-height: 100%;
-  min-width: 100%
+  margin: 0px auto;
+  min-height: 600px;
+  background-repeat: no-repeat;
+}
+
+.page-header .row {
+  margin: 20px;
+  padding: 100px
+}
+
+.page-header .title {
+  color: blue
 }
 
 .col-md-4.product {
@@ -74,6 +84,7 @@ table, th, td {
 
 table {
   max-width: 50%;
+  margin: 0px auto
 }
 
 .checkout table {
@@ -87,5 +98,14 @@ table {
 
 .checkout img {
   width: 200px;
-  height: 200px
+  height: 200px;
+}
+
+.homepage img {
+  height: 300px;
+  width: 300px;
+}
+
+.homepage .row {
+  margin-top: 8%
 }

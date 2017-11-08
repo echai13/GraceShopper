@@ -33,7 +33,8 @@ export class ProductForm extends React.Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmitAll}>
+        <h3>{this.props.displayName}</h3>
+        <form onSubmit={this.handleSubmitAll} className="auth-form">
           <div className="form-group">
             <label htmlFor="name"><small>Name</small></label>
             <input name="name" type="text" className="form-control" />
@@ -54,13 +55,13 @@ export class ProductForm extends React.Component {
             <label htmlFor="description"><small>Description</small></label>
             <input name="description" type="text" className="form-control" />
           </div>
-          <div className="form-group">
+          <div className="form-group row">
             { this.props.categories.map(category => (
-              <label key={category.id} htmlFor="category" type="text">
+              <label key={category.id} htmlFor="category" type="text" className="col-md-4">
                 <input type="checkbox" value={category.id} onChange={this.toggleCheckbox} /> {category.name}
               </label>
             ))}
-          </div>
+            </div>
           <div className="form-group">
             <button type="submit">{this.props.displayName}</button>
           </div>
