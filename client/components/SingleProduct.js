@@ -53,9 +53,11 @@ export class SingleProduct extends Component {
     return (
 
       <div>
-        { isAdmin && this.state.showEditForm ?
-        <div><button type="submit" onClick={this.updateToggle }>Close Edit</button><EditProduct /></div>
-        : <button type="submit" onClick={this.updateToggle}>Edit Product Details</button>}
+        { isAdmin &&
+          <button type="submit" onClick={this.updateToggle}>{this.state.showEditForm ? 'Close Edit' : 'Edit Product Details'}</button>
+        }
+        {isAdmin && this.state.showEditForm && <EditProduct />
+        }
         <div className="row single-product">
         <div className="col-md-6">
           <img src={singleProduct.image} />
