@@ -13,7 +13,7 @@ export class Products extends Component {
   constructor(props){
     super(props);
     this.state = {
-      currentCategory: 'all'
+      currentCategory: 'All'
     }
     this.updateCategory = this.updateCategory.bind(this);
     this.addProductToCart = this.addProductToCart.bind(this);
@@ -41,7 +41,7 @@ export class Products extends Component {
         <h1>All Products Page</h1>
 
         <div className="categories">
-          <button key={0} className="long-button" onClick={() => this.updateCategory('all')}>all</button>
+          <button key={0} className="long-button" onClick={() => this.updateCategory('All')}>All</button>
           {categories.map(category => (
             <button key={category.id} className="long-button" onClick={() => this.updateCategory(category.name)}>{category.name}</button>
           ))}
@@ -50,7 +50,7 @@ export class Products extends Component {
         {products.map(product => {
           console.log('product is: ', product);
           const categoryNames = product.categories.map(category => category.name);
-          return (currentCategory === 'all' || categoryNames.indexOf(currentCategory) > -1) && product.isAvailable ?
+          return (currentCategory === 'All' || categoryNames.indexOf(currentCategory) > -1) && product.isAvailable ?
             (
               <ProductPreview key ={product.id} product={product} handleAdd={this.addProductToCart} />
             )
