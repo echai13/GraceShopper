@@ -15,7 +15,6 @@ import review from './review'
 
 const reducer = combineReducers({user, products, categories, singleProduct, addresses, cart, orders, admin, review})
 
-
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
   createLogger({collapsed: true})

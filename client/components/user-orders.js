@@ -39,7 +39,7 @@ export class UserOrders extends Component {
                   </tr>
                 }),
                 <tr key={order.id + 'total'}>
-                  <td colSpan ="5" className="text-right"><strong>Order Total:</strong> <small>$</small>{order.total}</td>
+                  <td colSpan ="5" className="text-right"><strong>Order Total:</strong> <small>$</small>{order.total.toFixed(2)}</td>
                 </tr>,
                 <tr key={order.id + 'details'}>
                   <td colSpan ="5" className="text-right"><Link to={`/home/${order.id}`}>Order Details</Link></td>
