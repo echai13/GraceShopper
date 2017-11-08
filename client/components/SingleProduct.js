@@ -92,9 +92,9 @@ export class SingleProduct extends Component {
         <h2> Reviews </h2>
         {singleProduct && singleProduct.reviews && singleProduct.reviews.map(review => {
           return (
-            <p> {review.reviewText} </p>)
+            <p key={review.id}> {review.reviewText} </p>)
         })}
-        <MakeReview history={this.props.history}/>
+        <MakeReview history={this.props.history} />
       </div>
     )
   }

@@ -12,10 +12,10 @@ const EditUser = props => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    console.log('isAdmin set to...', evt.target.isAdmin.value)
+    console.log('isAdmin set to...', evt.target.isAdmin ? evt.target.isAdmin.value : user.isAdmin)
     props.handleSubmit(
       user.id,
-      { firstName: evt.target.firstName.value, lastName: evt.target.lastName.value, email: evt.target.email.value, password: evt.target.password.value, isAdmin: evt.target.isAdmin.value },
+      { firstName: evt.target.firstName.value, lastName: evt.target.lastName.value, email: evt.target.email.value, password: evt.target.password.value, isAdmin: evt.target.isAdmin ? evt.target.isAdmin.value : user.isAdmin },
       props.closeForm,
       props.updateThunk)
   }
