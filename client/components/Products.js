@@ -13,7 +13,7 @@ export class Products extends Component {
   constructor(props){
     super(props);
     this.state = {
-      currentCategory: 'all'
+      currentCategory: 'All'
     }
     this.updateCategory = this.updateCategory.bind(this);
     this.addProductToCart = this.addProductToCart.bind(this);
