@@ -17,8 +17,8 @@ const withCart = function (req, res, next) {
   ////////////////////
 
   if (req.cart) { return next() }
-  console.log('inside of withCart and session and id is...', req.cart, req.session , req.session.cartId);
-  console.log('inside of with cart and req.session is...: ', req.session)
+  // console.log('inside of withCart and session and id is...', req.cart, req.session , req.session.cartId);
+  // console.log('inside of with cart and req.session is...: ', req.session)
   if (req.session.cartId) {
     //const { cartId } = req.session;
     const cartId = req.session.cartId
@@ -31,7 +31,7 @@ const withCart = function (req, res, next) {
   }
 
   if (req.user) {
-    console.log("hallow moto i should be a user: " , req.user)
+    // console.log("hallow moto i should be a user: " , req.user)
     return Order.findOrCreate({where: {userId: req.user.id, status: 'open'}})
       .then(([order, _]) => {
         req.cart = order;
@@ -43,7 +43,7 @@ const withCart = function (req, res, next) {
 
   return Order.create({status: 'open'})
     .then(order => {
-      console.log("im a little order short and stout: ", order)
+      // console.log("im a little order short and stout: ", order)
       req.cart = order;
       req.session.cartId = order.id;
       return next();
