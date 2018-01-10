@@ -15,7 +15,7 @@ describe('Order Route', () => {
     return db.sync({ force: true })
   })
 
-  describe.only('/api/order', () => {
+  describe('/api/order', () => {
     let codyorder, codysmith, codyaddress,
       orderItemOne, productTest, productPutTest, noOrderUser;
 

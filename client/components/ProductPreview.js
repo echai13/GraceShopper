@@ -6,12 +6,14 @@ const ProductPreview = (props) => {
   //const handleAdd = props.handleAdd;
 
   return (
-    <div key={product.id} className="col-md-4 product">
+    <div key={product.id} className="col-md-4 col-sm-6 col-xs-12 product">
       <Link to={`/products/${product.id}`}>
-        <h3>{product.name}</h3>
-        <img src={product.image} />
+        <span>
+          <img className="d-flex justify-content-center" src={product.image} />
+        </span>
       </Link>
-      <h3><small>$</small>{product.price}</h3>
+      <h6 style={{ textAlign: 'center' }}><strong>{product.name}</strong></h6>
+      <h6 style={{ textAlign: 'center' }}><small>$</small>{product.price}</h6>
     </div>
   )
 }

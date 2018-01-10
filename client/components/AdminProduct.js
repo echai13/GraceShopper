@@ -5,14 +5,6 @@ import { AddProduct, CategoryForm } from './index.js'
 import { removeProductThunk } from '../store'
 
 export class AdminProduct extends Component {
-  constructor() {
-    super()
-    this.state = {
-      toggleCategory: false,
-      toggleAdd: false
-    }
-    this.handleToggle = this.handleToggle.bind(this)
-  }
 
   handleToggle (evt) {
     evt.target.name === 'category' ?
@@ -22,14 +14,7 @@ export class AdminProduct extends Component {
 
   render() {
     return (
-      <div>
-        <button type="submit" onClick={this.handleToggle} name="category">Add New Category</button>
-        { this.state.toggleCategory &&
-        <CategoryForm /> }
-
-        <button type="submit" onClick={this.handleToggle} name="product">Add New Product</button>
-        { this.state.toggleAdd && <AddProduct /> }
-
+      <div className="table-responsive">
         <table>
           <thead>
             <tr>
@@ -52,7 +37,7 @@ export class AdminProduct extends Component {
                   <td>{product.price}</td>
                   <td>{product.description}</td>
                   <td>{product.categories.map(category => category.name).join(', ')}</td>
-                  <td><button type="submit" onClick={() => {this.props.handleClick(product.id)}}>X</button></td>
+                  <td><button className="btn btn-info btn-round" type="submit" onClick={() => {this.props.handleClick(product.id)}}>X</button></td>
                 </tr>
               )
             })}

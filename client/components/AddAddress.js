@@ -52,81 +52,87 @@ export class AddAddress extends Component {
                 name="street1"
                 value={this.state.street1}
                 onChange={this.handleChange} className="form-control" />
-              </label>
-            </div>
-            <div className="form-group">
-              <label>
-                Street 2:
-                <input
-                  type="text"
-                  name="street2"
-                  value={this.state.street2}
-                  onChange={this.handleChange} className="form-control" />
-                </label>
-              </div>
-              <div className="form-group">
-                <label>
-                  City:
-                  <input
-                    type="text"
-                    name="city"
-                    value={this.state.city}
-                    onChange={this.handleChange} className="form-control" />
-                  </label>
-                </div>
-                <div className="form-group">
-                  <label>
-                    State:
-                    <input
-                      type="text"
-                      name="state"
-                      value={this.state.state}
-                      onChange={this.handleChange} className="form-control" />
-                    </label>
-                  </div>
-                  <div className="form-group">
-                    <label>
-                      Zipcode:
-                      <input
-                        type="text"
-                        name="zipcode"
-                        value={this.state.zipcode }
-                        onChange={this.handleChange} className="form-control" />
-                      </label>
-                    </div>
-                    <div className="form-group">
-                      <label>
-                        Country:
-                        <input
-                          type="text"
-                          name="country"
-                          value={this.state.country}
-                          onChange={this.handleChange} className="form-control" />
-                        </label>
-                      </div>
-                      <input type="submit" value="Submit" />
-                    </form>
-                  )
-                }
-              }
+            </label>
+          </div>
 
-              /**
-              * CONTAINER
-              */
-              const mapState = (state) => {
-                return {
-                  id: state.user.id,
-                }
-              }
+          <div className="form-group">
+            <label>
+              Street 2:
+              <input
+                type="text"
+                name="street2"
+                value={this.state.street2}
+                onChange={this.handleChange} className="form-control" />
+            </label>
+          </div>
 
-              const mapDispatch = (dispatch) => {
-                return {
-                  addAddress(addressInfo){
-                    dispatch(addAddress(addressInfo));
-                  }
-                }
-              }
+          <div className="form-group">
+            <label>
+              City:
+              <input
+                type="text"
+                name="city"
+                value={this.state.city}
+                onChange={this.handleChange} className="form-control" />
+            </label>
+          </div>
 
-              // could probably take off withRouter... originally put there in case
-              // we would have it take them to a new page and then use goBack to return to the prev page
-              export default withRouter(connect(mapState, mapDispatch)(AddAddress))
+          <div className="form-group">
+            <label>
+              State:
+              <input
+                type="text"
+                name="state"
+                value={this.state.state}
+                onChange={this.handleChange} className="form-control" />
+            </label>
+          </div>
+
+          <div className="form-group">
+            <label>
+              Zipcode:
+              <input
+                type="text"
+                name="zipcode"
+                value={this.state.zipcode }
+                onChange={this.handleChange} className="form-control" />
+            </label>
+          </div>
+
+          <div className="form-group">
+            <label>
+              Country:
+              <input
+                type="text"
+                name="country"
+                value={this.state.country}
+                onChange={this.handleChange} className="form-control" />
+            </label>
+          </div>
+
+          <input type="submit" value="Submit" />
+        </form>
+      )
+    }
+  }
+
+/**
+* CONTAINER
+*/
+const mapState = (state) => {
+  return {
+    id: state.user.id,
+  }
+}
+
+const mapDispatch = (dispatch) => {
+  return {
+    addAddress(addressInfo){
+      dispatch(addAddress(addressInfo));
+    }
+  }
+}
+
+// could probably take off withRouter... originally put there in case
+// we would have it take them to a new page and then use goBack to return to the prev page
+export default withRouter(connect(mapState, mapDispatch)(AddAddress))

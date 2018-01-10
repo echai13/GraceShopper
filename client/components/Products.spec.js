@@ -9,7 +9,7 @@ import {Products} from './Products'
 const adapter = new Adapter()
 enzyme.configure({adapter})
 
-describe('Products', () => {
+describe.only('Products', () => {
   let products
 
   const borgpet007 = {
@@ -30,6 +30,7 @@ describe('Products', () => {
 
   beforeEach(() => {
     products = shallow(<Products products={[borgpet007]} categories={categories} />)
+    console.log(products)
   })
 
   it('renders the name in an h3', () => {
@@ -41,4 +42,3 @@ describe('Products', () => {
     expect(productDiv[0].props.children).to.be.equal('roselia007')
   })
 })
-

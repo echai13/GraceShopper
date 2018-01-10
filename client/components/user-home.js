@@ -29,24 +29,32 @@ export class UserHome extends Component {
     const {user} = this.props
 
     return (
-      <div>
+      <div className="user-home d-flex justify-content-center">
+        <span>
         <h3>Welcome, {user.fullName}</h3>
+        { this.state.showEditForm ?
+          <button
+            className="btn btn-info btn-round"
+            type="submit"
+            onClick={this.updateToggle }>Close Edit</button>
+          :
+          <button
+            className="btn btn-info btn-round"
+            type="submit"
+            onClick={this.updateToggle}>Edit Your Details</button>
+        }
         <hr />
-        <div>
-          { this.state.showEditForm ?
-            <div>
-              <button type="submit" onClick={this.updateToggle }>Close Edit</button>
-              <EditUser closeForm={this.updateToggle} updateThunk={me} />
-            </div>
-            :
-            <button type="submit" onClick={this.updateToggle}>Edit Your Details</button>
-          }
-        </div>
+
+        { this.state.showEditForm &&
+          <EditUser closeForm={this.updateToggle} updateThunk={me} />
+        }
+
         <h4>Account Details</h4>
           <h5>Your Addresses</h5>
           <UserDetails />
         <h4>Order History</h4>
           <UserOrders />
+        </span>
       </div>
     )
   }

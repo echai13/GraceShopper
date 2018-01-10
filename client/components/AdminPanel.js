@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { AdminUser, AdminProduct, AdminOrder } from './index.js'
+import { AdminUser, AdminProduct, AdminOrder, CategoryForm, AddProduct } from './index.js'
 import { getAdminUsers, getAdminOrders, getProductsThunk } from '../store'
 
 
@@ -9,41 +9,122 @@ export class AdminPanel extends Component {
   constructor() {
     super()
     this.state = {
-      view: ''
+      view: 'users',
+      toggleCategory: false,
+      toggleAdd: false,
+      statusView: 'all'
     }
     this.handleClick = this.handleClick.bind(this)
+    this.handleToggle = this.handleToggle.bind(this)
+    this.updateStatusView = this.updateStatusView.bind(this)
   }
 
   componentDidMount(){
     this.props.fetchAll()
   }
 
-  handleClick(evt) {
-    this.setState({view: evt.target.value})
+  updateStatusView (status) {
+    this.setState({statusView: status})
+  }
+
+  handleToggle (type) {
+    type === 'category' ?
+    this.setState({ toggleCategory: !this.state.toggleCategory, toggleAdd: false }) :
+    this.setState({ toggleAdd: !this.state.toggleAdd, toggleCategory: false })
+
+    this.setState({ view: 'products' })
+  }
+
+  handleClick(type) {
+    this.setState({view: type, toggleCategory: false, toggleAdd: false})
   }
 
   render() {
-    // const { products } = this.props;
-    // const { orders, users } = this.state;
-    // console.log(users);
+    const statuses = ['open', 'completed', 'confirmed', 'shipped']
     return (
-      <div>
-        <h1>Admin Panel</h1>
-        <div>
-          <button value="users" onClick={this.handleClick}>Users</button>
-          <button value="orders" onClick={this.handleClick}>Orders</button>
-          <button value="products" onClick={this.handleClick}>Products</button>
-        </div>
-        <div>
-          {this.state.view === 'users' &&
-            <AdminUser />
-          }
-          {this.state.view === 'orders' && //could add total
-            <AdminOrder />
-          }
-          {this.state.view === 'products' &&
-            <AdminProduct />
-          }
+      <div className="admin-panel">
+        {/* <h1>Admin Panel</h1> */}
+        <div className="row">
+          <div className="col-md-2 col-sm-2 col-xs-12">
+            <nav className="navbar navbar-toggleable-md navbar-toggleable-sm">
+              <button className="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="fa fa-angle-down" />
+              </button>
+            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul>
+                <li><a onClick={() => this.handleClick('users')}>Users</a></li>
+                <li><a onClick={() => this.handleClick('orders')}>Orders</a>
+                  { this.state.view === 'orders' &&
+                  <ul>
+                    <li key={0}><a onClick={() => this.updateStatusView('all')}>All</a></li>
+                    {statuses.map(status => (
+                    <li key={status}><a onClick={() => this.updateStatusView(status) }>{status}</a></li>
+                    ))}
+                  </ul>
+                  }
+                </li>
+                <li><a onClick={() => this.handleClick('products')}>Products</a>
+                  { this.state.view === 'products' &&
+                  <ul>
+                    <li><a onClick={() => this.handleToggle('category')}>Add New Category</a></li>
+                    <li><a onClick={() => this.handleToggle('product')}>Add New Product</a></li>
+                  </ul>
+                  }
+                </li>
+                <li><a>Analytics</a></li>
+                <li><a>Import/Export Data</a></li>
+                <li><a>Integrations</a></li>
+                <li><a>Customizations</a></li>
+              </ul>
+            </div>
+            </nav>
+          </div>
+
+          <div className="col-md-10 col-sm-10">
+            <div className="row summary">
+              <div className="col-md-4">
+                <div className="d-flex justify-content-center align-items-center">
+                  { this.props.products ? <p>{this.props.products.length}</p> : <p>0</p> }
+                </div>
+                <h4>Products</h4>
+              </div>
+
+              <div className="col-md-4">
+                <div className="d-flex justify-content-center align-items-center">
+                  { this.props.users ? <p>{this.props.users.length}</p> : <p>0</p> }
+                </div>
+                <h4>Users</h4>
+              </div>
+
+              <div className="col-md-4">
+                <div className="d-flex justify-content-center align-items-center">
+                  { this.props.orders ? <p>{this.props.orders.length}</p> : <p>0</p> }
+                </div>
+                <h4>Orders</h4>
+              </div>
+            </div>
+
+            <div className="row details">
+              <div className="col-md-12">
+                {this.state.view === 'users' &&
+                  <AdminUser />
+                }
+                {this.state.view === 'orders' && //could add total
+                  <AdminOrder orderStatus={this.state.statusView} />
+                }
+                {this.state.view === 'products' && !this.state.toggleCategory && !this.state.toggleAdd &&
+                  <AdminProduct />
+                }
+                {this.state.toggleCategory &&
+                  <CategoryForm />
+                }
+                {this.state.toggleAdd &&
+                <AddProduct />
+              }
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
     )

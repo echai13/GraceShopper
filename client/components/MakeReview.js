@@ -26,22 +26,23 @@ class MakeReview extends Component {
   render() {
 
   return (
-    <div className="col-md-12">
-      <div className="table-responsive">
-        <div className="tim-typo">
-          <h3 className="tim-note"> Review Item
-          </h3>
-          <br />
-           <div className="media-body">
-            <div className="form-group">
-              <textarea className="form-control" name="review" onChange={this.handleChange} placeholder="Leave a review" rows="6"></textarea>
+    <div className="row">
+      <div className="col-md-12 col-sm-12 col-xs-12">
+        <div className="table-responsive">
+          <div className="tim-typo">
+            <h3 className="tim-note">Leave a Review</h3>
+            <br />
+             <div className="media-body">
+              <div className="form-group">
+                <textarea className="form-control" name="review" onChange={this.handleChange} placeholder="Leave a review" rows="6"></textarea>
 
+              </div>
             </div>
-          </div>
-          <div className="media-footer">
-            <span onClick={this.handleSubmit} className="btn btn-primary btn-wd pull-right">Submit Review</span>
+            <div className="media-footer">
+              <span onClick={this.handleSubmit} className="btn btn-primary btn-wd pull-right">Submit Review</span>
+              </div>
             </div>
-          </div>
+        </div>
       </div>
     </div>
   )}

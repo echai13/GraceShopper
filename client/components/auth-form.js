@@ -8,9 +8,15 @@ import {auth} from '../store'
  */
 const AuthForm = (props) => {
   const {name, displayName, handleSubmit, error} = props
-
+  const randomImages = [
+    'https://images.pexels.com/photos/96428/pexels-photo-96428.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb',
+    'https://images.pexels.com/photos/38008/pexels-photo-38008.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb',
+    'https://images.pexels.com/photos/39317/chihuahua-dog-puppy-cute-39317.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb',
+    'https://images.pexels.com/photos/372166/pexels-photo-372166.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb'
+  ]
   return (
-    <div>
+    <div className="row login-signup" style={{ background: `url(${randomImages[Math.floor(4 * Math.random())]}) fixed center no-repeat`, backgroundSize: 'cover' }}>
+      <div className="col-md-12 col-sm-12 col-xs-12 d-flex justify-content-center align-items-center">
       <form onSubmit={handleSubmit} name={name} className="auth-form">
         { name === 'signup' ?
         <span>
@@ -32,12 +38,13 @@ const AuthForm = (props) => {
           <label htmlFor="password"><small>Password</small></label>
           <input name="password" type="password" className="form-control" />
         </div>
-        <div className="form-group">
-          <button type="submit">{displayName}</button>
+        <div className="form-group login-signup-button">
+          <button className="btn btn-info btn-round" type="submit">{displayName}</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
-      <a href="/auth/google">{displayName} with Google</a>
+      {/* <a href="/auth/google">{displayName} with Google</a> */}
+      </div>
     </div>
   )
 }

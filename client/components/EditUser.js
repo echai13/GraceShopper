@@ -47,7 +47,7 @@ const EditUser = props => {
         </label>
       </div> }
       <div className="form-group">
-        <button type="submit">Submit Changes</button>
+        <button className="btn btn-info btn-round" type="submit">Submit Changes</button>
       </div>
     </form>
   )

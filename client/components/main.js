@@ -17,8 +17,8 @@ const Main = (props) => {
   return (
     <div>
       <NavBar />
-      <div className="container">
-        <hr />
+      <div className="container-fluid">
+        {/* <hr /> */}
         {children}
       </div>
     </div>

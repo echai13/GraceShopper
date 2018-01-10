@@ -6,7 +6,7 @@ import { AdminUserRow } from './index'
 
 export const AdminUser = (props) => {
   return (
-    <div>
+    <div className="table-responsive">
       <table>
         <thead>
           <tr>
@@ -18,7 +18,7 @@ export const AdminUser = (props) => {
             <th>Delete</th>
           </tr>
         </thead>
-          { props.users.map(user => {
+          { props.users && props.users.map(user => {
             return (
               <AdminUserRow key={user.id} user={user} />
             )}

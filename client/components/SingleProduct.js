@@ -22,6 +22,7 @@ export class SingleProduct extends Component {
 
   componentDidMount(){
     this.props.fetchSingleProduct();
+    window.scrollTo(0, 0)
   }
 
   handleChange(evt) {
@@ -52,48 +53,55 @@ export class SingleProduct extends Component {
     }
     return (
 
-      <div>
+      <div className="single-product-page">
         { isAdmin &&
-          <button type="submit" onClick={this.updateToggle}>{this.state.showEditForm ? 'Close Edit' : 'Edit Product Details'}</button>
+          <button  className="btn btn-info btn-round" type="submit" onClick={this.updateToggle}>{this.state.showEditForm ? 'Close Edit' : 'Edit Product Details'}</button>
         }
         {isAdmin && this.state.showEditForm && <EditProduct />
         }
         <div className="row single-product">
-        <div className="col-md-6">
-          <img src={singleProduct.image} />
+          <div className="col-md-6 d-flex justify-content-center">
+            <img src={singleProduct.image} />
+          </div>
+
+          <div className="col-md-6">
+            <h1>{singleProduct.name}</h1>
+            <h4><strong>Price:</strong> <small>&nbsp;$</small>{singleProduct.price}</h4>
+            {/* Tells customers if product is in stock */}
+            {
+              singleProduct.isAvailable ?
+              (<form
+                onSubmit={this.handleSubmit}>
+                <label>
+                  In Stock
+                  <select
+                    value={this.state.value}
+                    onChange={this.handleChange}>
+                    {quantities}
+                  </select>
+                  <input type="submit" value="Add" />
+                </label>
+              </form>) :
+              <span>Currently Out of Stock</span>
+            }
+            <p>Categories: {singleProduct.categories && singleProduct.categories.map(category => category.name).join(', ')}</p>
+            <p>Details: {singleProduct.description}</p>
+          </div>
         </div>
 
-
-
-        <div className="col-md-6">
-          <h1>{singleProduct.name}</h1>
-          <h3>Price: <small>$</small>{singleProduct.price}</h3>
-          {/* Tells customers if product is in stock */}
-          {
-            singleProduct.isAvailable ?
-            (<form
-              onSubmit={this.handleSubmit}>
-              <label>
-                In Stock
-                <select
-                  value={this.state.value}
-                  onChange={this.handleChange}>
-                  {quantities}
-                </select>
-                <input type="submit" value="Add" />
-              </label>
-            </form>) :
-            <span>Currently Out of Stock</span>
-          }
-          <p>Categories: {singleProduct.categories && singleProduct.categories.map(category => category.name).join(', ')}</p>
-          <p>Details: {singleProduct.description}</p>
+        <div className="row review-heading">
+          <div className="col-md-12 col-sm-12 col-xs-12">
+            <h3>Customer Reviews</h3>
+          </div>
         </div>
-      </div>
-        <h2> Reviews </h2>
-        {singleProduct && singleProduct.reviews && singleProduct.reviews.map(review => {
-          return (
-            <p key={review.id}> {review.reviewText} </p>)
-        })}
+        <div className="row reviews">
+          {singleProduct && singleProduct.reviews && singleProduct.reviews.length > 0 ? singleProduct.reviews.map(review => {
+            return (
+              <div key={review.id} className="col-md-12 col-sm-12 col-xs-12 individual-reviews">
+                <p > {review.reviewText} </p>
+              </div>)
+          }) : <div className="col-md-12 col-sm-12 col-xs-12 individual-reviews"><p style={{ textAlign: 'center' }}>No reviews yet</p></div>}
+        </div>
         <MakeReview history={this.props.history} />
       </div>
     )

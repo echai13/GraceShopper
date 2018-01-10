@@ -29,7 +29,11 @@ const Product = db.define('product', {
     get() {
 			return this.stock !== 0
 		}
-  }
+  },
+	isFeatured: {
+		type: BOOLEAN,
+		defaultValue: false
+	}
 }, {
     defaultScope: {
       include: [

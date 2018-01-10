@@ -4,11 +4,11 @@ body {
   background-color: white
 }
 
-nav {
+/* nav {
   background-image: url('night-light-black.jpeg');
-}
+} */
 
-.navbar-brand.store-name {
+/* .navbar-brand.store-name {
   color: white;
   font-family: fantasy;
 }
@@ -17,17 +17,13 @@ nav {
   display: flex;
   justify-content: flex-end;
   font-size: 1.2em;
-}
+} */
 
 .auth-form {
   display: flex;
   flex-direction: column;
   max-width: 60%;
   margin: 50px auto;
-}
-
-.shopping-cart {
-  color: white
 }
 
 .page-header {
@@ -50,17 +46,8 @@ nav {
   padding: 30px
 }
 
-.product img {
-  height: 200px;
-  width: 200px
-}
-
 .product h3 {
   font-size: 24px
-}
-
-.single-product {
-  margin-top: 10%
 }
 
 button {
@@ -69,10 +56,10 @@ button {
   background-color: lightgray;
   border-color: black;
 }
-
+/*
 button:hover {
   background-color: lightsteelblue
-}
+} */
 
 .long-button {
   width: 150px
@@ -82,18 +69,7 @@ button:hover {
   width: 75px
 }
 
-thead {
-  border: 3px solid black;
-}
-
-table, th, td {
-  border: 1px solid black;
-  text-align: center;
-  padding: 5px
-}
-
 table {
-  max-width: 50%;
   margin: 0px auto
 }
 
@@ -131,4 +107,3 @@ table {
 .homepage h3 {
   color: blue
 }
-

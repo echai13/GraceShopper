@@ -25,8 +25,8 @@ export class AdminUserRow extends Component{
           <td>{user.lastName}</td>
           <td>{user.email}</td>
           <td>{user.isAdmin ? 'yes' : 'no'}</td>
-          <td><button onClick={() => { this.setState({editOpen: !this.state.editOpen}) }}>Edit User</button></td>
-          <td><button onClick={() => this.props.deleteUser(user.id)}>x</button></td>
+          <td><button className="btn btn-info btn-round" onClick={() => { this.setState({editOpen: !this.state.editOpen}) }}>Edit User</button></td>
+          <td><button className="btn btn-info btn-round" onClick={() => this.props.deleteUser(user.id)}>x</button></td>
         </tr>
         <tr>
           <td colSpan="6">{this.state.editOpen &&

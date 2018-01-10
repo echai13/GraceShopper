@@ -5,28 +5,11 @@ import { updateCartStatus, getAdminOrders } from '../store'
 
 
 export class AdminOrder extends Component {
-  constructor(){
-    super();
-    this.state = {statusView: 'all'}
-    this.updateStatusView = this.updateStatusView.bind(this);
-  }
-
-  updateStatusView = (status) => {
-    this.setState({statusView: status})
-  }
-
   render() {
     const orders = this.props.orders
-    const statuses = ['open', 'completed', 'confirmed', 'shipped']
-    console.log('order info ---> ', orders[0])
+    console.log(this.props)
     return (
-      <div>
-        <div className="statuses">
-          <button key={0} onClick={() => this.updateStatusView('all')}>All</button>
-          {statuses.map((status, idx) => (
-            <button key={idx} onClick={() => this.updateStatusView(status)}>{status}</button>
-          ))}
-        </div>
+      <div className="table-responsive">
         <table>
           <thead>
             <tr>
@@ -39,17 +22,25 @@ export class AdminOrder extends Component {
             </tr>
           </thead>
           <tbody>
-            {orders.map(order => {
-              return ( (this.state.statusView === 'all' || order.status === this.state.statusView ) &&
+            {orders && orders.map(order => {
+              return ( (this.props.orderStatus === 'all' || order.status === this.props.orderStatus ) &&
                ( <tr key={order.id}>
                   <td>{order.user ? order.user.fullName : 'Unauth User'}</td>
                   <td>{order.user ? order.user.email : 'Unauth User'}</td>
                   <td className="address">
-                    <br />{order.address && order.address.street1}
-                    {order.address && order.address.street2 && <span><br />{order.address.street2}</span>}
-                    <br />{order.address && order.address.city + ', ' + order.address.state + ' ' + order.address.zipcode}
-                    <br />{order.address && order.address.country}
+                    <br />
+                    {order.address && order.address.street1}
+                    {order.address && order.address.street2 &&
+                    <span>
+                      <br />
+                      {order.address.street2}
+                    </span>}
+                    <br />
+                    {order.address && order.address.city + ', ' + order.address.state + ' ' + order.address.zipcode}
+                    <br />
+                    {order.address && order.address.country}
                   </td>
+
                   <td className="select">
                     <select
                       defaultValue={order.status}

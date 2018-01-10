@@ -41,6 +41,7 @@ async function seed () {
     price: "250.05",
     description: "They come as a pair! Anarchic bottom and Republic top, if you say Marco Polo, both will respond to you. Beware. If you say just Marco, the top of the pair will respond, and Polo will go wild, and we don't want that. No we don't. While Marco plays well with others and Polo plays badly with others, as a borg-pair, they will remain rather aloof from other borg pets. However, they are practically codependent, and will not do well if separation is forced.",
     stock: 25,
+    isFeatured: true
     })
     .then(product => product.setCategories([categories[7], categories[1], categories[8]])),
     Product.create({
@@ -49,6 +50,7 @@ async function seed () {
     price: "75.05",
     description: "She enjoys playing the bagpipes in her free time, and regularly adds different forms of music to her body. Last month she added a harmonica to her wheeled feet. She is very responsive to noise levels, and will know when it is time to liven up the room. If she learns you have a preferred style of music, she will tinker with her hardware to create that instrument for you. ",
     stock: 25,
+    isFeatured: true
     })
     .then(product => product.setCategories([categories[1], categories[5], categories[8]])),
     Product.create({
@@ -57,6 +59,7 @@ async function seed () {
     price: "95.05",
     description: "Topple, also known as Cheburashka, was named for his fascination with all roly poly toys and his namesakes cartoons. He appended little wooden donuts to the side of his head to emulate cheburashkas elephant ears, and enjoys toppling off surfaces close to the ground. Topple plays well with other borg pets that are top heavy, and often encourages the borgs around him to perform tumbling exercises and re-enactments of old russian cartoons. He will become attached to any alligator type animal. ",
     stock: 25,
+    isFeatured: true
     })
     .then(product => product.setCategories([categories[5], categories[1]])),
     Product.create({
@@ -65,6 +68,7 @@ async function seed () {
     price: "103.90",
     description: "Pup88's eyes are always wide with wonder, and they look at you as though your are the most important person in the world. They give Nuzzles as they get closer to you, and will often lean on you as they get tired. Pup is one of our baby pets, and when picked up, requires head support, or they will be in extreme pain. Does well when paired with Dandiga borgs. Does not play well with Topple, as the head support is so weak that he will not be able to participate in activities. ",
     stock: 25,
+    isFeatured: true
     })
     .then(product => product.setCategories([categories[3], categories[5]])),
     Product.create({
@@ -73,6 +77,7 @@ async function seed () {
     price: "559.10",
     description: "Dandiga, or Dandy, is an ideal caretaker pet, and will take on small chores that he deems his owner as too tired to do. However, he dislikes wet surfaces and spills, so shies away from kitchens and bathrooms if recently used. However, he loves to play with kids and pets, and is a suitable toy dog walker. He also plays well with other borg pets, and assumes the caretaker role in a large group of borgs. Dandiga also makes for a good alarm bot, and a task reminder. But his persistence in reminding you to finish your tasks is...meh.",
     stock: 25,
+    isFeatured: true
     })
     .then(product => product.setCategories([categories[4], categories[8]])),
     Product.create({
@@ -81,6 +86,7 @@ async function seed () {
     price: "89.27",
     description: "Bynos classify themselves as extreme optimists, and they often ding happily in the morning as they come out of their recharging cycle. Byno is double jointed, and is capable of very complicated tasks with his hands, however, he can get overexcited, and has to run down his energy before doing a task requiring great concentration. He is known as one of our most affectionate borgs, and they have been known to self-shutdown if they are abused. ",
     stock: 25,
+    isFeatured: true
     })
     .then(product => product.setCategories([categories[1], categories[5]])),
     Product.create({

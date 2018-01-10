@@ -42,6 +42,7 @@ export class UserDetails extends Component {
         }
         </div>
         <button
+          className="btn btn-info btn-round"
           onClick={() => {
             this.setState({ addAddress: !this.state.addAddress })
           }}>
