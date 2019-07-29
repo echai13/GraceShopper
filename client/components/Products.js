@@ -126,73 +126,93 @@ export class Products extends React.Component {
     );
   };
 
+  renderSortByCategories = () => (
+    <React.Fragment>
+      <div className="row">
+        <div className="col-md-12 col-sm-6 col-xs-12">
+          <h6 className="d-flex justify-content-center align-items-center">
+            Select Categories
+          </h6>
+        </div>
+      </div>
+
+      <div className="row d-flex justify-content-center listCategories">
+        <span>
+          <div className="col-md-12 col-sm-6 col-xs-12">
+            <label>
+              <input
+                type="radio"
+                key={0}
+                checked={this.state.currentCategory === 'All'}
+                onChange={() => this.updateCategory('All')} />All
+            </label>
+          </div>
+          {this.props.categories.map(this.renderCategory)}
+        </span>
+      </div>
+    </React.Fragment>
+  );
+
+  renderSort = () => (
+    <React.Fragment>
+      <div className="row">
+        <div className="col-md-12 col-sm-6 col-xs-12">
+          <h6 className="d-flex justify-content-center align-items-center">
+            Sort Product Listings
+          </h6>
+        </div>
+      </div>
+
+      <div className="row sortDropdown">
+        <div className="col-md-12 col-sm-6 col-xs-12 d-flex justify-content-center">
+          <select>
+            {sortOptions.map(this.renderSortOption)}
+          </select>
+        </div>
+      </div>
+    </React.Fragment>
+  );
+
+  renderSortByReviews = () => (
+    <div className="row sortByReviews">
+      <div className="col-md-12 col-sm-6 col-xs-12">
+        <h6 className="d-flex justify-content-center align-items-center">By Reviews</h6>
+        <ul>
+          {stars.map(this.renderStarRow)}
+        </ul>
+      </div>
+    </div>
+  );
+
+  // Left rail
+  renderFilters = () => {
+    return (
+      <div className="col-md-3 col-sm-12 col-xs-12 categories">
+        {this.renderSortByCategories()}
+        {this.renderSort()}
+        {this.renderSortByReviews()}
+      </div>
+    );
+  };
+
+  // Right rail
+  renderProducts = () => (
+    <div className="col-md-9 col-sm-12 col-xs-12 all-products">
+      <div className="row">
+        {this.props.products.map(this.renderProduct)}
+      </div>
+    </div>
+  );
+
   render() {
-    const { products, categories } = this.props
-    const currentCategory = this.state.currentCategory;
-    
     return (
       <div className="product-page">
         <div className="row product-page-image" />
 
         <div className="row show-products">
-          <div className="col-md-3 col-sm-12 col-xs-12 categories">
-
-            <div className="row">
-              <div className="col-md-12 col-sm-6 col-xs-12">
-                <h6 className="d-flex justify-content-center align-items-center">
-                  Select Categories
-                </h6>
-              </div>
-            </div>
-
-            <div className="row d-flex justify-content-center listCategories">
-              <span>
-                <div className="col-md-12 col-sm-6 col-xs-12">
-                  <label>
-                    <input
-                      type="radio"
-                      key={0}
-                      checked={this.state.currentCategory === 'All'}
-                      onChange={() => this.updateCategory('All')} />All
-                  </label>
-                </div>
-                {categories.map(this.renderCategory)}
-              </span>
-            </div>
-
-            <div className="row">
-              <div className="col-md-12 col-sm-6 col-xs-12">
-                <h6 className="d-flex justify-content-center align-items-center">
-                  Sort Product Listings
-                </h6>
-              </div>
-            </div>
-
-            <div className="row sortDropdown">
-              <div className="col-md-12 col-sm-6 col-xs-12 d-flex justify-content-center">
-                <select>
-                  {sortOptions.map(this.renderSortOption)}
-                </select>
-              </div>
-            </div>
-
-            <div className="row sortByReviews">
-              <div className="col-md-12 col-sm-6 col-xs-12">
-                <h6 className="d-flex justify-content-center align-items-center">By Reviews</h6>
-                <ul>
-                  {stars.map(this.renderStarRow)}
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-md-9 col-sm-12 col-xs-12 all-products">
-            <div className="row">
-              {products.map(this.renderProduct)}
-            </div>
-          </div>
+          {this.renderFilters()}
+          {this.renderProducts()}
         </div>
-
       </div>
     );
   };
