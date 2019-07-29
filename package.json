@@ -2,9 +2,6 @@
   "name": "BorgPetCo",
   "version": "1.0.0",
   "description": "Here is an ECommerceWebsite!",
-  "engines": {
-    "node": "^9"
-  },
   "main": "index.js",
   "scripts": {
     "build-client": "webpack",
