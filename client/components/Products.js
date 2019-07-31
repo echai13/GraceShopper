@@ -26,11 +26,32 @@ const buildStarsForReviewSection = () => {
 };
 
 const sortOptions = [
-  'name: A to Z',
-  'name: Z to A',
-  'price: low to high',
-  'price: high to low',
-];  
+  {
+    label: 'Select option ...',
+    value: 'Select option',
+  },
+  {
+    label: 'name: A to Z',
+    value: 'ALPHABET_ASCENDING',
+  },
+  {
+    label: 'name: Z to A',
+    value: 'ALPHABET_DESCENDING',
+  },
+  {
+    label: 'price: low to high',
+    value: 'PRICE_ASCENDING',
+  },
+  {
+    label: 'price: high to low',
+    value: 'PRICE_DESCENDING',
+  },
+];
+
+const sortByAlphabetAscending = (first, second) => first.name.localeCompare(second.name);
+const sortByAlphabetDescending = (first, second) => second.name.localeCompare(first.name);
+const sortByPriceAscending = (first, second) => parseInt(first.price) - parseInt(second.price);
+const sortByPriceDescending = (first, second) => parseInt(second.price) - parseInt(first.price);
 
 /**
  * COMPONENT
@@ -40,6 +61,8 @@ export class Products extends React.Component {
     super(props);
     this.state = {
       currentCategory: 'All',
+      sortFilter: '',
+      reviewFilter: '',
     }
     this.updateCategory = this.updateCategory.bind(this);
     this.addProductToCart = this.addProductToCart.bind(this);
@@ -99,31 +122,61 @@ export class Products extends React.Component {
     </div>
   );
 
-  renderSortOption = (option) => (
-    <option key={option}>{option}</option>
+  handleSelectSort = (event) => {
+    this.setState({ sortFilter: event.target.value });
+  };
+
+  sortProducts = (products) => {
+    console.log('products: ', products);
+
+    switch(this.state.sortFilter) {
+      case 'ALPHABET_ASCENDING':
+        return products.sort(sortByAlphabetAscending);
+      case 'ALPHABET_DESCENDING':
+        return products.sort(sortByAlphabetDescending);
+      case 'PRICE_ASCENDING':
+        return products.sort(sortByPriceAscending);
+      case 'PRICE_DESCENDING':
+        return products.sort(sortByPriceDescending);
+      default:
+        return products;
+    };
+  };
+
+  renderSortOption = ({ label, value }, index) => (
+    <option
+      key={value}
+      value={value}
+      selected={index === 0}
+      disabled={index === 0}
+    >
+      {label}
+    </option>
   );
 
   renderStarRow = (star, index) => (
     <li key={star}>{star.length - index} stars {star}</li>
   );
 
-  renderProduct = (product) => {
+  filterProductByCategory = (product) => {
     const productCategories = product.categories.map(category => category.name);
     const { currentCategory } = this.state;
 
     const shouldShowProductPreview = (
-      currentCategory === 'All'
-      || productCategories.indexOf(currentCategory) > -1
-      || product.isAvailable
+      (currentCategory === 'All'
+      || productCategories.indexOf(currentCategory) > -1)
+      && product.isAvailable
     );
-    
-    return (
-      shouldShowProductPreview && <ProductPreview
-        key ={product.id}
-        product={product}
-        handleAdd={this.addProductToCart}
-      />
-    );
+
+    return shouldShowProductPreview;
+  }
+
+  renderProduct = (product) => {
+    return <ProductPreview
+      key ={product.id}
+      product={product}
+      handleAdd={this.addProductToCart}
+    />
   };
 
   renderSortByCategories = () => (
@@ -165,7 +218,7 @@ export class Products extends React.Component {
 
       <div className="row sortDropdown">
         <div className="col-md-12 col-sm-6 col-xs-12 d-flex justify-content-center">
-          <select>
+          <select onChange={this.handleSelectSort}>
             {sortOptions.map(this.renderSortOption)}
           </select>
         </div>
@@ -199,7 +252,7 @@ export class Products extends React.Component {
   renderProducts = () => (
     <div className="col-md-9 col-sm-12 col-xs-12 all-products">
       <div className="row">
-        {this.props.products.map(this.renderProduct)}
+        {this.sortProducts(this.props.products.filter(this.filterProductByCategory)).map(this.renderProduct)}
       </div>
     </div>
   );
