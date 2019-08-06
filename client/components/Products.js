@@ -91,7 +91,8 @@ export class Products extends React.Component {
   componentDidMount() {
     window.scrollTo(0, 0);
 
-    buildStarsForReviewSection();
+    // TOOD: Need to build this out
+    // buildStarsForReviewSection();
   }
 
   updateCategory = (currentCategory) => {
@@ -109,17 +110,15 @@ export class Products extends React.Component {
   };
 
   renderCategory = ({ id, name }) => (
-    <div key={id} className="col-md-12 col-sm-6 col-xs-12">
-      <label>
-        <input
-          type="radio"
-          value={name}
-          checked={this.state.currentCategory === name}
-          onChange={() => this.updateCategory(name)}
-        />
-          {name}
-      </label>
-    </div>
+    <label key={id}>
+      <input
+        type="radio"
+        value={name}
+        checked={this.state.currentCategory === name}
+        onChange={() => this.updateCategory(name)}
+      />
+        {name}
+    </label>
   );
 
   handleSelectSort = (event) => {
@@ -154,9 +153,10 @@ export class Products extends React.Component {
     </option>
   );
 
-  renderStarRow = (star, index) => (
-    <li key={star}>{star.length - index} stars {star}</li>
-  );
+  // TODO: Implement this rating system
+  // renderStarRow = (star, index) => (
+  //   <li key={star}>{star.length - index} stars {star}</li>
+  // );
 
   filterProductByCategory = (product) => {
     const productCategories = product.categories.map(category => category.name);
@@ -181,17 +181,12 @@ export class Products extends React.Component {
 
   renderSortByCategories = () => (
     <React.Fragment>
-      <div className="row">
         <div className="col-md-12 col-sm-6 col-xs-12">
           <h6 className="d-flex justify-content-center align-items-center">
             Select Categories
           </h6>
-        </div>
-      </div>
 
-      <div className="row d-flex justify-content-center listCategories">
-        <span>
-          <div className="col-md-12 col-sm-6 col-xs-12">
+          <div className="filter-options">
             <label>
               <input
                 type="radio"
@@ -199,51 +194,60 @@ export class Products extends React.Component {
                 checked={this.state.currentCategory === 'All'}
                 onChange={() => this.updateCategory('All')} />All
             </label>
+
+            {this.props.categories.map(this.renderCategory)}
           </div>
-          {this.props.categories.map(this.renderCategory)}
-        </span>
-      </div>
+        </div>
+
+        {/* <span>
+          <div className="col-md-12 col-sm-6 col-xs-12">
+            
+        </span> */}
     </React.Fragment>
   );
 
   renderSort = () => (
     <React.Fragment>
-      <div className="row">
         <div className="col-md-12 col-sm-6 col-xs-12">
           <h6 className="d-flex justify-content-center align-items-center">
             Sort Product Listings
           </h6>
-        </div>
-      </div>
 
-      <div className="row sortDropdown">
-        <div className="col-md-12 col-sm-6 col-xs-12 d-flex justify-content-center">
-          <select onChange={this.handleSelectSort}>
-            {sortOptions.map(this.renderSortOption)}
-          </select>
+          <div className="filter-options">
+            <select onChange={this.handleSelectSort}>
+              {sortOptions.map(this.renderSortOption)}
+            </select>
+          </div>
         </div>
-      </div>
+      {/* </div> */}
+
+      {/* <div className="row sortDropdown"> */}
+        {/* <div className="col-md-12 col-sm-6 col-xs-12 d-flex justify-content-center">
+          
+        </div> */}
     </React.Fragment>
   );
 
-  renderSortByReviews = () => (
-    <div className="row sortByReviews">
-      <div className="col-md-12 col-sm-6 col-xs-12">
-        <h6 className="d-flex justify-content-center align-items-center">By Reviews</h6>
-        <ul>
-          {stars.map(this.renderStarRow)}
-        </ul>
-      </div>
-    </div>
-  );
+  // renderSortByReviews = () => (
+  //   <div className="row sortByReviews">
+  //     <div className="col-md-12 col-sm-6 col-xs-12">
+  //       <h6 className="d-flex justify-content-center align-items-center">By Reviews</h6>
+  //       <ul>
+  //         {stars.map(this.renderStarRow)}
+  //       </ul>
+  //     </div>
+  //   </div>
+  // );
 
   // Left rail
   renderFilters = () => {
     return (
       <div className="col-md-3 col-sm-12 col-xs-12 categories">
-        {this.renderSortByCategories()}
-        {this.renderSort()}
-        {this.renderSortByReviews()}
+        <div className="row">
+          {this.renderSortByCategories()}
+          {this.renderSort()}
+          {/* {this.renderSortByReviews()} */}
+        </div>
       </div>
     );
   };

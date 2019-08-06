@@ -107,3 +107,43 @@ table {
 .homepage h3 {
   color: blue
 }
+
+.collapse#navbarToggleExternalContent {
+  text-align: center;
+}
+
+.collapse#navbarToggleExternalContent .row {
+  padding-top: 12px;
+}
+
+.collapsing {
+  display: none;
+  position: static;
+  height: auto;
+  overflow: auto;
+}
+
+.filter-options {
+  padding: 12px;
+}
+
+select:focus {
+  outline: none;
+}
+
+.admin-panel .row nav {
+  padding-top: 7em;
+  z-index: 10;
+  background-color: transparent;
+  position: fixed !important;
+  width: auto !important;
+}
+
+.admin-panel .row nav, .admin-panel .row nav > div {
+  overflow-y: auto;
+  height: 100%;
+}
+
+.admin-panel .row > div {
+  padding-top: 3em;
+}
