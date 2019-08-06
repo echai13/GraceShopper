@@ -1,9 +1,11 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { AdminUser, AdminProduct, AdminOrder, CategoryForm, AddProduct } from './index.js'
-import { getAdminUsers, getAdminOrders, getProductsThunk } from '../store'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
+import { AdminUser, AdminProduct, AdminOrder, CategoryForm, AddProduct } from './index.js';
+import { getAdminUsers, getAdminOrders, getProductsThunk } from '../store';
+
+const statuses = ['open', 'completed', 'confirmed', 'shipped'];
 
 export class AdminPanel extends Component {
   constructor() {
@@ -39,8 +41,11 @@ export class AdminPanel extends Component {
     this.setState({view: type, toggleCategory: false, toggleAdd: false})
   }
 
+  getStat = (key) => {
+    return this.props[key] ? this.props[key].length : 0;
+  };
+
   render() {
-    const statuses = ['open', 'completed', 'confirmed', 'shipped']
     return (
       <div className="admin-panel">
         {/* <h1>Admin Panel</h1> */}
@@ -84,21 +89,21 @@ export class AdminPanel extends Component {
             <div className="row summary">
               <div className="col-md-4">
                 <div className="d-flex justify-content-center align-items-center">
-                  { this.props.products ? <p>{this.props.products.length}</p> : <p>0</p> }
+                  <p>{this.getStat('products')}</p>
                 </div>
                 <h4>Products</h4>
               </div>
 
               <div className="col-md-4">
                 <div className="d-flex justify-content-center align-items-center">
-                  { this.props.users ? <p>{this.props.users.length}</p> : <p>0</p> }
+                  <p>{this.getStat('users')}</p>
                 </div>
                 <h4>Users</h4>
               </div>
 
               <div className="col-md-4">
                 <div className="d-flex justify-content-center align-items-center">
-                  { this.props.orders ? <p>{this.props.orders.length}</p> : <p>0</p> }
+                  <p>{this.getStat('orders')}</p>
                 </div>
                 <h4>Orders</h4>
               </div>
