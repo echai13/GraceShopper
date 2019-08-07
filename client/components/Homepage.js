@@ -75,12 +75,12 @@ const Homepage = props => {
       </div>
 
       <div className="row promote-image">
-        <div className="col-md-12 col-sm-12 col-xs-12 d-flex justify-content-start">
-          <div className="d-flex align-items-center">
+        <div className="col-md-12 col-sm-12 col-xs-12 d-flex justify-content-center">
+          <div className="d-flex align-items-center justify-content-center">
             <h5>
               <p><span style={{ color: 'deeppink', fontSize: '2em' }}>HUMANELY RAISED</span></p>
               <p>&amp; CREATED TO BE HUMANELY <span style={{ color: 'red' }}>LOVED</span></p>
-              <p>&amp; AND <span style={{ color: 'red' }}>CHERISHED.</span></p>
+              <p>&amp; <span style={{ color: 'red' }}>CHERISHED.</span></p>
               Our borg companions are loving and come with their own personalities,
               to contribute to a more organic bonding process as you learn how your
               pet reacts to and interacts with its environment. Namely, you.

@@ -75,17 +75,19 @@ body {
     }
 
     .promote-image {
-      background: url('http://globalblog.posco.com//wp-content/uploads/2017/02/POSCO_cover_watermark_1300x550_170307_1.jpg') center no-repeat;
+      background: url('/scenery.jpg') center no-repeat;
       background-size: cover;
       height: 65vh;
       margin: 2vw;
 
       h5 {
         width: 45vw;
+        color: white;
       }
 
       P {
         font-family: Arial Black;
+        color: white;
       }
     }
   }
@@ -440,5 +442,17 @@ body {
         width: 150px;
       }
     }
+  }
+
+  .row.single-product {
+    form label * {
+      &:first-child, &:nth-child(2) {
+        margin-right: 8px;
+      }
+    }
+  }
+
+  .home img {
+    cursor: pointer;
   }
 }

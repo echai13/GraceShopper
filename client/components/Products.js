@@ -69,23 +69,27 @@ export class Products extends React.Component {
   }
 
   static propTypes = {
-    products: PropTypes.arrayOf({
-      categories: PropTypes.array,
-      createdAt: PropTypes.string,
-      description: PropTypes.string,
-      image: PropTypes.string,
-      isAvailable: PropTypes.bool,
-      isFeatured: PropTypes.bool,
-      name: PropTypes.string,
-      reviews: PropTypes.array,
-      stock: PropTypes.number,
-    }),
-    categories: PropTypes.arrayOf({
-      createdAt: PropTypes.string,
-      id: PropTypes.number,
-      name: PropTypes.string,
-      updatedAt: PropTypes.string,
-    }),
+    products: PropTypes.arrayOf(
+      PropTypes.shape({
+        categories: PropTypes.array,
+        createdAt: PropTypes.string,
+        description: PropTypes.string,
+        image: PropTypes.string,
+        isAvailable: PropTypes.bool,
+        isFeatured: PropTypes.bool,
+        name: PropTypes.string,
+        reviews: PropTypes.array,
+        stock: PropTypes.number,
+      })
+    ),
+    categories: PropTypes.arrayOf(
+      PropTypes.shape({
+        createdAt: PropTypes.string,
+        id: PropTypes.number,
+        name: PropTypes.string,
+        updatedAt: PropTypes.string,
+      })
+    ),
   };
 
   componentDidMount() {

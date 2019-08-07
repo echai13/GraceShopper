@@ -30,15 +30,29 @@ export const removeCart = () =>  ({ type: REMOVE_CART })
  */
 const formatCart = (res) => {
     const cart = res.data;
-    console.log("cart; ", cart);
+    
     const orderItems = cart.orderitems;
     const includeProducts = orderItems.map(item => {
       return Object.assign({}, item, item.product, {id: item.id});
     })
+
+    console.log('includeProducts: ', includeProducts);
+    sortByCreationDate(includeProducts);
     cart.orderitems = includeProducts;
     return cart;
 }
 
+const sortByCreationDate = (products) => {
+  const result = products.sort((a, b) => {
+    const first = new Date(a.createdAt);
+    const second = new Date(b.createdAt);
+
+    return (first.getTime() - second.getTime());
+  });
+
+  console.log('result: ', result);
+  return result;
+}
 
 export const getCartThunk = () => dispatch => {
   return axios.get('/api/order')

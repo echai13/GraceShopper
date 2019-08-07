@@ -41,7 +41,6 @@ export class SingleProduct extends Component {
   }
 
   updateToggle() {
-    console.log(this.state.showEditForm)
     this.setState({ showEditForm: !this.state.showEditForm })
   }
 
@@ -73,7 +72,7 @@ export class SingleProduct extends Component {
               (<form
                 onSubmit={this.handleSubmit}>
                 <label>
-                  In Stock
+                  <span>In Stock</span>
                   <select
                     value={this.state.value}
                     onChange={this.handleChange}>

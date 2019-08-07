@@ -28,6 +28,7 @@ export class Cart extends Component {
     const tax = (cart.total * 0.09).toFixed(2);
     const shipping = 10;
 
+    console.log('orderItems: ', orderItems);
     return (
       <div className="row cart">
         <div className="col-md-12 col-sm-12 col-xs-12 table">
