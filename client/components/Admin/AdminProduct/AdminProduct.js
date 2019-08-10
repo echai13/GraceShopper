@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
-import { AddProduct, CategoryForm } from './index.js'
-import { removeProductThunk } from '../store'
+
+import { removeProductThunk } from '../../../store';
 
 export class AdminProduct extends Component {
 

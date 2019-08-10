@@ -1,18 +1,16 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import { Link, withRouter } from 'react-router-dom'
-import { EditUser } from './index'
-import { getAdminUsers, deleteUserThunk } from '../store'
+
+import { EditUser } from '../../';
+import { getAdminUsers, deleteUserThunk } from '../../../store';
 
 
-export class AdminUserRow extends Component{
-  constructor(){
-    super();
-    this.state = {editOpen: false}
-    this.handleEdit = this.handleEdit.bind(this);
+export class AdminUserRow extends React.Component {
+  state = {
+    editOpen: false
   }
 
-  handleEdit(){
+  handleEdit = () => {
     this.setState({editOpen: false});
   }
 

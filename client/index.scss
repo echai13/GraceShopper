@@ -63,7 +63,18 @@ body {
     button.shop-now {
       height: 2.9em;
       margin-bottom: 10vh;
-      background-color: lightcyan
+      background-color: #0275d8;
+      border-color: white;
+      padding: .5rem 3rem;
+      font-weight: 900;
+    }
+
+    .shop-now a {
+      color: white;
+
+      &:hover {
+        color: #e6eaff;
+      }
     }
 
     form button {
@@ -123,6 +134,27 @@ body {
     width: 100vw;
     top: 0;
 
+    li.nav-item.mr-auto {
+      position: relative;
+    }
+
+    li.nav-item .dropdown-menu {
+      left: auto;
+      right: 0;
+    }
+
+    .dropdown-item {
+      width: auto;
+      padding: 0;
+    }
+
+    li form {
+      position: absolute;
+      right: 0;
+      flex-wrap: nowrap !important;
+      min-width: 320px;
+    }
+
     div.row {
       margin-top: 1.2em;
     }
@@ -141,9 +173,13 @@ body {
         width: auto !important;
       }
       .menu-items {
-        position: absolute;
-        right: 0;
-        height: 90px;
+        // position: absolute;
+        // right: 0;
+        // height: 90px;
+
+        a i:hover, button i:hover{
+          color: #014c8c;
+        }
       }
     }
 
@@ -351,7 +387,8 @@ body {
     >div {
       height: 100vh;
     }
-    div.row .col-md-2.col-sm-2 {
+    div.row .col-md-3.col-sm-0 {
+      padding-top: 0;
       background-color: #0C090A;
       >ul > li {
         padding: 1em;
@@ -379,12 +416,16 @@ body {
         width: 100%;
         .navbar-collapse.collapse {
           background-color: #0C090A;
-          margin-left: -2em;
+          margin-left: -1em;
         }
       }
     }
 
-    div.row .col-md-10.col-sm-10 {
+    // div.row .col-sm-12.col-xs-12 {
+    //   background-color: whitesmoke;
+    // }
+
+    div.row .col-md-9.col-sm-12 {
       background-color: whitesmoke;
       div.summary {
         margin-top: 10px;

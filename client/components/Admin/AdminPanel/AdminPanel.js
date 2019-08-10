@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { AdminUser, AdminProduct, AdminOrder, CategoryForm, AddProduct } from './index.js';
-import { getAdminUsers, getAdminOrders, getProductsThunk } from '../store';
+import { CategoryForm, AddProduct } from '../../';
+import { AdminUser, AdminProduct, AdminOrder } from '../';
+
+import { getAdminUsers, getAdminOrders, getProductsThunk } from '../../../store';
+
+import './admin-panel.scss';
 
 const statuses = ['open', 'completed', 'confirmed', 'shipped'];
 
@@ -22,7 +26,7 @@ export class AdminPanel extends Component {
   }
 
   componentDidMount(){
-    this.props.fetchAll()
+    this.props.fetchAll();
   }
 
   updateStatusView (status) {
@@ -48,44 +52,43 @@ export class AdminPanel extends Component {
   render() {
     return (
       <div className="admin-panel">
-        {/* <h1>Admin Panel</h1> */}
         <div className="row">
-          <div className="col-md-2 col-sm-2 col-xs-12">
-            <nav className="navbar navbar-toggleable-md navbar-toggleable-sm">
+          <div className="col-md-3 col-sm-0 col-xs-0">
+            <nav className="navbar navbar-expand-md align-items-start">
               <button className="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="fa fa-angle-down" />
               </button>
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul>
-                <li><a onClick={() => this.handleClick('users')}>Users</a></li>
-                <li><a onClick={() => this.handleClick('orders')}>Orders</a>
-                  { this.state.view === 'orders' &&
-                  <ul>
-                    <li key={0}><a onClick={() => this.updateStatusView('all')}>All</a></li>
-                    {statuses.map(status => (
-                    <li key={status}><a onClick={() => this.updateStatusView(status) }>{status}</a></li>
-                    ))}
-                  </ul>
-                  }
-                </li>
-                <li><a onClick={() => this.handleClick('products')}>Products</a>
-                  { this.state.view === 'products' &&
-                  <ul>
-                    <li><a onClick={() => this.handleToggle('category')}>Add New Category</a></li>
-                    <li><a onClick={() => this.handleToggle('product')}>Add New Product</a></li>
-                  </ul>
-                  }
-                </li>
-                <li><a>Analytics</a></li>
-                <li><a>Import/Export Data</a></li>
-                <li><a>Integrations</a></li>
-                <li><a>Customizations</a></li>
-              </ul>
-            </div>
+              <div className="collapse navbar-collapse align-items-start" id="navbarSupportedContent">
+                <ul>
+                  <li><a onClick={() => this.handleClick('users')}>Users</a></li>
+                  <li><a onClick={() => this.handleClick('orders')}>Orders</a>
+                    { this.state.view === 'orders' &&
+                    <ul>
+                      <li key={0}><a onClick={() => this.updateStatusView('all')}>All</a></li>
+                      {statuses.map(status => (
+                      <li key={status}><a onClick={() => this.updateStatusView(status) }>{status}</a></li>
+                      ))}
+                    </ul>
+                    }
+                  </li>
+                  <li><a onClick={() => this.handleClick('products')}>Products</a>
+                    { this.state.view === 'products' &&
+                    <ul>
+                      <li><a onClick={() => this.handleToggle('category')}>Add New Category</a></li>
+                      <li><a onClick={() => this.handleToggle('product')}>Add New Product</a></li>
+                    </ul>
+                    }
+                  </li>
+                  <li><a>Analytics</a></li>
+                  <li><a>Import/Export Data</a></li>
+                  <li><a>Integrations</a></li>
+                  <li><a>Customizations</a></li>
+                </ul>
+              </div>
             </nav>
           </div>
 
-          <div className="col-md-10 col-sm-10">
+          <div className="col-md-9 col-sm-12">
             <div className="row summary">
               <div className="col-md-4">
                 <div className="d-flex justify-content-center align-items-center">
@@ -124,8 +127,8 @@ export class AdminPanel extends Component {
                   <CategoryForm />
                 }
                 {this.state.toggleAdd &&
-                <AddProduct />
-              }
+                  <AddProduct />
+                }
               </div>
             </div>
 
@@ -137,7 +140,6 @@ export class AdminPanel extends Component {
 }
 
 const mapPropToCart = (state) => {
-  console.log(state)
   return {
     products: state.products,
     orders: state.admin.orders,

@@ -1,13 +1,12 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Link, withRouter } from 'react-router-dom'
-import { updateCartStatus, getAdminOrders } from '../store'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
 
+import { updateCartStatus, getAdminOrders } from '../../../store';
 
 export class AdminOrder extends Component {
   render() {
     const orders = this.props.orders
-    console.log(this.props)
     return (
       <div className="table-responsive">
         <table>
@@ -86,7 +85,6 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     updateStatus(id, status){
-      console.log('has getAdminOrders: ', getAdminOrders)
       dispatch(updateCartStatus(id, status, getAdminOrders));
     }
   }

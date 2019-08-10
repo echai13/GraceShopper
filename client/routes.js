@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {Router} from 'react-router'
-import {Route, Switch} from 'react-router-dom'
+import {Router, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 
-import {Main, Login, Signup, UserHome, UserOrders, Products, SingleProduct, Homepage, Cart, Checkout, UserOrderDetails, AddAddress, AdminPanel} from './components'
+import {Main, Login, Signup, UserHome, UserOrders, Products, SingleProduct, Homepage, Cart, Checkout, UserOrderDetails, AddAddress} from './components'
+import { AdminPanel } from './components/Admin/';
 
 import {me, orders, getCategoriesThunk, getProductsThunk, writeReviewsThunk} from './store'
 

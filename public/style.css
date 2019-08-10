@@ -117,8 +117,8 @@ table {
 }
 
 .collapsing {
-  display: none;
-  position: static;
+  /* display: none; */
+  /* position: static; */
   height: auto;
   overflow: auto;
 }

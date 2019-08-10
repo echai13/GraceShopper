@@ -33,7 +33,7 @@ const renderTopBanner = () => {
   );
 };
 
-renderFeaturedProducts = (products) => {
+const renderFeaturedProducts = (products) => {
   return (
     <div style={{ padding: '7vw' }}>
       <div className="row">

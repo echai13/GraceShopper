@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Link, withRouter } from 'react-router-dom'
-import { AdminUserRow } from './index'
+import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
+import { AdminUserRow } from '../';
 
 export const AdminUser = (props) => {
   return (

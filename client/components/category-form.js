@@ -27,8 +27,7 @@ const mapState = null
 const mapDispatch = dispatch => {
   return {
     handleSubmit (evt) {
-      evt.preventDefault()
-      console.log(evt.target.category.value)
+      evt.preventDefault();
       dispatch(addCategoriesThunk({ name: evt.target.category.value}))
     }
   }
