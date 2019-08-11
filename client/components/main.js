@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {logout} from '../store'
-import NavBar from './NavBar'
+import Navbar from './Navbar/Navbar';
 
 /**
  * COMPONENT
@@ -16,7 +16,7 @@ const Main = (props) => {
 
   return (
     <div>
-      <NavBar />
+      <Navbar />
       <div className="container-fluid">
         {children}
       </div>

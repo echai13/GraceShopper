@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 import history from '../history'
 import { setAddressThunk, setOrderAddress, sendStripePayment } from '../store'
-import { AddAddress } from './index'
+import { Address } from '../components/Address/';
 
 export class Checkout extends Component {
   constructor() {

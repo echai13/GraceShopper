@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 
-import { logout, removeCart, searchProducts } from '../store';
+import { logout, removeCart, searchProducts } from '../../store';
 
-class NavBar extends Component {
+class Navbar extends Component {
   state = {
     searchToggle: false,
   };
@@ -13,7 +13,7 @@ class NavBar extends Component {
   renderSearch() {
     return (
       this.state.searchToggle && <form
-        className="form-inline my-2 my-lg-0" 
+        className="form-inline my-2 my-lg-0 justify-content-end" 
         onSubmit={this.props.handleSubmit}
       >
         <input
@@ -134,9 +134,9 @@ const mapDispatch = (dispatch) => {
   }
 }
 
-export default withRouter(connect(mapState, mapDispatch)(NavBar))
+export default withRouter(connect(mapState, mapDispatch)(Navbar))
 
-NavBar.propTypes = {
+Navbar.propTypes = {
   children: PropTypes.object,
   handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired

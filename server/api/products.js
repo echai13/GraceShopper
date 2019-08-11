@@ -1,6 +1,7 @@
-const router = require('express').Router()
-const { Product, Review } = require('../db/models')
-module.exports = router
+const router = require('express').Router();
+const { Product, Review } = require('../db/models');
+
+module.exports = router;
 
 router.get('/', (req, res, next) => {
   Product.findAll({ include: [{ all: true }] })
@@ -76,7 +77,6 @@ router.get("/:productId/reviews", (req, res, next) => {
 
 //post a review to a product
 router.post("/:id/reviews", (req, res, next) => {
-  console.log('plz')
   return Product.findById(req.params.id).then(product => {
     if (!product) {
       res.sendStatus(404);
@@ -84,7 +84,6 @@ router.post("/:id/reviews", (req, res, next) => {
       let review = req.body;
       review.userId = req.user.id;
       review.productId = req.params.id;
-      console.log(review, 'hi back')
       return Review.create(review).then(createdReview => res.json(createdReview));
     }
   });
@@ -116,19 +115,21 @@ router.delete( "/:productId/reviews/:reviewId", (req, res, next) => {
 );
 
 router.get(`/search/:searchTerm`, (req, res, next) => {
-  const searchTerm = req.params.searchTerm
-  Product.findAll({
-    where: {
-      $or: {
-        name: {
-          $like: '%' + searchTerm + '%'
-        },
-        description: {
-          $like: '%' + searchTerm + '%'
+  const { searchTerm } = req.params;
+
+  Product
+    .findAll({
+      where: {
+        $or: {
+          name: {
+            $iLike: '%' + searchTerm + '%'
+          },
+          description: {
+            $iLike: '%' + searchTerm + '%'
+          }
         }
       }
-    }
-  })
+    })
     .then(results => res.json(results))
-})
-
+    .catch(errors => console.error(errors));
+});

@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import { addCategoriesThunk } from '../store'
+import { addCategoriesThunk } from '../../store'
 
 const CategoryForm = (props) => {
 

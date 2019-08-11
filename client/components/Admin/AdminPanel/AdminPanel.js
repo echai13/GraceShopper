@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { CategoryForm, AddProduct } from '../../';
+import { AddProduct } from '../../Product/';
 import { AdminUser, AdminProduct, AdminOrder } from '../';
+import { CategoryForm } from '../../Category/';
 
 import { getAdminUsers, getAdminOrders, getProductsThunk } from '../../../store';
 

@@ -1,11 +1,10 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import UserOrders from './user-orders'
-import UserDetails from './user-details'
-import { setAddressThunk, me } from '../store'
-import {Link} from 'react-router-dom'
-import EditUser from './EditUser'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+
+import { UserOrders, UserDetails } from './';
+import { setAddressThunk, me } from '../../store';
+import { EditUser } from '../';
 
 /**
  * COMPONENT

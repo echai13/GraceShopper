@@ -143,9 +143,21 @@ body {
       right: 0;
     }
 
+    li a i:hover, button i:hover{
+      color: #014c8c;
+    }
+
     .dropdown-item {
       width: auto;
       padding: 0;
+    }
+
+    &.navbar {
+      padding: 0;
+
+      @media screen and (min-width: 375px) {
+        padding: .5rem 1rem;
+      }
     }
 
     li form {
@@ -171,15 +183,6 @@ body {
     div.row {
       .navbrand, .menu-items {
         width: auto !important;
-      }
-      .menu-items {
-        // position: absolute;
-        // right: 0;
-        // height: 90px;
-
-        a i:hover, button i:hover{
-          color: #014c8c;
-        }
       }
     }
 
@@ -495,5 +498,7 @@ body {
 
   .home img {
     cursor: pointer;
+    height: 100%;
+    width: 100%;
   }
 }

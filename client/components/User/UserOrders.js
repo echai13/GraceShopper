@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import { getOrdersThunk } from '../store'
-import { Link } from 'react-router-dom'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import { getOrdersThunk } from '../../store';
 
 /**
  * COMPONENT

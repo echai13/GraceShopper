@@ -4,10 +4,16 @@ import {Router, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 
-import {Main, Login, Signup, UserHome, UserOrders, Products, SingleProduct, Homepage, Cart, Checkout, UserOrderDetails, AddAddress} from './components'
+import {Main, Checkout} from './components'
 import { AdminPanel } from './components/Admin/';
+import { UserHome, UserOrderDetails } from './components/User/';
+import { Products, SingleProduct } from './components/Product/';
+import { Cart } from './components/Cart/';
+import { HomePage } from './components/HomePage';
+import { Address } from './components/Address';
+import { Login, Signup } from './components/Auth';
 
-import {me, orders, getCategoriesThunk, getProductsThunk, writeReviewsThunk} from './store'
+import {me, getCategoriesThunk, getProductsThunk} from './store'
 
 /**
  * COMPONENT
@@ -25,7 +31,7 @@ class Routes extends Component {
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
-            <Route exact path="/" component={Homepage} />
+            <Route exact path="/" component={HomePage} />
             <Route exact path="/checkout" component={Checkout} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
@@ -44,7 +50,7 @@ class Routes extends Component {
                   {/* Routes placed here are only available after logging in */}
                   <Route exact path="/home" component={UserHome} />
                   <Route exact path="/home/:orderId" component={UserOrderDetails} />
-                  <Route exact path="/addresses/add" component={AddAddress} />
+                  <Route exact path="/addresses/add" component={Address} />
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}

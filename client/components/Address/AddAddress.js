@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
-import { addAddress } from '../store'
+import { addAddress } from '../../store'
 
 /**
 * COMPONENT

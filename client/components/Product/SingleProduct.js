@@ -1,13 +1,14 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { setSingleProductThunk, addProductToCart } from '../store'
-import { EditProduct, MakeReview } from './index.js'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import { setSingleProductThunk, addProductToCart } from '../../store';
+import { EditProduct } from '../';
+import { ReviewForm } from '../Review/';
 
 /**
 *  COMPONENT: From All Products Page, the singleProduct's state is set when a single product is clicked on
 */
-
 export class SingleProduct extends Component {
   constructor(){
     super();
@@ -101,7 +102,7 @@ export class SingleProduct extends Component {
               </div>)
           }) : <div className="col-md-12 col-sm-12 col-xs-12 individual-reviews"><p style={{ textAlign: 'center' }}>No reviews yet</p></div>}
         </div>
-        <MakeReview history={this.props.history} />
+        <ReviewForm history={this.props.history} />
       </div>
     )
   }

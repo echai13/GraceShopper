@@ -1,18 +1,16 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-import { editUserThunk } from '../store/user'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-const EditUser = props => {
-  console.log('props are: ', props)
-  console.log('users name is: ', props.user.fullName)
+import { editUserThunk } from '../../store/user';
+
+const EditUser = (props) => {
   const user = props.editUser ? props.editUser : props.user;
-  console.log('now our internal user thing is: ', user);
-
+  
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    console.log('isAdmin set to...', evt.target.isAdmin ? evt.target.isAdmin.value : user.isAdmin)
+    
     props.handleSubmit(
       user.id,
       { firstName: evt.target.firstName.value, lastName: evt.target.lastName.value, email: evt.target.email.value, password: evt.target.password.value, isAdmin: evt.target.isAdmin ? evt.target.isAdmin.value : user.isAdmin },

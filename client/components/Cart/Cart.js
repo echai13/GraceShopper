@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { getCartThunk, changeQuantityThunk, deleteFromCartThunk} from '../store'
-import CartRow from './CartRow';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
+import { getCartThunk, changeQuantityThunk, deleteFromCartThunk} from '../../store';
+import CartRow from './CartRow';
 
 export class Cart extends Component {
 

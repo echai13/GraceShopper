@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
-import { addProductToCart, getProductsThunk } from '../store';
+import { addProductToCart, getProductsThunk } from '../../store';
 
-import ProductPreview from './ProductPreview';
+import { ProductPreview } from './';
 
 const stars = [];
 let numberOfStars = '';

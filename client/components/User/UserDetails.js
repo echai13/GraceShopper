@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import { setAddressThunk } from '../store'
-import { AddAddress } from './index'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+
+import { setAddressThunk } from '../../store';
+import { Address } from '../Address/';
 
 /**
  * COMPONENT
@@ -48,7 +49,7 @@ export class UserDetails extends Component {
           }}>
           Add Address
           </button>
-        {this.state.addAddress && <AddAddress hide={this.hideAdd} />}
+        {this.state.addAddress && <Address hide={this.hideAdd} />}
       </div>
     )
   }
