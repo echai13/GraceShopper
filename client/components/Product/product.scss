@@ -52,6 +52,18 @@
     width: 200px;
     margin: 0 auto;
   }
+
+  .product:hover {
+    img {
+      transform: scale(1.1);
+    }
+  }
+
+  .all-products h6 {
+    margin-top: 0.5rem;
+    cursor: pointer;
+    color: black;
+  }
 }
 
 .single-product-page {

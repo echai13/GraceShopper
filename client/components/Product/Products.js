@@ -203,33 +203,22 @@ export class Products extends React.Component {
             {this.props.categories.map(this.renderCategory)}
           </div>
         </div>
-
-        {/* <span>
-          <div className="col-md-12 col-sm-6 col-xs-12">
-            
-        </span> */}
     </React.Fragment>
   );
 
   renderSort = () => (
     <React.Fragment>
-        <div className="col-md-12 col-sm-6 col-xs-12">
-          <h6 className="d-flex justify-content-center align-items-center">
-            Sort Product Listings
-          </h6>
+      <div className="col-md-12 col-sm-6 col-xs-12">
+        <h6 className="d-flex justify-content-center align-items-center">
+          Sort Product Listings
+        </h6>
 
-          <div className="filter-options">
-            <select onChange={this.handleSelectSort}>
-              {sortOptions.map(this.renderSortOption)}
-            </select>
-          </div>
+        <div className="filter-options">
+          <select onChange={this.handleSelectSort}>
+            {sortOptions.map(this.renderSortOption)}
+          </select>
         </div>
-      {/* </div> */}
-
-      {/* <div className="row sortDropdown"> */}
-        {/* <div className="col-md-12 col-sm-6 col-xs-12 d-flex justify-content-center">
-          
-        </div> */}
+      </div>
     </React.Fragment>
   );
 

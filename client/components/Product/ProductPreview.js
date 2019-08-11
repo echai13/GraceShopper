@@ -12,15 +12,15 @@ const ProductPreview = (props) => {
         <span>
           <img className="d-flex justify-content-center" src={product.image} />
         </span>
+
+        <h6 style={{ textAlign: 'center' }}>
+          <strong>{product.name}</strong>
+        </h6>
+
+        <h6 style={{ textAlign: 'center' }}>
+          ${product.price}
+        </h6>
       </Link>
-
-      <h6 style={{ textAlign: 'center' }}>
-        <strong>{product.name}</strong>
-      </h6>
-
-      <h6 style={{ textAlign: 'center' }}>
-        ${product.price}
-      </h6>
     </div>
   )
 }
