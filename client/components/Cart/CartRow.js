@@ -58,7 +58,7 @@ const CartRow = (props) => {
         <small>&#36;</small>{element.subtotal.toFixed(2)}
       </td>
       <td className="td-actions">
-        <button type="button" rel="tooltip" data-placement="left" title="Remove item" className="btn btn-simple" onClick={() => handleDelete(element.id)}>
+        <button type="button" rel="tooltip" data-placement="left" title="Remove item" className="btn btn-secondary" onClick={() => handleDelete(element.id)}>
           <i className="material-icons">Remove</i>
         </button>
       </td>

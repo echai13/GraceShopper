@@ -14,8 +14,8 @@ router.get(`/:userId`, (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
-  console.log('posting new address', req.body);
   await Address.create(req.body);
+  
   Address.findAll({
     where: {
       userId: req.body.userId

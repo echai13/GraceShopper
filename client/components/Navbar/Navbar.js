@@ -10,11 +10,20 @@ class Navbar extends Component {
     searchToggle: false,
   };
 
+  handleSearch = (event) => {
+    event.preventDefault();
+
+    const searchTerm = event.target.search.value;
+
+    this.props.handleSubmit(searchTerm);
+    this.setState({ searchToggle: false });
+  };
+
   renderSearch() {
     return (
       this.state.searchToggle && <form
         className="form-inline my-2 my-lg-0 justify-content-end" 
-        onSubmit={this.props.handleSubmit}
+        onSubmit={this.handleSearch}
       >
         <input
           className="form-control mr-sm-2"
@@ -32,36 +41,7 @@ class Navbar extends Component {
       </form>
     );
   };
-
-  renderCollapsedMenu() {
-    return (
-      <div className="collapse navbar-collapse" id="navbarToggleExternalContent">
-        <div className="bg-inverse p-4">
-          <div className="row d-flex justify-content-center">
-
-            <div className="col-md-2 col-sm-4 col-4">
-              <Link to="/products">All Products</Link>
-            </div>
-
-            <div className="col-md-2 col-sm-4 col-12">
-              <a href="https://github.com/cmccarthy15/GraceShopper">Our GitHub</a>
-            </div>
-
-            {this.props.isAdmin && <div className="col-md-2 col-sm-4 col-12">
-              <Link to="/admin">Admin</Link>
-            </div>}
-
-            {this.props.isLoggedIn && <div className="col-md-2 col-sm-4 col-12">
-              <a href="/" onClick={this.props.handleClick}>Logout</a>
-            </div>}
-            
-            <div className="col-md-2 col-sm-4 col-12">FAQ</div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
+  
   render() {
     return (
         <nav className="navbar navbar-expand justify-content-between">
@@ -106,8 +86,6 @@ class Navbar extends Component {
             </ul>
           </div>
         </nav>
-
-        // {this.renderCollapsedMenu()}
     )
   }
 }
@@ -121,23 +99,35 @@ const mapState = state => {
 
 const mapDispatch = (dispatch) => {
   return {
-    handleClick () {
+    handleLogout () {
       dispatch(logout())
       dispatchEvent(removeCart)
       //dispatch removeUser (from store)
       //dispatch removeCart(from store)
     },
-    handleSubmit (evt) {
-      evt.preventDefault()
-      dispatch(searchProducts(evt.target.search.value)) //searchProducts from store reducer
-    }
+    handleSubmit (searchTerm) {
+      dispatch(searchProducts(searchTerm));
+    },
   }
 }
 
-export default withRouter(connect(mapState, mapDispatch)(Navbar))
+export default withRouter(connect(mapState, mapDispatch)(Navbar));
 
 Navbar.propTypes = {
-  children: PropTypes.object,
-  handleClick: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
-}
+  /**
+   * function to handle logout user
+   */
+  handleLogout: PropTypes.func.isRequired,
+  /**
+   * boolean to check whether user is logged in
+   */
+  isLoggedIn: PropTypes.bool.isRequired,
+  /**
+   * boolean to check whether user is admin
+   */
+  isAdmin: PropTypes.bool,
+  /**
+   * function to submit search term
+   */
+  handleSubmit: PropTypes.func.isRequired,
+};

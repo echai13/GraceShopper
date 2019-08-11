@@ -4,21 +4,6 @@ body {
   background-color: white
 }
 
-/* nav {
-  background-image: url('night-light-black.jpeg');
-} */
-
-/* .navbar-brand.store-name {
-  color: white;
-  font-family: fantasy;
-}
-
-.collapse.navbar-collapse {
-  display: flex;
-  justify-content: flex-end;
-  font-size: 1.2em;
-} */
-
 .auth-form {
   display: flex;
   flex-direction: column;
@@ -56,10 +41,6 @@ button {
   background-color: lightgray;
   border-color: black;
 }
-/*
-button:hover {
-  background-color: lightsteelblue
-} */
 
 .long-button {
   width: 150px

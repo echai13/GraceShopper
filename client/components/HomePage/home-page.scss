@@ -1,0 +1,107 @@
+.home-page {
+  img {
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+  }
+
+  .home-image {
+    background: url('/borgpetco.jpg') center fixed no-repeat;
+    background-size: cover;
+    height: 75vh;
+  }
+
+  .home-image > .col-md-12.col-sm-12.col-xs-12{
+    top: 0.5em;
+  }
+
+  .catch-phrase {
+    h4 {
+      font-family: impact;
+      font-size: 3.5em;
+      position: absolute;
+      top: 15vh;
+      left: 25vw;
+      font-weight: 700;
+      color: lightcyan;
+      -webkit-text-stroke: black;
+      -webkit-text-stroke-width: 2px;
+    }
+    p {
+      font-family: monospace;
+      font-size: 1.2em;
+      position: absolute;
+      top: 25vh;
+      left: 25vw;
+      font-weight: 900;
+      color: lightcyan;
+    }
+  }
+
+  div.shop-now {
+    height: 75vh;
+  }
+
+  button.shop-now {
+    height: 2.9em;
+    margin-bottom: 10vh;
+    background-color: #0275d8;
+    border-color: white;
+    padding: .5rem 3rem;
+    font-weight: 900;
+
+    a {
+      color: white;
+
+      &:hover {
+        color: #e6eaff;
+      }
+    }
+  }
+
+  form button {
+    margin-top: 3vh !important;
+  }
+
+  .promote-image {
+    background: url('/scenery.jpg') center no-repeat;
+    background-size: cover;
+    height: 65vh;
+    margin: 2vw;
+
+    h5 {
+      width: 45vw;
+      color: white;
+    }
+
+    P {
+      font-family: Arial Black;
+      color: white;
+    }
+  }
+
+  footer {
+    background: linear-gradient(rgba(255,255,255,.3), rgba(0,0,0,.8)), url('https://images.pexels.com/photos/91413/pexels-photo-91413.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb') center no-repeat;
+    background-size: cover;
+    position: relative;
+    bottom: 0;
+    left: 0;
+
+    .row {
+      padding: 2vw;
+      width: 100vw;
+    }
+
+    input.form-control {
+      width: 100vw !important;
+    }
+
+    p a {
+      color: lightcyan;
+    }
+
+    h5 {
+      color: white
+    }
+  }
+}

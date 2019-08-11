@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { setSingleProductThunk, addProductToCart } from '../../store';
-import { EditProduct } from '../';
+import { EditProduct } from '../Product';
 import { ReviewForm } from '../Review/';
 
 /**
@@ -79,7 +79,7 @@ export class SingleProduct extends Component {
                     onChange={this.handleChange}>
                     {quantities}
                   </select>
-                  <input type="submit" value="Add" />
+                  <input className="btn btn-primary btn-round" type="submit" value="Add" />
                 </label>
               </form>) :
               <span>Currently Out of Stock</span>
@@ -112,7 +112,6 @@ export class SingleProduct extends Component {
 * CONTAINER
 */
 const mapState = (state) => {
-  console.log('the state', state)
   return {
     singleProduct: state.singleProduct,
     isAdmin: !!state.user.isAdmin

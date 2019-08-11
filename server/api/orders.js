@@ -20,7 +20,7 @@ router.get('/', (req, res, next) => {
 
 router.put('/:id', (req, res, next) => {
   const status = req.body.status;
-  console.log('inside of update status router with status: ', status);
+  
   Order.findById(req.params.id)
     .then(order => {
       order.update({ status: status })

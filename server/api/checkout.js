@@ -17,8 +17,6 @@ router.post('/', (req, res, next) => {
     }
   })
     .then(token => {
-      console.log(token)
-      console.log('EMAAAAAAIIILL', req.body.email)
       return stripe.charges.create({
         amount: Math.round(req.body.amount * 100),
         currency: 'usd',

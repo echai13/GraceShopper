@@ -5,11 +5,12 @@ import { withRouter, Link } from 'react-router-dom';
 
 import { logout, searchProducts, getProductsThunk } from '../../store';
 
+import './home-page.scss';
+
 /**
  * HOMEPAGE COMPONENT
  */
 class HomePage extends React.Component {
-  // eventually find a few products from all products and display them on home?
   componentDidMount() {
     this.props.fetchAllProducts();
   };
@@ -177,7 +178,7 @@ class HomePage extends React.Component {
 
   render() {
     return (
-      <div className="home">
+      <div className="home-page">
         {this.renderTopBanner()}
         {this.renderFeaturedProducts()}
         {this.renderNewlyArrived()}
@@ -194,7 +195,6 @@ class HomePage extends React.Component {
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id, //coerces empty objects to boolean
     products: state.products,
   };
 };
@@ -217,7 +217,16 @@ const mapDispatch = (dispatch) => {
 export default withRouter(connect(mapState, mapDispatch)(HomePage));
 
 HomePage.propTypes = {
-  children: PropTypes.object,
-  handleClick: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
+  /**
+   * function to handle search term submit
+   */
+  handleSubmit: PropTypes.func.isRequired,
+  /**
+   * array of products
+   */
+  products: PropTypes.array.isRequired,
+  /**
+   * function to fetch all products
+   */
+  fetchAllProducts: PropTypes.func.isRequired,
 };

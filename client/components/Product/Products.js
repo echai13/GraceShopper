@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import { addProductToCart, getProductsThunk } from '../../store';
 
 import { ProductPreview } from './';
+import './product.scss';
 
 const stars = [];
 let numberOfStars = '';

@@ -1,0 +1,93 @@
+.product-page {
+  .row.product-page-image {
+    background: url('https://dcassetcdn.com/w1k/submissions/635538260064847500/635538260064847515_9711.jpg') center fixed no-repeat;
+    background-size: cover;
+    height: 50vh;
+  }
+
+  .show-products .categories {
+    ul, li {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      text-align: center;
+      letter-spacing: 0.2em;
+    }
+
+    h6 {
+      background-color: powderblue;
+      font-weight: bold;
+      height: 2em;
+      margin-top: 3vh;
+    }
+
+    input {
+      margin-right: 1em;
+      cursor: pointer;
+    }
+
+    select {
+      width: 75%;
+    }
+  }
+
+  .categories {
+    margin-top: 10vh;
+    border-right: thin solid;
+  }
+
+  .listCategories, .sortDropdown, .sortByReviews {
+    margin-top: 1.3em;
+  }
+
+  .all-products {
+    margin-top: 10vh;
+  }
+
+  .product img {
+    height: 200px;
+    width: 200px;
+    margin: 0 auto;
+  }
+}
+
+.single-product-page {
+  margin: 8em auto;
+  width: 80vw;
+
+  .single-product {
+    img {
+      height: 300px;
+    }
+
+    form label * {
+      &:first-child, &:nth-child(2) {
+        margin-right: 8px;
+      }
+    }
+  }
+
+  h3 {
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 0;
+    padding: 0.5rem;
+  }
+
+  .row.review-heading, div.tim-typo h3 {
+    background-color: powderblue;
+  }
+
+  .row.reviews {
+    margin: 0 auto;
+    width: 80vw;
+    .individual-reviews {
+      background-color: whitesmoke;
+      margin: 1em;
+    }
+  }
+}
