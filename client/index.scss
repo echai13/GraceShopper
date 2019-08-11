@@ -393,22 +393,18 @@ body {
     div.row .col-md-3.col-sm-0 {
       padding-top: 0;
       background-color: #0C090A;
-      >ul > li {
-        padding: 1em;
-        ul {
-          margin: 1.2em;
-          >li {
-            padding: 0.1em;
-          }
-        }
+      
+      nav ul > li > ul{
+        margin-left: 1em;
       }
+
       >ul {
         margin-left: 2.5em;
       }
       ul {
         list-style-type: none;
         padding: 0;
-        margin-left: 1em;
+        // margin-left: 1em;
         color: aliceblue;
         li {
           cursor: pointer;
