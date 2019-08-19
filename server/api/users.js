@@ -35,7 +35,7 @@ router.get('/', (req, res, next) => {
 })
 
 router.put(`/:userId`, (req, res, next) => {
-  User.findById(req.params.userId)
+  User.findByPk(req.params.userId)
     .then(user => {
       user.update({
         firstName: req.body.firstName || user.firstName,
@@ -50,7 +50,7 @@ router.put(`/:userId`, (req, res, next) => {
 })
 
 router.delete(`/:userId`, (req, res, next) => {
-  User.findById(req.params.userId)
+  User.findByPk(req.params.userId)
     .then(user => {
       user.destroy()
       .then(() => res.send('user was destroyed'))

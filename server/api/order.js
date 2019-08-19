@@ -11,12 +11,12 @@ router.get('/', (req, res, next) => {
 });
 
 router.put('/changeaddr', (req, res, next) => {
-  return Order.findById(req.body.id)
-    .then(order => {
-      order.update({addressId: req.body.addressId})
-    })
+  const { addressId, id } = req.body || {};
+  return Order.findByPk(id)
+    .then(order => order.update({ addressId }))
+    .then(_ => res.status(200).send('Successfully set address for order.'))
     .catch(next);
-})
+});
 
 router.put('/incart', async (req, res, next) => {
   const { quantity, productId } = req.body.productInfo;
@@ -26,7 +26,7 @@ router.put('/incart', async (req, res, next) => {
   })
 
   await orderItem.update({ quantity: quantity })
-  req.cart = await Order.findById(req.cart.id)
+  req.cart = await Order.findByPk(req.cart.id)
   res.json(req.cart);
 })
 
@@ -53,7 +53,7 @@ router.put('/inproduct', async (req, res, next) => {
 
   await orderItem.update({ quantity: newQuan })
 
-  req.cart = await Order.findById(req.cart.id)
+  req.cart = await Order.findByPk(req.cart.id)
   res.json(req.cart);
 
 })
@@ -63,7 +63,7 @@ router.put('/neworderitem', (req, res, next) => {
   const { currentPrice, quantity, productId } = req.body.productInfo;
   OrderItem.create({ currentPrice, quantity, productId, orderId: req.cart.id })
     .then(async () => {
-      req.cart = await Order.findById(req.cart.id)
+      req.cart = await Order.findByPk(req.cart.id)
       res.json(req.cart);
     })
     .catch(next);
@@ -72,10 +72,10 @@ router.put('/neworderitem', (req, res, next) => {
 
 router.delete('/incart/:id', (req, res, next) => {
   const orderItemId = req.params.id;
-  OrderItem.findById(orderItemId)
+  OrderItem.findByPk(orderItemId)
     .then(async (orderItem) => {
       await orderItem.destroy();
-      req.cart = await Order.findById(req.cart.id);
+      req.cart = await Order.findByPk(req.cart.id);
       res.json(req.cart);
     })
     .catch(next);
@@ -106,12 +106,12 @@ router.delete('/incart/:id', (req, res, next) => {
 
 //       await orderItem.update({ quantity: newQuan })
 
-//       req.cart = await Order.findById(req.cart.id)
+//       req.cart = await Order.findByPk(req.cart.id)
 //       res.json(req.cart);
 //   	} else {
 //   		OrderItem.create({currentPrice, quantity, productId, orderId: req.cart.id })
 // 		    .then( async () => {
-// 		      req.cart = await Order.findById(req.cart.id)
+// 		      req.cart = await Order.findByPk(req.cart.id)
 // 		      res.json(req.cart);
 // 		    })
 // 		    .catch(next);

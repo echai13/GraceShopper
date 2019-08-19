@@ -25,24 +25,28 @@ const CartRow = (props) => {
         <small>&#36;</small>{element.currentPrice}
       </td>
       <td className="td-number">
-        {element.quantity}
+        <div className="item-quantity">{element.quantity}</div>
         <div className="btn-group">
 
-          {element.quantity > 1 ? (
-            <button
-            className="btn btn-round btn-info btn-xs"
-            onClick={() => {
-              const updateQuantity = Object.assign({}, element, { quantity: element.quantity - 1 })
-              handleQuantity(updateQuantity)
-            }}>
-          -</button>)
-            : (
-              <button
-                className="btn btn-round btn-info btn-xs"
-                onClick={() => {
-                  handleDelete(element.id)
-                }}>
-                -</button>)}
+          {element.quantity > 1
+            ? (<button
+              className="btn btn-round btn-info btn-xs"
+              onClick={() => {
+                const updateQuantity = Object.assign({}, element, { quantity: element.quantity - 1 })
+                handleQuantity(updateQuantity)
+              }}
+            >
+              -
+            </button>)
+            : (<button
+              className="btn btn-round btn-info btn-xs"
+              onClick={() => {
+                handleDelete(element.id)
+              }}
+            >
+              -
+            </button>)
+          }
 
           <button
             disabled={element.quantity === element.stock}
@@ -50,8 +54,10 @@ const CartRow = (props) => {
             onClick={() => {
               const updateQuantity = Object.assign({}, element, { quantity: element.quantity + 1 })
               handleQuantity(updateQuantity)
-            }}>
-            <i className="material-icons">+</i> </button>
+            }}
+          >
+            <i className="material-icons">+</i>
+          </button>
         </div>
       </td>
       <td className="td-number">

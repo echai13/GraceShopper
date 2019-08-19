@@ -21,7 +21,7 @@ export const setAddress =  addresses => {
 * THUNK CREATORS
 */
 export const setAddressThunk = userId =>
-  dispatch => //api/addresses/1
+  dispatch =>
     axios.get(`/api/addresses/${userId}`)
       .then(res => {
         dispatch(setAddress(res.data))
@@ -37,14 +37,15 @@ export const addAddress = addressData =>
       })
       .catch(err => console.log(err))
 
-export const setOrderAddress = ({id, addressId}) =>
-  dispatch =>
-    axios.put('api/order/changeaddr', {id, addressId})
+export const setOrderAddress = ({ id, addressId }) =>
+  _ => axios
+    .put('api/order/changeaddr', { id, addressId })
+    .catch(err => console.error('address: ', err))
+
 
 /**
 * REDUCER
 */
-
 export default function (state = defaultState, action) {
   switch (action.type) {
     case SET_ADDRESSES:

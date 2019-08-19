@@ -36,7 +36,7 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
     const email = profile.emails[0].value
 
     console.log('inside of strategy');
-    User.find({where: {googleId}})
+    User.findOne({where: {googleId}})
       .then(foundUser => {
         (foundUser
         ? done(null, foundUser)

@@ -1,4 +1,13 @@
 .home-page {
+  .product {
+    color: black;
+    &:hover {
+      img {
+        transform: scale(1.1);
+      }
+    }
+  }
+
   img {
     cursor: pointer;
     height: 100%;

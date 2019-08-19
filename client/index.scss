@@ -128,6 +128,13 @@ body {
   div.cart {
     margin: 10em auto;
     width: 85vw;
+    small {
+      font-size: 1rem;
+    }
+
+    .table-shopping tr:last-child, .table-shopping tr:last-child small {
+      font-weight: bold;
+    }
 
     .table {
       overflow-x: auto;
@@ -154,40 +161,15 @@ body {
     }
   }
 
-  div.checkout {
-    margin: 10em auto;
-    width: 85vw;
-
-    >div {
-      margin-top: 5em;
-    }
-
-    .checkout-summary {
-      overflow-x: auto;
-    }
-
-    table {
-      width: 85vw;
-      thead th {
-        text-align: center;
-      }
-    }
-
-    h5 {
-      float: right;
-      margin-right: 3em;
-    }
-
-    h3 {
-      background-color: powderblue;
-      height: 2em;
-    }
-  }
-
   div.user-home {
     margin: 8em auto;
+
     h3 {
       display: in
+    }
+
+    h4 {
+      margin-top: 3rem;
     }
   }
 
@@ -288,4 +270,23 @@ body {
       }
     }
   }
+}
+
+.cart {
+  .shop-now a {
+    color: white;
+  }
+
+  .img-container img {
+    width: 25vw;
+  }
+}
+
+.user-order-details {
+  margin: 5em 2em;
+}
+
+.error {
+  color: red;
+  font-style: italic;
 }

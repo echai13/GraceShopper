@@ -13,7 +13,7 @@ router.post('/login', (req, res, next) => {
       } else {
         req.login(user, err => (err ? next(err) : res.json(user)))
         if (req.session.cartId) {
-          Order.findById(req.session.cartId)
+          Order.findByPk(req.session.cartId)
           .then(order => order.setUser(user))
           .catch(next); }
       }

@@ -50,7 +50,7 @@ const sortByCreationDate = (products) => {
     return (first.getTime() - second.getTime());
   });
 
-  console.log('result: ', result);
+  console.log('result in cart: ', result);
   return result;
 }
 

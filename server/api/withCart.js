@@ -22,7 +22,7 @@ const withCart = function (req, res, next) {
   if (req.session.cartId) {
     //const { cartId } = req.session;
     const cartId = req.session.cartId
-    return Order.findById(cartId)
+    return Order.findByPk(cartId)
       .then(order => {
         req.cart = order;
         return next();

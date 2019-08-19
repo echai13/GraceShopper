@@ -8,14 +8,25 @@ import { withRouter } from 'react-router-dom'
  * COMPONENT
  */
 export class ProductForm extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      selectedCheckboxes: new Set()
-    }
+      selectedCheckboxes: new Set(),
+      name: props.singleProduct.name,
+      image: props.singleProduct.image,
+      stock: props.singleProduct.stock,
+      price: props.singleProduct.price,
+      description: props.singleProduct.description,
+      formError: '',
+    };
+
     this.toggleCheckbox = this.toggleCheckbox.bind(this)
     this.handleSubmitAll = this.handleSubmitAll.bind(this)
-  }
+  };
+
+  handleEditChange = (key) => (event) => {
+    this.setState({ [key]: event.target.value });
+  };
 
   toggleCheckbox (evt) {
     var selectedCategory = evt.target.value
@@ -24,10 +35,27 @@ export class ProductForm extends React.Component {
   }
 
   handleSubmitAll (evt) {
-    evt.preventDefault()
-    const product = ({ name: evt.target.name.value, image: evt.target.image.value, stock: evt.target.stock.value, description: evt.target.description.value, price: evt.target.price.value, categories: this.state.selectedCheckboxes })
+    evt.preventDefault();
 
-    this.props.handleSubmit(product)
+    const selectedCheckboxes = [...this.state.selectedCheckboxes];
+
+    if (!selectedCheckboxes.length) {
+      this.setState({ formError: 'Categories cannot be empty.' });
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      return;
+    }
+
+    const product = ({
+      name: evt.target.name.value,
+      image: evt.target.image.value,
+      stock: evt.target.stock.value,
+      description: evt.target.description.value,
+      price: evt.target.price.value,
+      categories: selectedCheckboxes
+    });
+
+    this.props.handleSubmit(product);
+    this.props.toggleEditForm();
   }
 
   render() {
@@ -35,35 +63,36 @@ export class ProductForm extends React.Component {
       <div>
         <h3>{this.props.displayName}</h3>
         <form onSubmit={this.handleSubmitAll} className="auth-form">
+          <div className="error">{this.state.formError}</div>
           <div className="form-group">
             <label htmlFor="name"><small>Name</small></label>
-            <input name="name" type="text" className="form-control" />
+            <input name="name" type="text" className="form-control" value={this.state.name} onChange={this.handleEditChange('name')} />
           </div>
           <div className="form-group">
             <label htmlFor="image"><small>Image</small></label>
-            <input name="image" type="text" className="form-control" />
+            <input name="image" type="text" className="form-control" value={this.state.image} onChange={this.handleEditChange('image')} />
           </div>
           <div className="form-group">
             <label htmlFor="stock"><small>Stock</small></label>
-            <input name="stock" type="text" className="form-control" />
+            <input name="stock" type="text" className="form-control" value={this.state.stock} onChange={this.handleEditChange('stock')} />
           </div>
           <div className="form-group">
             <label htmlFor="price"><small>Price</small></label>
-            <input name="price" type="text" className="form-control" />
+            <input name="price" type="text" className="form-control" value={this.state.price} onChange={this.handleEditChange('price')} />
           </div>
           <div className="form-group">
             <label htmlFor="description"><small>Description</small></label>
-            <input name="description" type="text" className="form-control" />
+            <textarea name="description" className="form-control" value={this.state.description} onChange={this.handleEditChange('description')} />
           </div>
           <div className="form-group row">
             { this.props.categories.map(category => (
               <label key={category.id} htmlFor="category" type="text" className="col-md-4">
-                <input type="checkbox" value={category.id} onChange={this.toggleCheckbox} /> {category.name}
+                <input type="checkbox" value={category.id} onChange={this.toggleCheckbox}/> {category.name}
               </label>
             ))}
             </div>
           <div className="form-group">
-            <button type="submit">{this.props.displayName}</button>
+            <button type="submit" className="btn btn-round btn-info">{this.props.displayName}</button>
           </div>
         </form>
       </div>
@@ -88,14 +117,14 @@ const mapAdd = (state) => {
 const mapEdit = (state) => {
   return {
     displayName: 'Edit Product',
-    categories: state.categories
+    categories: state.categories,
+    singleProduct: state.singleProduct,
   }
 }
 
 const mapAddDispatch = (dispatch) => {
   return {
     handleSubmit (product) {
-      console.log(product)
       dispatch(addProductThunk(product))
     }
   }

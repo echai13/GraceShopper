@@ -79,8 +79,10 @@ class Navbar extends Component {
                 </a>
 
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <Link to='/home' className="dropdown-item">My Profile</Link>
-                  <Link to='/admin' className="dropdown-item">Admin Panel</Link>
+                  {!this.props.isLoggedIn && <Link to="/login" className="dropdown-item">Sign In</Link>}
+                  {this.props.isLoggedIn && <Link to='/home' className="dropdown-item">My Profile</Link>}
+                  {this.props.isAdmin && <Link to='/admin' className="dropdown-item">Admin Panel</Link>}
+                  {this.props.isLoggedIn && <Link to="/" onClick={this.props.handleLogout} className="dropdown-item">Log Out</Link>}
                 </div>
               </li>
             </ul>

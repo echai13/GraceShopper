@@ -3,7 +3,7 @@ const { Order, Address } = require('../db/models')
 module.exports = router
 
 router.get('/:id', (req, res, next) => {
-  Order.findById(req.params.id)
+  Order.findByPk(req.params.id)
   .then(order => {
     res.json(order)
   })
@@ -21,7 +21,7 @@ router.get('/', (req, res, next) => {
 router.put('/:id', (req, res, next) => {
   const status = req.body.status;
   
-  Order.findById(req.params.id)
+  Order.findByPk(req.params.id)
     .then(order => {
       order.update({ status: status })
         .then(order => res.json(order))

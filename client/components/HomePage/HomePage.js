@@ -57,12 +57,14 @@ class HomePage extends React.Component {
             {this.props.products && this.props.products
               .filter(product => product.isFeatured)
               .map(product => (
-                <div className="col-md-4 col-sm-6 col-xs-12" key={product.id} >
+                <div className="col-md-4 col-sm-6 col-xs-12" key={product.id}>
+                  <Link to={`/products/${product.id}`} className="product">
                     <span className="d-flex justify-content-center">
                       <img src={product.image} style={{ padding: '2vw' }} />
                     </span>
                     <h4 style={{ textAlign: 'center' }}>{product.name}</h4>
                     <p style={{ textAlign: 'center' }}>{`$${product.price}`}</p>
+                  </Link>
                 </div>
             ))}
           </div>
@@ -84,11 +86,13 @@ class HomePage extends React.Component {
           <div className="row">
             {this.props.products && this.props.products.sort((productA, productB) => productA.createdAt - productB.createdAt).slice(0, 3).map(product => (
               <div className="col-md-4 col-sm-6 col-xs-12" key={product.id}>
+                <Link to={`/products/${product.id}`} className="product">
                   <span className="d-flex justify-content-center">
                     <img src={product.image} style={{ padding: '2vw' }} />
                   </span>
                   <h4 style={{ textAlign: 'center' }}>{product.name}</h4>
                   <p style={{ textAlign: 'center' }}>{`$${product.price}`}</p>
+                </Link>
               </div>
             ))}
           </div>

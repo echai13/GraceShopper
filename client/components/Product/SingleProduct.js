@@ -45,6 +45,10 @@ export class SingleProduct extends Component {
     this.setState({ showEditForm: !this.state.showEditForm })
   }
 
+  handleToggleEditForm = () => this.setState(prevState => ({
+    showEditForm: !prevState.showEditForm,
+  }));
+
   render() {
     const { singleProduct, isAdmin } = this.props
     var quantities = [];
@@ -57,7 +61,7 @@ export class SingleProduct extends Component {
         { isAdmin &&
           <button  className="btn btn-info btn-round" type="submit" onClick={this.updateToggle}>{this.state.showEditForm ? 'Close Edit' : 'Edit Product Details'}</button>
         }
-        {isAdmin && this.state.showEditForm && <EditProduct />
+        {isAdmin && this.state.showEditForm && <EditProduct toggleEditForm={this.handleToggleEditForm} />
         }
         <div className="row single-product">
           <div className="col-md-6 d-flex justify-content-center">
@@ -66,7 +70,7 @@ export class SingleProduct extends Component {
 
           <div className="col-md-6">
             <h1>{singleProduct.name}</h1>
-            <h4><strong>Price:</strong> <small>&nbsp;$</small>{singleProduct.price}</h4>
+            <h4><strong>Price:</strong> &nbsp;${singleProduct.price}</h4>
             {/* Tells customers if product is in stock */}
             {
               singleProduct.isAvailable ?
@@ -84,8 +88,9 @@ export class SingleProduct extends Component {
               </form>) :
               <span>Currently Out of Stock</span>
             }
-            <p>Categories: {singleProduct.categories && singleProduct.categories.map(category => category.name).join(', ')}</p>
-            <p>Details: {singleProduct.description}</p>
+            <p>
+              <span className="sublabel">Categories:</span> {singleProduct.categories && singleProduct.categories.map(category => category.name).join(', ')}</p>
+            <p><span className="sublabel">Details:</span> {singleProduct.description}</p>
           </div>
         </div>
 

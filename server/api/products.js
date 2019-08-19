@@ -19,13 +19,13 @@ router.post(`/`, (req, res, next) => {
 })
 
 router.get('/:productId', (req, res, next) => {
-  Product.findById(req.params.productId)
+  Product.findByPk(req.params.productId)
     .then(product => res.json(product))
     .catch(next)
 })
 
 router.put(`/:productId`, (req, res, next) => {
-  Product.findById(req.params.productId)
+  Product.findByPk(req.params.productId)
     .then(product => {
       product.update({
         name: req.body.name || product.name,
@@ -44,7 +44,7 @@ router.put(`/:productId`, (req, res, next) => {
 
 
 router.delete(`/:productId`, (req, res, next) => {
-  Product.findById(req.params.productId)
+  Product.findByPk(req.params.productId)
     .then(product => {
       product.destroy()
       .then(res.sendStatus(200))
@@ -68,7 +68,7 @@ router.get("/:productId/reviews", (req, res, next) => {
 //get one product with reviews??
 
 // router.get("/", (req, res, next) => {
-//   return Product.findById(req.params.id, {
+//   return Product.findByPk(req.params.id, {
 //     include: [{ model: Review, as: "review" }]
 //   })
 //     .then(product => res.json(product))
@@ -77,7 +77,7 @@ router.get("/:productId/reviews", (req, res, next) => {
 
 //post a review to a product
 router.post("/:id/reviews", (req, res, next) => {
-  return Product.findById(req.params.id).then(product => {
+  return Product.findByPk(req.params.id).then(product => {
     if (!product) {
       res.sendStatus(404);
     } else {
@@ -93,7 +93,7 @@ router.post("/:id/reviews", (req, res, next) => {
 //meh ill just put the beginnings in, since the component may not handle it. 
 //edit a review of a product
 router.put("/:id/reviews",(req, res, next) => {
-  return Product.findById(req.params.id).then(product => {
+  return Product.findByPk(req.params.id).then(product => {
     if (!product) {
       res.sendStatus(404);
     } else {
@@ -104,7 +104,7 @@ router.put("/:id/reviews",(req, res, next) => {
 });
 
 router.delete( "/:productId/reviews/:reviewId", (req, res, next) => {
-    return Review.findById(req.params.reviewId).then(product => {
+    return Review.findByPk(req.params.reviewId).then(product => {
       if (!product) {
         res.sendStatus(404);
       } else {

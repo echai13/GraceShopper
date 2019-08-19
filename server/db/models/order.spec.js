@@ -65,7 +65,7 @@ describe('Order model', () => {
             })
 
             it('will also get orderitem and product info when you search for the order', async () => {
-              codyorder = await Order.findById(1);
+              codyorder = await Order.findByPk(1);
 
               const orderItems = codyorder.orderitems;
               const products = orderItems.map( item => item.product)

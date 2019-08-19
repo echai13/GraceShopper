@@ -103,7 +103,7 @@ export class Cart extends Component {
                 <h4 className="d-flex justify-content-center"> Adopt a robot pet today ♥ </h4>
                 <p className="d-flex justify-content-center">Nothing in cart yet ...</p>
                 <div className="d-flex justify-content-center shop-now">
-                  <button type="button" className="btn btn-secondary shop-now">
+                  <button type="button" className="btn btn-info shop-now">
                     <Link to="/products">SHOP NOW</Link>
                   </button>
                 </div>

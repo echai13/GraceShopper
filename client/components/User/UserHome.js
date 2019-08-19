@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 import { UserOrders, UserDetails } from './';
 import { setAddressThunk, me } from '../../store';
-import { EditUser } from '../';
+import { EditUser } from './';
 
 /**
  * COMPONENT

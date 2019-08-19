@@ -1,0 +1,57 @@
+.checkout {
+  margin: 10em auto;
+  width: 85vw;
+
+  .address {
+    .col-md-3 {
+      margin-bottom: 60px;
+      border: 1px solid gray;
+      padding: 16px;
+
+      &:not(:first-child):not(:only-child) {
+        margin-left: 8px;
+      }
+    }
+
+    .addresses {
+      button {
+        margin-top: 8px;
+      }
+    }
+
+    .add-address-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        opacity: 0.8;
+        cursor: pointer;
+      }
+    }
+  }
+
+  >div {
+    margin-top: 5em;
+  }
+
+  .checkout-summary {
+    overflow-x: auto;
+  }
+
+  table {
+    width: 85vw;
+    thead th {
+      text-align: center;
+    }
+  }
+
+  h5 {
+    float: right;
+    margin-right: 3em;
+  }
+
+  h3 {
+    height: 2em;
+  }
+}

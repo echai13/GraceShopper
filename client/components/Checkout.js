@@ -1,72 +1,195 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+
 import {connect} from 'react-redux'
-import { Link, withRouter } from 'react-router-dom'
-import history from '../history'
-import { setAddressThunk, setOrderAddress, sendStripePayment } from '../store'
+import { withRouter } from 'react-router-dom'
+import { setAddressThunk, setOrderAddress, sendStripePayment, me } from '../store'
 import { Address } from '../components/Address/';
 
-export class Checkout extends Component {
-  constructor() {
-    super()
-    this.state = {
-      expMonth: '01',
-      expYear: 2017,
-      cardNumber: '',
-      cvc: '',
-      addAddress: false
-    }
-    this.handleChange = this.handleChange.bind(this)
-    this.hideAdd = this.hideAdd.bind(this);
+import './checkout.scss';
+
+const numericMonths = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+
+const getYears = () => {
+  const date = new Date();
+
+  const year = date.getFullYear();
+  const creditCardYears = [year];
+  const MAX_NUM_YEARS = 8;
+
+  for (let y = 1; y < MAX_NUM_YEARS; y++) {
+    const nextYear = year + y;
+
+    creditCardYears.push(nextYear);
   }
+
+  return creditCardYears;
+};
+
+const creditCardYears = getYears();
+
+const SHIPPING_FEE = 10;
+const TAX_RATE = 1.09;
+
+const calculateOrderTotal = (itemsTotal) => {
+  const currency = '$';
+  const subtotal = itemsTotal * TAX_RATE;
+  const total = (SHIPPING_FEE + subtotal).toFixed(2);
+
+  return `${currency}${total}`;
+}
+
+export class Checkout extends Component {
+  state = {
+    expMonth: '01',
+    expYear: new Date().getFullYear(),
+    cardNumber: '',
+    cvc: '',
+    addAddress: false,
+  };
+
+  static propTypes = {
+    user: PropTypes.object,
+    addresses: PropTypes.array,
+    cart: PropTypes.object,
+  };
 
   componentDidMount() {
-    this.props.fetchCheckoutPage(this.props.user.id)
+    this.props.fetchCheckoutPage(this.props.user.id);
+  };
+
+  handleChange = (evt) => {
+    const { name, value } = evt.target;
+
+    this.setState({ [name]: value });
+  };
+
+  handleAddressForm = () => this.setState(prevState => ({
+    addAddress: !prevState.addAddress,
+  }));
+
+  handleAddressClick = (addressId) => () => {
+    this.props.setOrderAddress(this.props.cart.id, addressId);
+  };
+
+  handleSubmitPayment = (event) => {
+    event.preventDefault();
+
+    this.props.handlePayment(
+      this.state,
+      this.props.cart.total,
+      this.props.cart.id,
+      this.props.user.email
+    );
   }
 
-  handleChange(evt) {
-    this.setState({ [evt.target.name]: evt.target.value }, () => {console.log(this.state)})
-  }
+  renderAddresses = () => {
+    return this.props.addresses && this.props.addresses.map((address, index) => (
+      <div key={address.id} className="col-md-3 addresses">
+        
+        {address.street1}
+        {address.street2 && <span>
+          <br />
+          {address.street2}
+        </span>}
 
-  hideAdd(){
-    this.setState({addAddress: false})
-  }
+        <br />
+        {address.city}, {address.state} {address.zipcode}
+        <br />
+        {address.country}
+        <br />
+        
+        <button
+          className="btn btn-primary btn-round"
+          type="submit"
+          onClick={this.handleAddressClick(address.id)}
+        >
+            Ship To This
+        </button>
+      </div>
+    ))
+  };
+
+  renderCart = () => {
+    return (
+      (this.props.cart && this.props.cart.orderitems) && this.props.cart.orderitems.map(this.renderOrderItem)
+    );
+  };
+
+  renderOrderItem = (item) => {
+    return (
+      <tr key={item.id}>
+        <td><img src={item.image} /></td>
+        <td>{item.name}</td>
+        <td><small>$</small>{item.currentPrice}</td>
+        <td>{item.quantity}</td>
+      </tr>
+    );
+  };
+
+  renderPaymentForm = () => {
+    return (
+      <form onSubmit={this.handleSubmitPayment}>
+        <div>
+          <label htmlFor="cardNumber"><small>Card Number</small></label>
+          <input onChange={this.handleChange} name="cardNumber" type="text" />
+        </div>
+
+        <div>
+          <label htmlFor="expMonth"><small>Expiration Month</small></label>
+          <select onChange={this.handleChange} name="expMonth">
+            {numericMonths.map(month => (
+              <option key={month}>{month}</option>
+            ))}
+          </select>
+      </div>
+
+      <div>
+        <label htmlFor="expYear"><small>Expiration Year</small></label>
+        <select onChange={this.handleChange} name="expYear">
+          {creditCardYears.map(year => (
+            <option value={year} key={year}>{year}</option>
+          ))}
+        </select>
+      </div>
+
+        <div>
+          <label htmlFor="cvc"><small>CVC</small></label>
+          <input onChange={this.handleChange} name="cvc" type="text" className="form-control" />
+        </div>
+
+        <button
+          className="btn btn-info btn-round"
+          type="submit"
+        >
+          Submit!
+        </button>
+      </form>
+    );
+  };
 
   render() {
-    const cartId = this.props.cart.id;
     return (
       <div className="checkout">
         <div className="address">
-          <h3 className="d-flex justify-content-center align-items-center">Addresses</h3>
+          <h3 className="d-flex justify-content-center align-items-center">1. Select Shipping Address</h3>
           <div className="row">
-            { this.props.addresses ? this.props.addresses.map((address, index) => (
-              <div key={address.id} className="col-md-3">
-                <h3>Address #{index + 1}</h3>
-                {address.street1}
-                { address.street2 ?
-                  <span><br />{address.street2}</span> : null
-                }
-                <br />{address.city}, {address.state} {address.zipcode}
-                <br />{address.country}
-                <br /><button
-                  type="submit"
-                  onClick= {() => this.props.setOrderAddress(cartId, address.id)}>Ship To This</button>
-              </div>
-            )) : null
-            }
+            {this.renderAddresses()}
+
+            <div className="col-md-3 add-address-btn">
+              <button
+                className="btn btn-info btn-round"
+                onClick={this.handleAddressForm}
+              >
+                {this.state.addAddress ? 'Close Form' : 'Add Address'}
+              </button>
+            </div>
           </div>
-          <button
-            className="btn btn-info btn-round"
-            onClick={() => {
-              this.setState({ addAddress: !this.state.addAddress})
-            }}>
-            Add Address
-          </button>
-          {this.state.addAddress && <AddAddress hide={this.hideAdd} />}
+          {this.state.addAddress && <Address hide={this.handleAddressForm} />}
         </div>
 
         <div className="checkout-summary">
-          <h3 className="d-flex justify-content-center align-items-center">Checkout Summary</h3>
+          <h3 className="d-flex justify-content-center align-items-center">2. Checkout Summary - Review</h3>
           <table>
             <thead>
               <tr>
@@ -76,94 +199,55 @@ export class Checkout extends Component {
                 <th>Quantity</th>
               </tr>
             </thead>
-            <tbody>
-              { this.props.cart ? this.props.cart.orderitems.map(item => (
-              <tr key={item.id}>
-                <td><img src={item.image} /></td>
-                <td>{item.name}</td>
-                <td><small>$</small>{item.currentPrice}</td>
-                <td>{item.quantity}</td>
-              </tr>
-          )) : null}
-          </tbody>
+            <tbody>{this.renderCart()}</tbody>
           </table>
         </div>
 
         <br />
-        <h5><strong>Order total:</strong> {`$${(10 + this.props.cart.total * 1.09).toFixed(2)}`}</h5>
+        <h5>
+          <strong>Order total: &nbsp;</strong>
+          {calculateOrderTotal(this.props.cart.total)}
+        </h5>
 
         <div className="row">
           <div className="col-md-12 col-sm-12 col-xs-12">
             <div className="row">
               <div className="col-md-12 col-sm-12 col-xs-12">
-                <h3 className="d-flex justify-content-center align-items-center">Enter Payment Information</h3>
+                <h3 className="d-flex justify-content-center align-items-center">3. Enter Payment Information</h3>
               </div>
             </div>
 
             <div className="row">
               <div className="col-md-12 col-sm-12 col-xs-12">
-               <form onSubmit={(evt) => { evt.preventDefault(); this.props.handlePayment(this.state, this.props.cart.total, this.props.cart.id, this.props.user.email)}}>
-                 <div>
-                   <label htmlFor="cardNumber"><small>Card Number</small></label>
-                   <input onChange={this.handleChange} name="cardNumber" type="text" />
-                 </div>
-
-                 <div>
-                   <label htmlFor="expMonth"><small>Expiration Month</small></label>
-                   <select onChange={this.handleChange} name="expMonth">
-                     { ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'].map(month => (
-                       <option key={month}>{month}</option>
-                     ))}
-                   </select>
-                </div>
-                <div>
-                   <label htmlFor="expYear"><small>Expiration Year</small></label>
-                   <select onChange={this.handleChange} name="expYear">
-                     {[2017, 2018, 2019, 2020, 2021, 2022, 2023].map(year => (
-                       <option value={year} key={year}>{year}</option>
-                     ))}
-                   </select>
-                 </div>
-                 <div>
-                   <label htmlFor="cvc"><small>CVC</small></label>
-                   <input onChange={this.handleChange} name="cvc" type="text" className="form-control" />
-                 </div>
-                 <button
-                   className="btn btn-info btn-round"
-                   type="submit">Submit!</button>
-               </form>
-             </div>
+                {this.renderPaymentForm()}
+              </div>
             </div>
           </div>
         </div>
-
-       </div>
-
-    )
+      </div>
+    );
   }
 }
 
+const mapState = state => ({
+  user: state.user,
+  addresses: state.addresses, //array of addresses
+  cart: state.cart,
+});
 
-const mapState = state => {
-  return {
-    user: state.user,
-    addresses: state.addresses, //array of addresses
-    cart: state.cart
-  }
-}
-const mapDispatch = dispatch => {
-  return {
-    fetchCheckoutPage(userId) {
-      dispatch(setAddressThunk(userId)) //grabbing all addresses associated with user
-    },
-    handlePayment(cardData, amount, orderId, email) {
-      console.log(cardData)
-      dispatch(sendStripePayment(cardData, amount, orderId, email))
-    },
-    setOrderAddress(id, addressId) {
-      dispatch(setOrderAddress({id, addressId}))
-    }
-  }
-}
+const mapDispatch = dispatch => ({
+  fetchCheckoutPage(userId) {
+    dispatch(setAddressThunk(userId)) //grabbing all addresses associated with user
+  },
+  handlePayment(cardData, amount, orderId, email) {
+    dispatch(sendStripePayment(cardData, amount, orderId, email))
+  },
+  setOrderAddress(id, addressId) {
+    dispatch(setOrderAddress({id, addressId}))
+  },
+  getUser() {
+    dispatch(me())
+  },
+});
 
-export default withRouter(connect(mapState, mapDispatch)(Checkout))
+export default withRouter(connect(mapState, mapDispatch)(Checkout));
